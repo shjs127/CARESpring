@@ -18,7 +18,7 @@ import lombok.extern.log4j.Log4j;
 public class BoardMapperTests {
 
 	@Setter(onMethod_ = @Autowired)
-	private BoardMapper boardMapper;
+	private UserMapper boardMapper;
 
 	@Test
 	public void selectBoardList() throws Exception {

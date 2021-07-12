@@ -5,6 +5,7 @@
 %>
 
 <script>
-	alert("성공적으로 회원가입이 되었습니다.");
-	location.href="${pageContext.request.contextPath }/login.do"; 
+	alert("성공적으로 로그인이 되었습니다.");
+	/* location.href="${pageContext.request.contextPath }/login.do";  */
+	self.location = "${pageContext.request.contextPath }/index";
 </script>

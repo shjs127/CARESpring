@@ -45,12 +45,12 @@
 							});
 						});
 					</script>
-				<form action="${pageContext.request.contextPath}/login.do"
+				<form action="login/joinSuccess"
 					method="post" id="a">
 
 					<div class="form-group">
 
-						<input type="text" class="form-control" name="id" id="ID"
+						<input type="text" class="form-control" name="userId" id="ID"
 							placeholder="ID">
 					</div>
 					<div class="form-group">
