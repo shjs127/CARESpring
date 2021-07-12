@@ -1,0 +1,158 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<script src="<c:url value='resources/js/jquery-3.3.1.min.js'/>"></script>
+<script src="<c:url value='resources/js/popper.min.js'/>"></script>
+<script src="<c:url value='resources/js/bootstrap.min.js'/>"></script>
+<script
+	src="<c:url value='resources/js/plugins/bootstrap-filestyle/bootstrap-filestyle.min.js'/>"></script>
+<script
+	src="<c:url value='resources/js/plugins/datepicker/bootstrap-datepicker.js'/>"></script>
+<script
+	src="<c:url value='resources/js/plugins/owl-carousel/owl.carousel.js'/>"></script>
+<script
+	src="<c:url value='resources/js/plugins/magnific-popup/jquery.magnific-popup.min.js'/>"></script>
+<script
+	src="https://maps.googleapis.com/maps/api/js?v=3&amp;sensor=false"></script>
+<script src="<c:url value='resources/js/custom.js'/>"></script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
+
+<title>Ca Re - Cafe Recommendation</title>
+
+<!-- Bootstrap -->
+<link href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css"
+	rel="stylesheet">
+
+<!-- Google Web Fonts -->
+<link
+	href="https://fonts.googleapis.com/css?family=Lato:400,100,100italic,300,300italic,400italic,700,700italic,900,900italic"
+	rel="stylesheet" type="text/css">
+
+<!-- Template CSS Files  -->
+<link
+	href="${pageContext.request.contextPath}/resources/font-awesome/css/font-awesome.min.css"
+	rel="stylesheet">
+<link
+	href="${pageContext.request.contextPath}/resources/js/plugins/owl-carousel/owl.carousel.css"
+	rel="stylesheet">
+<link
+	href="${pageContext.request.contextPath}/resources/js/plugins/owl-carousel/owl.transitions.css"
+	rel="stylesheet">
+<link
+	href="${pageContext.request.contextPath}/resources/js/plugins/owl-carousel/owl.theme.css"
+	rel="stylesheet">
+<link
+	href="${pageContext.request.contextPath}/resources/js/plugins/magnific-popup/magnific-popup.css"
+	rel="stylesheet">
+<link
+	href="${pageContext.request.contextPath}/resources/js/plugins/datepicker/datepicker.css"
+	rel="stylesheet">
+<link href="${pageContext.request.contextPath}/resources/css/style.css?after"
+	rel="stylesheet">
+<link href="${pageContext.request.contextPath}/resources/css/responsive.css"
+	rel="stylesheet">
+
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+
+<script type="text/javascript">
+	function googleTranslateElementInit() {
+		new google.translate.TranslateElement({
+			pageLanguage : 'ko',
+			includedLanguages : 'en,ja,ko,zh-CN',
+			layout : google.translate.TranslateElement.InlineLayout.SIMPLE
+		}, 'google_translate_element');
+	}
+</script>
+
+<script type="text/javascript"
+	src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+<!-- 언어선택 시작 -->
+<script type="text/javascript">
+	//<![CDATA[
+	$(function() {
+		$("#locale option[value=${param.locale}]").attr("selected", "selected");
+		$("#locale").change(function() {
+			var locale = $(this).val();
+			window.location.href = "index.jsp?locale=" + locale;
+		});
+	});
+	//]]>
+</script>
+
+</head>
+<body>
+	<!-- Header Starts -->
+	<header class="main-header">
+		<!-- Nested Container Starts -->
+		<div class="container text-xs-center text-sm-center text-lg-left">
+			<!-- Nested Row Starts -->
+			<div class="row">
+				<div class="col-md-4 col-sm-12">
+					<!-- Logo Starts -->
+					<a href="${pageContext.request.contextPath}/main/index.do"> <img
+						src="${pageContext.request.contextPath}/resources/images/careitsir_logo.png"
+						alt="FoodBingo" class="logo img-fluid" width="200" height="200">
+					</a>
+					<!-- Logo Ends -->
+				</div>
+				<div class="col-md-8 col-sm-12">
+					<!-- Top Links Starts -->
+					<ul
+						class="list-unstyled list-inline top-links text-md-right text-weight-bold">
+						<li class="list-inline-item"><div style="margin-left: 11px;"
+								id="google_translate_element"></div></li>
+						<li class="list-inline-item"><a
+							href="${pageContext.request.contextPath }/main/profile.do">마이페이지</a></li>
+						<li class="list-inline-item"><a
+							href="${pageContext.request.contextPath}/board/list.do">게시판</a></li>
+						<%
+							// 현재 로그인된 아이디가 없다면 (= session에 저장된 id가 없다면)
+						if (session.getAttribute("authUser") == null && session.getAttribute("Store") == null) {
+						%>
+						<li class="list-inline-item"><a
+							href='login'>로그인</a></li>
+						<%
+							}
+						// 현재 로그인된 아이디가 있다면 (= session에 저장된 id가 있다면)
+						else if (session.getAttribute("Store") != null) {
+						%>
+						<li style="”color: white;" " class="list-inline-item">${Store.manageNo}
+							<%
+								out.print("님");
+							%>
+						</li>
+						<li class="list-inline-item"><a
+							href="${pageContext.request.contextPath }/logout.do">로그아웃</a></li>
+						<%
+							} else {
+						%>
+						<li style="”color: white;" " class="list-inline-item">${authUser.nickName }
+							<%
+								out.print("님");
+							%>
+						</li>
+						<li class="list-inline-item"><a
+							href="${pageContext.request.contextPath }/logout.do">로그아웃</a></li>
+						<%
+							}
+						%>
+					</ul>
+
+
+					<!-- Ends -->
+				</div>
+			</div>
+			<!-- Nested Row Ends -->
+		</div>
+		<!-- Nested Container Ends -->
+		
+	</header>

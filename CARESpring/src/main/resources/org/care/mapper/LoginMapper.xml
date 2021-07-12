@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.zerock.mapper.LoginMapper">
+
+<!-- 	id 속성은 DAO 의 메소드와 같아야 한다. 여기의 boardVO 는 mybatis-confg.xml 에 Alias 되어 
+		있습니다.
+	<select id="selectBoardList" resultType="org.zerock.domain.BoardVO">
+		SELECT NUM
+		, NAME
+		, TITLE
+		, CONTENT
+		, READCOUNT
+		, WRITEDATE
+		FROM BOARD
+		ORDER BY NUM DESC
+	</select>
+	
+	<select id="selectBoardList2" resultType="org.zerock.domain.BoardVO">
+		SELECT NUM
+		, NAME
+		, TITLE
+		, CONTENT
+		, READCOUNT
+		, WRITEDATE
+		FROM BOARD
+		WHERE NUM=2
+		ORDER BY NUM DESC
+	</select> -->
+</mapper>

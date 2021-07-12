@@ -1,0 +1,145 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<!-- Footer Area Starts -->
+<footer class="main-footer">
+	<!-- Nested Container Starts -->
+	<div class="container">
+		<!-- Starts -->
+		<div class="row">
+			<!-- Logo Starts -->
+			<div
+				class="col-lg-3 col-sm-12 text-xs-center text-sm-center text-lg-left">
+				<img src="${pageContext.request.contextPath}/resources/images/careitsir_logo.png"
+					alt="FoodBingo" class="img-fluid" width="200" height="200">
+			</div>
+			<!-- Logo Ends -->
+			<!-- Page Links Starts -->
+			<div class="col-lg-6 col-sm-12">
+				<ul class="list-unstyled list-inline page-links text-center">
+					<li class="list-inline-item"><a href="${pageContext.request.contextPath}/main/index.do">Home</a></li>
+					<li class="list-inline-item"><a href="/CARE/CARE/about.jsp">회사 소개</a></li>
+					<li class="list-inline-item"><a href="#">광고 문의</a></li>
+					<li class="list-inline-item"><a href="${pageContext.request.contextPath}/main/terms.do">이용 약관</a></li>
+					<li class="list-inline-item"><a
+						href="${pageContext.request.contextPath}/main/storage.do">매장
+							등록</a></li>
+				</ul>
+			</div>
+			<!-- Page Links Ends -->
+			<!-- Social Media Links Starts -->
+			<div class="col-lg-3 col-sm-12">
+				<ul
+					class="list-unstyled list-inline sm-links text-xs-center text-sm-center text-lg-right">
+					<li class="list-inline-item"><a
+						href="https://www.twitter.com/" class="btn btn-prime animation">
+							<i class="fa fa-twitter"></i>
+					</a></li>
+					<li class="list-inline-item"><a
+						href="https://www.facebook.com/" class="btn btn-prime animation">
+							<i class="fa fa-facebook"></i>
+					</a></li>
+					<li class="list-inline-item"><a
+						href="https://www.instagram.com/" class="btn btn-prime animation">
+							<i class="fa fa-instagram"></i>
+					</a></li>
+
+				</ul>
+			</div>
+			<!-- Social Media Links Ends -->
+		</div>
+		<!-- Ends -->
+		<!-- Address Section Starts -->
+		<section
+			class="foot-address text-xs-center text-sm-center text-md-left">
+			<!-- Nested Row Starts -->
+			<div class="row">
+				<ul class="list-unstyled col-md-4 col-sm-12">
+					<li>주소지 : </li>
+					<li>서울시 강남구</li>
+					<li>카레구 이서2동 카레빌딩</li>
+				</ul>
+				<ul class="list-unstyled col-md-4 col-sm-12">
+					<li>전화번호: </li>
+					<li>+82-1234-5678</li>
+
+				</ul>
+				<ul class="list-unstyled col-md-4 col-sm-12">
+					<li>FAX: +1-800-999-9898</li>
+					<li>E-mail: <a href="careitsir@gmail.com">careitsir@gmail.com</a></li>
+				</ul>
+			</div>
+			<!-- Nested Row Ends -->
+		</section>
+		<!-- Address Section Ends -->
+		<!-- Links Section Starts -->
+		<section
+			class="footer-links-section text-xs-center text-sm-center text-md-left">
+			<!-- Nested Row Starts -->
+			<div class="row">
+				<!-- Link Col #1 Starts -->
+				<div class="col-lg-3 col-md-6 col-sm-12">
+					<h5>인기지역 in 서울</h5>
+					<ul class="list-unstyled">
+						<li><a href="#">이태원</a></li>
+						<li><a href="#">홍대</a></li>
+						<li><a href="#">강남역 </a></li>
+						<li><a href="#">가로수길</a></li>
+						<li><a href="#">신촌</a></li>
+						<li><a href="#">명동</a></li>
+						<li><a href="#">연남동</a></li>
+
+					</ul>
+				</div>
+				<!-- Link Col #1 Ends -->
+				<!-- Link Col #2 Starts -->
+				<div class="col-lg-3 col-md-6 col-sm-12">
+					<h5>인기지역 in 경기</h5>
+					<ul class="list-unstyled">
+						<li><a href="#">상동</a></li>
+						<li><a href="#">수원역</a></li>
+						<li><a href="#">화성</a></li>
+						<li><a href="#">동탄</a></li>
+						<li><a href="#">성남</a></li>
+					</ul>
+				</div>
+				<!-- Link Col #2 Ends -->
+				<!-- Link Col #3 Starts -->
+				<div class="col-lg-3 col-md-6 col-sm-12">
+					<h5>인기있는 브랜드 카페</h5>
+					<ul class="list-unstyled">
+						<li><a href="#">스타벅스</a></li>
+						<li><a href="#">할리스</a></li>
+						<li><a href="#">이디야</a></li>
+						<li><a href="#">매머드 커피</a></li>
+						<li><a href="#">메가 커피</a></li>
+						<li><a href="#">세컨드 컵 커피</a></li>
+					</ul>
+				</div>
+				<!-- Link Col #3 Ends -->
+				<!-- Link Col #4 Starts -->
+				<div class="col-lg-3 col-md-6 col-sm-12">
+					<h5>인기있는 개인 카페</h5>
+					<ul class="list-unstyled">
+						<li><a href="#">카레커피</a></li>
+						<li><a href="#">이서</a></li>
+						<li><a href="#">달팽이커피</a></li>
+						<li><a href="#">양양구름</a></li>
+						<li><a href="#">카레이서</a></li>
+					</ul>
+				</div>
+				<!-- Link Col #4 Ends -->
+			</div>
+			<!-- Nested Row Ends -->
+		</section>
+		<!-- Links Section Ends -->
+		<!-- Copyright Starts -->
+		<p class="copyright text-center mb-0">All Rights Reserved &copy;
+			2010 - 2021 CAREITSIR Service.</p>
+		<!-- Copyright Ends -->
+	</div>
+	<!-- Nested Container Ends -->
+</footer>
+
+
+</body>
+</html>
