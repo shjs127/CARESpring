@@ -21,7 +21,7 @@
 					<li class="list-inline-item"><a href="#">광고 문의</a></li>
 					<li class="list-inline-item"><a href="${pageContext.request.contextPath}/main/terms.do">이용 약관</a></li>
 					<li class="list-inline-item"><a
-						href="${pageContext.request.contextPath}/main/storage.do">매장
+						href='login'>매장
 							등록</a></li>
 				</ul>
 			</div>

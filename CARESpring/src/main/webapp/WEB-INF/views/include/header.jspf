@@ -111,9 +111,9 @@
 						<li class="list-inline-item"><div style="margin-left: 11px;"
 								id="google_translate_element"></div></li>
 						<li class="list-inline-item"><a
-							href="${pageContext.request.contextPath }/main/profile.do">마이페이지</a></li>
+							href='profile'>마이페이지</a></li>
 						<li class="list-inline-item"><a
-							href="${pageContext.request.contextPath}/board/list.do">게시판</a></li>
+							href='board'>게시판</a></li>
 						<%
 							// 현재 로그인된 아이디가 없다면 (= session에 저장된 id가 없다면)
 						if (session.getAttribute("authUser") == null && session.getAttribute("Store") == null) {

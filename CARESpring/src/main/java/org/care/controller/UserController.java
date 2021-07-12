@@ -40,12 +40,18 @@ public class UserController {
      
 	  	return "main/food-details";
       }
+  
   @RequestMapping(value = "/storeList", method = RequestMethod.GET)
   public String listPage(HttpServletRequest request, Model model){    
      
 	  	return "board/cafeGrid";
       }
 
+  @RequestMapping(value = "/storeList", method = RequestMethod.GET)
+  public String listPage(HttpServletRequest request, Model model){    
+     
+	  	return "board/cafeGrid";
+      }
   // @RequestMapping(value = "/loginPost", method = RequestMethod.POST)
   // public void loginPOST(LoginDTO dto, HttpSession session, Model model)
   // throws Exception {
