@@ -9,7 +9,7 @@
 		resultType="org.care.domain.ReviewInfo">
 		SELECT REVIEWCONTENTS, AVGSCORE, REVIEWDATE, USERINFO.NICKNAME
 		from REVIEWINFO ,USERINFO
-		where STORENO = ?;
+		where STORENO = 1;
 	</select>
 
 </mapper>

@@ -1,11 +1,10 @@
-package org.care.domain;
-
+package org.care.dto;
 
 import lombok.Data;
 
 @Data
-public class StoreInfo {
-
+public class StoreDTO {
+	
 	private int storeNo;
 	private String storeName;
 	private String storePic;
@@ -40,4 +39,6 @@ public class StoreInfo {
     public String manageNo() {
         return manageNo;
     }
+
+
 }

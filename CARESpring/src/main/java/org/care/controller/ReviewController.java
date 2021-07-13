@@ -19,11 +19,7 @@ public class ReviewController {
 	
 	 @Inject private ReviewService service;
 	 
-	@RequestMapping(value = "/review", method = RequestMethod.GET)
-	public String reviewPage(HttpServletRequest request, Model model) {
-		
-		return "review/review";
-	}
+	
 	
 	@RequestMapping(value = "/review/reviewSuccess", method = RequestMethod.POST)
 	  public void reviewPOST(ReviewDTO dto, HttpSession session, Model model) throws Exception {
@@ -38,12 +34,7 @@ public class ReviewController {
 
 
 	  }
-	@RequestMapping(value = "/review", method = RequestMethod.GET)
-	public String mainPage(HttpServletRequest request, Model model) {
-
-		return "detail/index";
-	}
-
+	
 
 	
 }
