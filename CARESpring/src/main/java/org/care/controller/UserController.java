@@ -67,7 +67,7 @@ public class UserController {
 	@RequestMapping(value = "/storeDetail", method = RequestMethod.GET)
 	public String detailPage(HttpServletRequest request, Model model) {
 
-		return "main/food-details";
+		return "detail/food-details";
 	}
 
 	// @RequestMapping(value = "/loginPost", method = RequestMethod.POST)

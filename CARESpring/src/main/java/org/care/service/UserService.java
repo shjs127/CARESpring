@@ -1,7 +1,5 @@
 package org.care.service;
 
-import java.util.Date;
-
 import org.care.domain.UserInfo;
 import org.care.dto.LoginDTO;
 
