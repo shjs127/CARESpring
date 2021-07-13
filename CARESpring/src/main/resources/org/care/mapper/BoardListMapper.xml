@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.care.mapper.BoardListMapper">
+
+	<insert id="insert">
+		INTSERT INTO BOARDINFO
+		VALUES(BOARDNUM.NEXTVAL,
+		#{userNo},
+		#{boardTitle},
+		#{boardContents},
+		0,
+		SYSDATE)
+	</insert>
+
+	<select id="selectCount">
+		SELECT COUNT(*) FROM BOARDINFO
+	</select>
+
+	<select id="searchCount">
+		SELECT COUNT(*) FROM BOARDINFO WHERE BOARDTITLE LIKE
+		'%', #{keyword}, '%' OR
+		BOARDCONTENTS LIKE '%', #{keyword}, '%'
+	</select>
+
+	<select id="search" resultType="org.care.domain.BoardInfo">
+		SELECT BOARDINFO.* FROM (SELECT
+		ROWNUM AS RNUM, BOARDINFO.* FROM BOARDINFO
+		WHERE BOARDINFO.BOARDTITLE
+		LIKE '%', #{keyword}, '%' OR
+		BOARDINFO.BOARDCONTENTS LIKE '%',
+		#{keyword}, '%'
+		ORDER BY BOARDNO DESC) BOARDINFO WHERE RNUM BETWEEN
+		#{startRow} AND #{size}
+	</select>
+
+	<select id="selectBoardList" resultType="org.care.domain.BoardInfo">
+<!-- 		SELECT BOARDINFO.* FROM (SELECT -->
+<!-- 		ROWNUM AS RNUM, BOARDINFO.* FROM BOARDINFO -->
+<!-- 		ORDER BY BOARDNO DESC) -->
+<!-- 		BOARDINFO -->
+<!-- 		WHERE RNUM BETWEEN #{startRow}, AND #{size} -->
+SELECT * FROM BOARDINFO
+	</select>
+
+	<select id="selectById" resultType="org.care.domain.BoardInfo">
+		SELECT * FROM BOARDINFO WHERE
+		BOARDNO = ${boardNo}
+	</select>
+
+	<update id="increaseReadCount">
+		UPDATE BOARDINFO SET VIEWCOUNT = VIEWCOUNT + 1 WHERE
+		BOARDNO = ${boardNo}
+	</update>
+
+	<update id="update">
+		UPDATE BOARDINFO SET BOARDTITLE = ${boardTitle} where
+		BOARDNO = ${boardNo}
+	</update>
+
+	<delete id="delete">
+		DELETE FROM BOARDINFO WHERE BOARDNO = ${boardNo}
+	</delete>
+
+	<update id="picUpdate">
+		UPDATE BOARDPIC SET BOARDPIC1 = ${boardPic1} WHERE
+		BOARDNO = ${boardNo}
+	</update>
+
+	<insert id="picInsert">
+		INSERT INTO BOARDPIC (BoardNo, BoardPic1) VALUES
+		(${boardNo}, ${boardPic})
+	</insert>
+
+<!-- 	<select id="SelectByBoardNo" resultType="BoardPicInfo"> -->
+<!-- 		SELECT * FROM BOARDPIC -->
+<!-- 		WHERE BOARDNO = ${boardNo} -->
+<!-- 	</select> -->
+
+<!-- 	<select id="boardViewTop" resultType="BoardViewTop"> -->
+<!-- 	<![CDATA[  -->
+<!-- 	SELECT B.BOARDNO BNO, B.BOARDTITLE BTITLE, B.VC BVC FROM -->
+<!-- 					(SELECT BOARDNO , BOARDTITLE, VIEWCOUNT AS VC FROM BOARDINFO -->
+<!-- 					ORDER BY VC DESC ) B -->
+<!-- 					WHERE ROWNUM <= ${top} -->
+<!-- 	]]> -->
+<!-- 	</select> -->
+
+
+<!-- 	<select id="nextView" resultType="NextNo"> -->
+<!-- 		SELECT * -->
+<!-- 		FROM( -->
+<!-- 		SELECT BOARDNO, -->
+<!-- 		LEAD(BOARDNO) OVER (ORDER BY BOARDNO) NEXTNO -->
+<!-- 		FROM BOARDINFO ORDER BY -->
+<!-- 		BOARDNO -->
+<!-- 		) -->
+<!-- 		WHERE BOARDNO = ${boardNo} -->
+<!-- 	</select> -->
+
+<!-- 	<select id="prevView" resultType="PrevNo"> -->
+<!-- 		SELECT * -->
+<!-- 		FROM( -->
+<!-- 		SELECT BOARDNO, -->
+<!-- 		LAG(BOARDNO) OVER (ORDER BY BOARDNO) PREVNO -->
+<!-- 		FROM BOARDINFO ORDER BY BOARDNO -->
+<!-- 		) -->
+<!-- 		WHERE BOARDNO = ${boardNo} -->
+<!-- 	</select> -->
+
+</mapper>
