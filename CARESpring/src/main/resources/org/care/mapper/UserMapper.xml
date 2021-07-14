@@ -7,28 +7,18 @@
 	<!-- id 속성은 DAO 의 메소드와 같아야 한다. 여기의 boardVO 는 mybatis-confg.xml 에 Alias 되어 
 		있습니다. -->
 	<select id="selectUser" resultType="org.care.domain.UserInfo">
-		SELECT USERNO
-		, USERID
-		, PASSWORD
-		, USERNAME
-		, NICKNAME
-		, BIRTH
-		, EMAIL
-		, GENDER
-		, ADMINISTER
+		SELECT *
 		FROM USERINFO
 		 WHERE USERID = #{userId} and PASSWORD = #{password}
 	</select>
 	
-<!-- 	<select id="selectBoardList2" resultType="org.zerock.domain.BoardVO">
-		SELECT NUM
-		, NAME
-		, TITLE
-		, CONTENT
-		, READCOUNT
-		, WRITEDATE
-		FROM BOARD
-		WHERE NUM=2
-		ORDER BY NUM DESC
-	</select> -->
+	<update id="keepLogin">
+		update UserInfo set sessionKey = #{arg1}, sessionLimit = #{arg2} where
+		userId = #{arg0}
+	</update>
+
+	<select id="checkUserWithSessionKey" resultType="org.care.domain.UserInfo">
+		select * from UserInfo where sessionKey = #{value} and sessionLimit > now()
+	</select>
+
 </mapper>

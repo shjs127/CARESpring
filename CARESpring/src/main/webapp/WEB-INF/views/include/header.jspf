@@ -116,7 +116,7 @@
 							href='board'>게시판</a></li>
 						<%
 							// 현재 로그인된 아이디가 없다면 (= session에 저장된 id가 없다면)
-						if (session.getAttribute("authUser") == null && session.getAttribute("Store") == null) {
+						if (session.getAttribute("login") == null && session.getAttribute("Store") == null) {
 						%>
 						<li class="list-inline-item"><a
 							href='login'>로그인</a></li>
@@ -131,17 +131,17 @@
 							%>
 						</li>
 						<li class="list-inline-item"><a
-							href="${pageContext.request.contextPath }/logout.do">로그아웃</a></li>
+							href="${pageContext.request.contextPath }/logout">로그아웃</a></li>
 						<%
 							} else {
 						%>
-						<li style="”color: white;" " class="list-inline-item">${authUser.nickName }
+						<li style="”color: white;" " class="list-inline-item">${login.nickName}
 							<%
 								out.print("님");
 							%>
 						</li>
 						<li class="list-inline-item"><a
-							href="${pageContext.request.contextPath }/logout.do">로그아웃</a></li>
+							href="${pageContext.request.contextPath }/logout">로그아웃</a></li>
 						<%
 							}
 						%>

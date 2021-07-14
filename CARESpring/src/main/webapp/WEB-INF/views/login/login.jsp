@@ -59,7 +59,7 @@
 							id="PW" placeholder="Password">
 					</div>
 					<div class="checkbox">
-						<label> <input type="checkbox"> Remember me
+						<label> <input type="checkbox" name="useCookie"> Remember me
 						</label>
 					</div>
 					<button type="submit" class="btn btn-block btn-prime animation">
