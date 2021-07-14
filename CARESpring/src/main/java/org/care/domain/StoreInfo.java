@@ -14,30 +14,6 @@ public class StoreInfo {
 	private String closedDays;
 	private String callNumber;
 	private String manageNo;
-	
-	public int storeNo() {
-        return storeNo;
-    }
-    
-    public String storeName() {
-        return storeName;
-    }
-    public String storePic() {
-        return storePic;
-    }
-    public String address() {
-        return address;
-    }
-    public String hours() {
-        return hours;
-    }
-    public String closedDays() {
-        return closedDays;
-    }
-    public String callNumber() {
-        return callNumber;
-    }
-    public String manageNo() {
-        return manageNo;
-    }
+	//혜 정언니 
+	//정 귄카 모햐? 비지걸?
 }

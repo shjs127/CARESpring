@@ -50,6 +50,10 @@
 }
 </style>
 
+<script>
+	console.log("${storeInfo[0].address}")
+</script>
+
 <!-- Search Section Starts -->
 <section class="search-area condensed parallax">
 	<!-- Nested Container Starts -->
@@ -92,8 +96,9 @@
 <div class="main-container container">
 	<!-- Heading Starts -->
 	<h4 class="main-heading-1 text-xs-center text-sm-center text-md-left">
-		${storeinfo.storeName}
-
+	<c:forEach var="storeInfo" items="${storeInfo}">
+		${storeInfo.storeName}
+	</c:forEach>
 		<ul class="list-unstyled float-lg-right text-lg-right">
 			<li class="list-inline-item">${storeAvg}</li>
 		</ul>
@@ -150,12 +155,14 @@
 							<div class="col-md-4 col-sm-12">
 								<div class="side-block-1">
 									<h6>정보</h6>
+									<c:forEach var="storeInfo" items="${storeInfo}">
 									<ul class="list-unstyled list-style-2">
-										<li>주소 : ${storeinfo.address }</li>
-										<li>영업시간 : ${storeinfo.hours }</li>
-										<li>휴무일 : ${storeinfo.closedDays }</li>
-										<li>전화번호 : ${storeinfo.callNumber }</li>
+										<li>주소 : ${storeInfo.address }</li>
+										<li>영업시간 : ${storeInfo.hours }</li>
+										<li>휴무일 : ${storeInfo.closedDays }</li>
+										<li>전화번호 : ${storeInfo.callNumber }</li>
 									</ul>
+									</c:forEach>
 									<hr>
 									&ensp;&ensp;총 좌석 수: <span class="float-right text-spl-color">${detailinfo.totalSeat }개&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</span><br>
 									&ensp;&ensp;충전기가 있는 좌석 수: <span
@@ -188,8 +195,8 @@
 									<script type="text/javascript"
 										src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ecfa9545ea95f1247efbf60cf9429d4c&libraries=services"></script>
 									<script>
-										var storeAddress = "${storeinfo.address}";
-										var storeName = "${storeinfo.storeName}";
+										var storeAddress = "${storeInfo[0].address}";
+										var storeName = "${storeInfo[0].storeName}";
 										var mapContainer = document
 												.getElementById('map'), // 지도를 표시할 div 
 										mapOption = {
@@ -283,8 +290,8 @@
 														"click",
 														function() {
 
-															var storeNo = "${storeinfo.storeNo}";
-															var userNo = "${authUser.userNo}";
+															var storeNo = "${storeinfo[0].storeNo}";
+															var userNo = "${authUser[0].userNo}";
 															var sendData = 'storeNo='
 																	+ storeNo
 																	+ '&userNo='

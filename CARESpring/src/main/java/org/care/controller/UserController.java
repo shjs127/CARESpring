@@ -64,11 +64,12 @@ public class UserController {
 		return "board/listArticle";
 	}
 
-	@RequestMapping(value = "/storeDetail", method = RequestMethod.GET)
-	public String detailPage(HttpServletRequest request, Model model) {
-
-		return "detail/food-details";
-	}
+	/*
+	 * @RequestMapping(value = "/storeDetail", method = RequestMethod.GET) public
+	 * String detailPage(HttpServletRequest request, Model model) {
+	 * 
+	 * return "detail/food-details"; }
+	 */
 	  
 	  @RequestMapping(value = "/logout", method = RequestMethod.GET)
 	  public String logout(HttpServletRequest request, 

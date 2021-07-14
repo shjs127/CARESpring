@@ -1,8 +1,10 @@
 package org.care.mapper;
 
+import java.util.List;
+
 import org.care.domain.StoreInfo;
 import org.care.dto.StoreDTO;
 
 public interface StoreMapper {
-	StoreInfo selectStore(StoreDTO dto) throws Exception;
+	List<StoreInfo> selectStore(StoreDTO dto) throws Exception;
 }
