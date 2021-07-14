@@ -10,8 +10,7 @@ public interface UserService {
   public UserInfo login(LoginDTO dto) throws Exception;
 
 	
-	  public void keepLogin(String uid, String sessionId, Date next)throws
-	  Exception;
+	  public void keepLogin(String uid, String sessionId, Date next)throws Exception;
 	  
 	  public UserInfo checkLoginBefore(String value);
 	 

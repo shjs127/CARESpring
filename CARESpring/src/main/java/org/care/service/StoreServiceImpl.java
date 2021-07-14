@@ -21,6 +21,12 @@ public class StoreServiceImpl implements StoreService {
 		return storeMapper.selectStore(dto);
 	}
 
+	@Override
+	public StoreInfo login(StoreDTO dto) throws Exception {
+
+		return storeMapper.storeLogin(dto);
+	}
+
   }
   
 	

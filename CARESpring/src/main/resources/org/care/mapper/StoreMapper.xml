@@ -12,4 +12,9 @@
 		where STORENO = 1
 	</select>
 
+	<select id="storeLogin" resultType="org.care.domain.StoreInfo">
+		SELECT *
+		FROM STOREINFO
+		 WHERE MANAGENO = #{manageNo} and STORENO = #{storeNo}
+	</select>
 </mapper>

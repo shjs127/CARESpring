@@ -29,14 +29,20 @@
 	<context:component-scan
 		base-package="org.care.controller" />
 
-	<beans:bean id="authInterceptor"
-		class="org.care.interceptor.AuthInterceptor"></beans:bean>
 	<beans:bean id="loginInterceptor"
 		class="org.care.interceptor.LoginInterceptor"></beans:bean>
+	<beans:bean id="storeinInterceptor"
+		class="org.care.interceptor.StoreinInterceptor"></beans:bean>
+	<beans:bean id="authInterceptor"
+		class="org.care.interceptor.AuthInterceptor"></beans:bean>
 	<interceptors>
 		<interceptor>
 			<mapping path="/login/joinSuccess" />
 			<beans:ref bean="loginInterceptor" />
+		</interceptor>
+		<interceptor>
+			<mapping path="/login/storeinSuccess" />
+			<beans:ref bean="storeinInterceptor" />
 		</interceptor>
 		<interceptor>
 			<mapping path="/board" />

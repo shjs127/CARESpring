@@ -90,7 +90,7 @@
 				<p class="login-box-msg"></p>
 
 				<script>
-					$(function() {
+					/* $(function() {
 						$("#b").submit(function() {
 							var nameChk = /^[0-9]{1,20}$/;
 							if (!nameChk.test($("#Login-Id").val())) {
@@ -99,7 +99,7 @@
 								return false;
 							}
 						});
-					});
+					}); */
 
 					$(function() {
 						$("#b").submit(function() {
@@ -113,7 +113,7 @@
 					});
 				</script>
 
-				<form action="${pageContext.request.contextPath}/storein.do"
+				<form action="login/storeinSuccess"
 					method="post" id="b">
 
 					<div class="form-group">

@@ -116,22 +116,22 @@
 							href='board'>게시판</a></li>
 						<%
 							// 현재 로그인된 아이디가 없다면 (= session에 저장된 id가 없다면)
-						if (session.getAttribute("login") == null && session.getAttribute("Store") == null) {
+						if (session.getAttribute("login") == null && session.getAttribute("storein") == null) {
 						%>
 						<li class="list-inline-item"><a
 							href='login'>로그인</a></li>
 						<%
 							}
 						// 현재 로그인된 아이디가 있다면 (= session에 저장된 id가 있다면)
-						else if (session.getAttribute("Store") != null) {
+						else if (session.getAttribute("storein") != null) {
 						%>
-						<li style="”color: white;" " class="list-inline-item">${Store.manageNo}
+						<li style="”color: white;" " class="list-inline-item">${storein.manageNo}
 							<%
 								out.print("님");
 							%>
 						</li>
 						<li class="list-inline-item"><a
-							href="${pageContext.request.contextPath }/logout">로그아웃</a></li>
+							href="${pageContext.request.contextPath }/storeLogout">로그아웃</a></li>
 						<%
 							} else {
 						%>
