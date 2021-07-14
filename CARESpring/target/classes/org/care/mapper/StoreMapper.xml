@@ -9,7 +9,7 @@
 		resultType="org.care.domain.StoreInfo">
 		SELECT *
 		from STOREINFO
-		where STORENO = 1;
+		where STORENO = 1
 	</select>
 
 </mapper>
