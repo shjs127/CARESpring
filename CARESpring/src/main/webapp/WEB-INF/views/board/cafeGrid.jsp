@@ -142,7 +142,7 @@
 						<div>매장이 없습니다.</div>
 					</c:if>
 
-					<c:forEach var="storeinfo" items="${storePage.list}">
+					<c:forEach var="storeinfo" items="${list}">
 						<div class="col-lg-4 col-md-6 col-sm-12">
 							<!-- Grid Box Starts -->
 							<div class="grid-box">
