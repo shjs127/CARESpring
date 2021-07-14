@@ -9,7 +9,7 @@
 
 <%@ include file="../include/header.jspf"%>
 
-<!-- Search Section Starts -->
+Search Section Starts
 <section class="search-area condensed parallax">
 	<!-- Nested Container Starts -->
 	<div class="container text-center">
@@ -31,13 +31,13 @@
 	</div>
 	<!-- Nested Container Ends -->
 </section>
-<!-- Search Section Ends -->
-<!-- BreadCrumb Starts -->
+Search Section Ends BreadCrumb Starts
 <div class="breadcrumb rounded-0">
 	<!-- Nested Container Starts -->
 	<div class="container text-xs-center text-sm-center text-md-left">
 		<ul class="list-unstyled list-inline">
-			<li class="list-inline-item"><a href="${pageContext.request.contextPath }/main/index.do">홈</a></li>
+			<li class="list-inline-item"><a
+				href="${pageContext.request.contextPath }/main/index.do">홈</a></li>
 			<li class="active list-inline-item">게시판</li>
 		</ul>
 
@@ -48,44 +48,45 @@
 <!-- Main Container Starts -->
 <div class="main-container container">
 	<!-- Heading Starts -->
-	<h2 style = "text-align : center" class=main-heading-1>게 시 판</h2>
+	<h2 style="text-align: center" class=main-heading-1>게 시 판</h2>
 	<!-- Heading Ends -->
 	<!-- Starts -->
 	<div class="row">
-		<!-- Sidearea Starts -->
-<!-- 		<div class="col-lg-3 col-md-4 col-sm-12"> -->
+		Sidearea Starts
+		<div class="col-lg-3 col-md-4 col-sm-12">
 
 
-<!-- 			<!-- 검색창 Start --> -->
-<!-- 			<div class="sidearea-filter"> -->
-<!-- 				<form class="teble-form" action="list.do" method="post"> -->
-<!-- 					Search Field Starts -->
-<!-- 					<div class="input-group sidearea-filter-search"> -->
-<!-- 						<input type="text" name="searching" class="form-control rounded-0" -->
-<%-- 							placeholder="검색..." value="${param.searching}"><span --%>
-<!-- 							class="input-group-append"> -->
-<!-- 							<button class="btn btn-default rounded-0" type="submit"> -->
-<!-- 								<i class="fa fa-search"></i> -->
-<!-- 							</button> -->
-<!-- 						</span> -->
-<!-- 					</div> -->
-<!-- 					<select id="v" name="v" -->
-<!-- 						class="form-control rounded-0 sidearea-filter-sort" -->
-<!-- 						onchange="this.form.submit()"> -->
-<!-- 						<option value="10"></option> -->
-<!-- 						<option value="3" -->
-<%-- 							<c:if test="${articlePage.pageV == 3}" > selected </c:if>>3개씩보기</option> --%>
-<!-- 						<option value="5" -->
-<%-- 							<c:if test="${articlePage.pageV == 5}" > selected </c:if>>5개씩보기</option> --%>
-<!-- 						<option value="10" -->
-<%-- 							<c:if test="${articlePage.pageV == 10}">selected</c:if>>10개씩 --%>
-<!-- 							보기</option> -->
-<!-- 					</select> -->
-<!-- 				</form> -->
-<!-- 				검색창 Ends -->
+			<!-- 검색창 Start -->
+			<div class="sidearea-filter">
+				<form class="teble-form" action="listArticle" method="post">
+					Search Field Starts
+					<div class="input-group sidearea-filter-search">
+						<input type="text" id="searching" name="searching"
+							class="form-control rounded-0" placeholder="검색..."
+							value="${param.searching}"><span
+							class="input-group-append">
+							<button class="btn btn-default rounded-0" type="submit">
+								<i class="fa fa-search"></i>
+							</button>
+						</span>
+					</div>
+					<select id="pageView" name="pageView"
+						class="form-control rounded-0 sidearea-filter-sort"
+						onchange="this.form.submit()">
+						<option value="10"></option>
+						<option value="3"
+							<c:if test="${articlePage.pageV == 3}" > selected </c:if>>3개씩보기</option>
+						<option value="5"
+							<c:if test="${articlePage.pageV == 5}" > selected </c:if>>5개씩보기</option>
+						<option value="10"
+							<c:if test="${articlePage.pageV == 10}">selected</c:if>>10개씩
+							보기</option>
+					</select>
+				</form>
+				검색창 Ends
 
-<!-- 			</div> -->
-<!-- 		</div> -->
+			</div>
+		</div>
 		<!-- Spacer For Smaller Ends -->
 		<!-- Sidearea Ends -->
 		<!-- Mainarea Starts -->
@@ -97,34 +98,34 @@
 				<div class="float-center list-box-info">
 
 
-<%-- 					<c:if test="${articlePage.hasNoArticles()}"> --%>
-<!-- 						<tr> -->
-<!-- 							<td colspan="4">게시글이 없습니다.</td> -->
-<!-- 						</tr> -->
-<%-- 					</c:if> --%>
-					 <c:forEach var="article" items="${articlePage}">
+					<%-- 					<c:if test="${articlePage.hasNoArticles()}"> --%>
+					<!-- 						<tr> -->
+					<!-- 							<td colspan="4">게시글이 없습니다.</td> -->
+					<!-- 						</tr> -->
+					<%-- 					</c:if> --%>
+					<c:forEach var="article" items="${articlePage.list}">
 						<div class="list-box clearfix">
-<%-- 							<c:set var="fname" value="${articlePage.picList.boardPic1}" /> --%>
-<%-- 							<c:choose> --%>
-<%-- 								<c:when test="${fn:endsWith(fname, '.jpg')==true}"> --%>
-<%-- 									<img src="/CARE/upload/${articlePage.picList.boardPic1}" --%>
-<!-- 										width="200" /> -->
-<%-- 								</c:when> --%>
-<%-- 								<c:when test="${fn:endsWith(fname, '.png')==true}"> --%>
-<%-- 									<img src="/CARE/upload/${articlePage.picList.boardPic1}" --%>
-<!-- 										width="200" /> -->
-<%-- 								</c:when> --%>
-<%-- 								<c:when test="${fn:endsWith(fname, '.gif')==true}"> --%>
-<%-- 									<img src="/CARE/upload/${articlePage.picList.boardPic1}" --%>
-<!-- 										width="200" /> -->
-<%-- 								</c:when> --%>
-<%-- 								<c:when test="${fn:endsWith(fname, '.GIF')==true}"> --%>
-<%-- 									<img src="/CARE/upload/${articlePage.picList.boardPic1}" --%>
-<!-- 										width="200" /> -->
-<%-- 								</c:when> --%>
-<%-- 								<c:otherwise> --%>
-<%-- 								</c:otherwise> --%>
-<%-- 							</c:choose> --%>
+							<%-- 							<c:set var="fname" value="${articlePage.picList.boardPic1}" /> --%>
+							<%-- 							<c:choose> --%>
+							<%-- 								<c:when test="${fn:endsWith(fname, '.jpg')==true}"> --%>
+							<%-- 									<img src="/CARE/upload/${articlePage.picList.boardPic1}" --%>
+							<!-- 										width="200" /> -->
+							<%-- 								</c:when> --%>
+							<%-- 								<c:when test="${fn:endsWith(fname, '.png')==true}"> --%>
+							<%-- 									<img src="/CARE/upload/${articlePage.picList.boardPic1}" --%>
+							<!-- 										width="200" /> -->
+							<%-- 								</c:when> --%>
+							<%-- 								<c:when test="${fn:endsWith(fname, '.gif')==true}"> --%>
+							<%-- 									<img src="/CARE/upload/${articlePage.picList.boardPic1}" --%>
+							<!-- 										width="200" /> -->
+							<%-- 								</c:when> --%>
+							<%-- 								<c:when test="${fn:endsWith(fname, '.GIF')==true}"> --%>
+							<%-- 									<img src="/CARE/upload/${articlePage.picList.boardPic1}" --%>
+							<!-- 										width="200" /> -->
+							<%-- 								</c:when> --%>
+							<%-- 								<c:otherwise> --%>
+							<%-- 								</c:otherwise> --%>
+							<%-- 							</c:choose> --%>
 							<h5 class="list-box-info-title">
 								<a href="read.do?boardNo=${article.boardNo}"> <c:choose>
 										<c:when test="${fn:length(article.boardTitle) gt 15}">
@@ -166,52 +167,53 @@
 					if (session.getAttribute("authUser") != null) {
 				%>
 				<div style="float: right;">
-					<a href="write.do" class="btn btn-prime text-weight-bold text-uppercase animation"
+					<a href="write.do"
+						class="btn btn-prime text-weight-bold text-uppercase animation"
 						style="margin-bottom: 14px;">글쓰기</a>
 				</div>
 				<%
 					}
 				%>
 
-<!-- 				<div class="pagination"> -->
-<!-- 					<ul style="margin: 0 auto;" -->
-<!-- 						class="pagination animation float-lg-right"> -->
-<%-- 						<c:if test="${articlePage.startPage>1}"> --%>
-<!-- 							<li class="page-item"><a -->
-<%-- 								href="?p=${articlePage.startPage-5}&searching=${param.searching}&v=${articlePage.pageV}" --%>
-<!-- 								class="page-link">&laquo;</a></li> -->
-<%-- 						</c:if> --%>
-<%-- 						<c:if test="${articlePage.startPage<=1}"> --%>
-<!-- 							<li class="page-item" onclick="alert('이전 페이지가 없습니다.');"><a -->
-<!-- 								class="page-link">&laquo;</a></li> -->
-<%-- 						</c:if> --%>
-<%-- 						<c:forEach var="pNo" begin="${articlePage.startPage}" --%>
-<%-- 							end="${articlePage.endPage}"> --%>
-<%-- 							<c:choose> --%>
-<%-- 								<c:when test="${pNo == articlePage.currentPage}"> --%>
-<!-- 									<li class="page-item active"><a -->
-<%-- 										href="?p=${pNo}&searching=${param.searching}&v=${articlePage.pageV}" --%>
-<%-- 										class="page-link">${pNo}</a></li> --%>
-<%-- 								</c:when> --%>
-<%-- 								<c:otherwise> --%>
-<!-- 									<li class="page-item"><a -->
-<%-- 										href="?p=${pNo}&searching=${param.searching}&v=${articlePage.pageV}" --%>
-<%-- 										class="page-link">${pNo}</a></li> --%>
-<%-- 								</c:otherwise> --%>
-<%-- 							</c:choose> --%>
-<%-- 						</c:forEach> --%>
+				<div class="pagination">
+					<ul style="margin: 0 auto;"
+						class="pagination animation float-lg-right">
+						<c:if test="${articlePage.startPage>1}">
+							<li class="page-item"><a
+								href="?p=${articlePage.startPage-5}&searching=${param.searching}&v=${articlePage.pageV}">
+									class="page-link">&laquo;</a></li>
+						</c:if>
+						<c:if test="${articlePage.startPage<=1}">
+							<li class="page-item" onclick="alert('이전 페이지가 없습니다.');"><a>
+									class="page-link">&laquo;</a></li>
+						</c:if>
+						<c:forEach var="pNo" begin="${articlePage.startPage}"
+							end="${articlePage.endPage}">
+							<c:choose>
+								<c:when test="${pNo == articlePage.currentPage}">
+									<li class="page-item active"><a
+										href="?p=${pNo}&searching=${param.searching}&v=${articlePage.pageV}"
+										class="page-link">${pNo}</a></li>
+								</c:when>
+								<c:otherwise>
+									<li class="page-item"><a
+										href="?p=${pNo}&searching=${param.searching}&v=${articlePage.pageV}"
+										class="page-link">${pNo}</a></li>
+								</c:otherwise>
+							</c:choose>
+						</c:forEach>
 
-<%-- 						<c:if test="${articlePage.startPage+5 <= articlePage.totalPages}"> --%>
-<!-- 							<li class="page-item"><a -->
-<%-- 								href="?p=${articlePage.startPage+5}&searching=${param.searching}&v=${articlePage.pageV}" --%>
-<!-- 								class="page-link">&raquo;</a></li> -->
-<%-- 						</c:if> --%>
-<%-- 						<c:if test="${articlePage.startPage+5 > articlePage.totalPages}"> --%>
-<!-- 							<li class="page-item" onclick="alert('다음 페이지가 없습니다.');"><a -->
-<!-- 								class="page-link">&raquo;</a></li> -->
-<%-- 						</c:if> --%>
-<!-- 					</ul> -->
-<!-- 				</div> -->
+						<c:if test="${articlePage.startPage+5 <= articlePage.totalPages}">
+							<li class="page-item"><a
+								href="?p=${articlePage.startPage+5}&searching=${param.searching}&v=${articlePage.pageV}"
+								class="page-link">&raquo;</a></li>
+						</c:if>
+						<c:if test="${articlePage.startPage+5 > articlePage.totalPages}">
+							<li class="page-item" onclick="alert('다음 페이지가 없습니다.');"><a>
+									class="page-link">&raquo;</a></li>
+						</c:if>
+					</ul>
+				</div>
 				<!-- Pagination Ends -->
 				<!-- Banners Starts -->
 			</div>

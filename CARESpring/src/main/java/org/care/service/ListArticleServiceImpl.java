@@ -2,6 +2,8 @@ package org.care.service;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+import org.care.domain.ArticlePage;
 import org.care.domain.BoardInfo;
 import org.care.dto.BoardDTO;
 import org.care.mapper.BoardListMapper;
@@ -18,6 +20,20 @@ public class ListArticleServiceImpl implements ListArticleService {
 	public List<BoardInfo> board(BoardDTO dto) throws Exception {
 		return boardListMapper.selectBoardList();
 	}
+
+	@Override
+	public ArticlePage getArticlePage(int pageNo, int pageV, @Param("searching") String searching) throws Exception {
+		
+		int endSize = pageNo * pageV;
+		int page = (pageNo - 1) * pageV + 1;
+		
+		int total = boardListMapper.searchCount(searching);
+		List<BoardInfo> boardList = boardListMapper.search(page, endSize, searching);
+		
+		return new ArticlePage(total, pageNo, pageV, boardList);
+	}
+	
+	
 }
 
 // private BoardInfoDao boardInfoDao = new BoardInfoDao();

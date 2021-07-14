@@ -18,21 +18,20 @@
 		SELECT COUNT(*) FROM BOARDINFO
 	</select>
 
-	<select id="searchCount">
+	<select id="searchCount" resultType="int">
 		SELECT COUNT(*) FROM BOARDINFO WHERE BOARDTITLE LIKE
-		'%', #{keyword}, '%' OR
-		BOARDCONTENTS LIKE '%', #{keyword}, '%'
+		'%'||#{searching}||'%' OR
+		BOARDCONTENTS LIKE '%'||#{searching}||'%'
 	</select>
 
 	<select id="search" resultType="org.care.domain.BoardInfo">
 		SELECT BOARDINFO.* FROM (SELECT
 		ROWNUM AS RNUM, BOARDINFO.* FROM BOARDINFO
 		WHERE BOARDINFO.BOARDTITLE
-		LIKE '%', #{keyword}, '%' OR
-		BOARDINFO.BOARDCONTENTS LIKE '%',
-		#{keyword}, '%'
+		LIKE '%'||#{searching}||'%' OR
+		BOARDINFO.BOARDCONTENTS LIKE '%'||#{searching}||'%'
 		ORDER BY BOARDNO DESC) BOARDINFO WHERE RNUM BETWEEN
-		#{startRow} AND #{size}
+		#{arg0} AND #{arg1}
 	</select>
 
 	<select id="selectBoardList" resultType="org.care.domain.BoardInfo">
@@ -42,6 +41,7 @@
 <!-- 		BOARDINFO -->
 <!-- 		WHERE RNUM BETWEEN #{startRow}, AND #{size} -->
 SELECT * FROM BOARDINFO
+
 	</select>
 
 	<select id="selectById" resultType="org.care.domain.BoardInfo">
