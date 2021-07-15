@@ -9,7 +9,7 @@
 
 <%@ include file="../include/header.jspf"%>
 
-Search Section Starts
+<!-- Search Section Starts -->
 <section class="search-area condensed parallax">
 	<!-- Nested Container Starts -->
 	<div class="container text-center">
@@ -31,7 +31,7 @@ Search Section Starts
 	</div>
 	<!-- Nested Container Ends -->
 </section>
-Search Section Ends BreadCrumb Starts
+<!-- Search Section Ends BreadCrumb Starts -->
 <div class="breadcrumb rounded-0">
 	<!-- Nested Container Starts -->
 	<div class="container text-xs-center text-sm-center text-md-left">
@@ -52,14 +52,14 @@ Search Section Ends BreadCrumb Starts
 	<!-- Heading Ends -->
 	<!-- Starts -->
 	<div class="row">
-		Sidearea Starts
+		<!-- Sidearea Starts -->
 		<div class="col-lg-3 col-md-4 col-sm-12">
 
 
 			<!-- 검색창 Start -->
 			<div class="sidearea-filter">
 				<form class="teble-form" action="listArticle" method="post">
-					Search Field Starts
+				<!-- Search Field Starts -->
 					<div class="input-group sidearea-filter-search">
 						<input type="text" id="searching" name="searching"
 							class="form-control rounded-0" placeholder="검색..."
@@ -83,7 +83,7 @@ Search Section Ends BreadCrumb Starts
 							보기</option>
 					</select>
 				</form>
-				검색창 Ends
+				<!--  검색창 Ends -->
 
 			</div>
 		</div>
@@ -164,7 +164,7 @@ Search Section Ends BreadCrumb Starts
 				<!-- List Descriptions Ends -->
 				<!-- Pagination Starts -->
 				<%
-					if (session.getAttribute("authUser") != null) {
+					if (session.getAttribute("login") != null) {
 				%>
 				<div style="float: right;">
 					<a href="write.do"
@@ -184,7 +184,7 @@ Search Section Ends BreadCrumb Starts
 									class="page-link">&laquo;</a></li>
 						</c:if>
 						<c:if test="${articlePage.startPage<=1}">
-							<li class="page-item" onclick="alert('이전 페이지가 없습니다.');"><a>
+							<li class="page-item" onclick="alert('이전 페이지가 없습니다.');"><a
 									class="page-link">&laquo;</a></li>
 						</c:if>
 						<c:forEach var="pNo" begin="${articlePage.startPage}"
@@ -209,7 +209,7 @@ Search Section Ends BreadCrumb Starts
 								class="page-link">&raquo;</a></li>
 						</c:if>
 						<c:if test="${articlePage.startPage+5 > articlePage.totalPages}">
-							<li class="page-item" onclick="alert('다음 페이지가 없습니다.');"><a>
+							<li class="page-item" onclick="alert('다음 페이지가 없습니다.');"><a
 									class="page-link">&raquo;</a></li>
 						</c:if>
 					</ul>
