@@ -9,9 +9,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.care.domain.DetailInfo;
+import org.care.domain.MenuInfo;
 import org.care.domain.ReviewInfo;
 import org.care.domain.StoreInfo;
 import org.care.dto.DetailDTO;
+import org.care.dto.MenuDTO;
 import org.care.dto.ReviewDTO;
 import org.care.dto.StoreDTO;
 import org.care.service.FoodService;
@@ -27,7 +29,7 @@ public class FoodController {
 	public FoodService foodService;
 
 	@RequestMapping(value = "/storeDetail", method = RequestMethod.GET)
-	public String StoreInfoList(StoreDTO dto, DetailDTO dto1, ReviewDTO dto2, HttpServletRequest req, Model model) throws Exception {
+	public String StoreInfoList(StoreDTO dto, DetailDTO dto1, ReviewDTO dto2, MenuDTO dto3, HttpServletRequest req, Model model) throws Exception {
 
 		List<StoreInfo> storeInfo = foodService.selectStore(dto);
 		model.addAttribute("storeInfo", storeInfo);
@@ -45,6 +47,9 @@ public class FoodController {
 		model.addAttribute("reviewInfo", reviewInfo);
 		
 		
+		
+		List<MenuInfo> menuInfo = foodService.selectMenu(dto3);
+		model.addAttribute("menuInfo", menuInfo);
 		
 		return "detail/food-details";
 

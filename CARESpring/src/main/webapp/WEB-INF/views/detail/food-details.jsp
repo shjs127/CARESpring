@@ -457,7 +457,7 @@
 
 											<div class="box-body">
 
-												<%
+												<%-- <%
 													// 현재 로그인된 아이디가 없다면 (= session에 저장된 id가 없다면)
 												if (session.getAttribute("authUser") == null) {
 												%>
@@ -469,7 +469,7 @@
 
 												// 현재 로그인된 아이디가 있다면 (= session에 저장된 id가 있다면)
 												else {
-												%>
+												%> --%>
 
 												<div class="box-body">
 													<form action="writeMessage.do" method="post" id="writeForm">
@@ -508,9 +508,9 @@
 														</tr>
 													</form>
 
-													<%
+													<%-- <%
 														}
-													%>
+													%> --%>
 
 												</div>
 											</div>
@@ -535,20 +535,17 @@
 												</c:if>
 												<c:if test="${!view.isEmpty()}">
 													<table border="1">
-															<div class="clearfix">
-																<div class="float-left">
-																	<h6>
-
-																</div>
-															</div>
+															
+															
 															<div class="review-list-content">
 															<c:forEach var="reviewInfo" items="${reviewInfo}">
 																<p><i class="fa fa-calendar"> ${reviewInfo.reviewDate }</p></i>
 																<p>리뷰 내용: ${reviewInfo.reviewContents}</p>
 																<p>평점: ${reviewInfo.avgScore}</p>
 																<p>리뷰 번호: ${reviewInfo.reviewNo}</p>
+																	</c:forEach>
 															</div>
-														</c:forEach>
+													
 													</table>
 
 													
@@ -647,14 +644,16 @@
 				<div class="side-block-order border-radius-4">
 					<!-- Heading Starts -->
 					<h6 class="text-center">가게 메뉴</h6>
+					
+					
 					<!-- Heading Ends -->
 					<!-- Order Content Starts -->
 					<div class="side-block-order-content">
-						<c:forEach var="menuInfo2" items="${menuListView.menuInfoList}">
+						<c:forEach var="menuInfo" items="${menuInfo}">
 						<ul class="list-unstyled order-item-list">
 							<li class="clearfix">
-								<span class="float-left"> ${menuInfo2.menu } </span>
-								<span class="float-right text-sql-color">${menuInfo2.price }</span>
+								<span class="float-left"> ${menuInfo.menu } </span>
+								<span class="float-right text-sql-color">${menuInfo.price }￦</span>
 							</li>
 						</ul>
 						</c:forEach>
@@ -668,10 +667,11 @@
 					</c:forEach> --%>
 
 				</div>
+				</div>
 
 			</div>
 	</div>
-</div>
+
 
 <script type="text/javascript">
 	$(function() {

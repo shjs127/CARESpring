@@ -33,6 +33,13 @@
 		where STORENO = 1
 	</select>
 	
+	<select id="selectMenu"
+		resultType="org.care.domain.MenuInfo">
+		SELECT *
+		from MENUINFO
+		where STORENO = 1
+	</select>
+	
 </mapper>
 
 
