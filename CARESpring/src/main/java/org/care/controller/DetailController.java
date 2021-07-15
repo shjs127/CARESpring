@@ -29,29 +29,5 @@
  * List<DetailInfo> detailInfo = detailService.selectStore(dto);
  * model.addAttribute("detailInfo", detailInfo); return "detail/food-details"; }
  * 
- * @RequestMapping(value = "/login/storeinSuccess", method = RequestMethod.POST)
- * public void storeinPOST(StoreDTO dto, HttpSession session, Model model)
- * throws Exception {
- * 
- * StoreInfo sInfo = storeService.login(dto);
- * 
- * if (sInfo == null) { return; }
- * 
- * model.addAttribute("storeVo", sInfo);
- * 
  * }
- * 
- * @RequestMapping(value = "/storeLogout", method = RequestMethod.GET) public
- * String logout(HttpServletRequest request, HttpServletResponse response,
- * HttpSession session) throws Exception {
- * 
- * Object obj = session.getAttribute("storein");
- * 
- * if (obj != null) {
- * 
- * session.removeAttribute("storein"); session.invalidate();
- * 
- * }
- * 
- * return "login/storeLogout"; } }
  */
