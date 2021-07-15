@@ -12,22 +12,22 @@
 		<tr>
 			<th>제목</th>
 			<td class="text-align-left text-indent text-strong text-orange"
-				colspan="1">${articleData.boardInfo.boardTitle}</td>
+				colspan="1">${boardInfo.boardTitle}</td>
 		</tr>
 		<tr>
 			<th>작성일</th>
-			<td class="text-align-left text-indent" colspan="3">${articleData.boardInfo.boardDate}</td>
+			<td class="text-align-left text-indent" colspan="3">${boardInfo.boardDate}</td>
 		</tr>
 		<tr>
 			<th>작성자</th>
-			<td>${articleUser.nickName}</td>
+<%-- 			<td>${articleUser.nickName}</td> --%>
 			<th>조회수</th>
-			<td>${articleData.boardInfo.viewCount}</td>
+			<td>${boardInfo.viewCount}</td>
 		</tr>
 		<tr class="content">
 			<td colspan="4"
 				style="word-break: break-all; padding-left: 30px; padding-right: 100px;">
-		<%-- 		<c:forEach var="file" items="${boardInfoList.files}">
+			<c:forEach var="file" items="${boardInfoList.files}">
 					<c:set var="fname" value="${file.boardPic1}" />
 					<c:choose>
 						<c:when test="${fn:endsWith(fname, '.jpg')==true}">
@@ -51,7 +51,7 @@
 						<c:otherwise>
 						</c:otherwise>
 					</c:choose>
-				</c:forEach><br> ${articleData.boardInfo.boardContents} --%>
+				</c:forEach><br> ${boardInfo.boardContents}
 			</td>
 		</tr>
 	</tbody>
@@ -63,7 +63,7 @@
 
 			<tr>
 				<c:choose>
-					<c:when test="${prevBoardNo == 0}">
+					<c:when test="${prevBoardNo.prevNo == 0}">
 						<td class="text-align-left text-indent"><a
 							class="text-blue text-strong" href="#"
 							onclick="alert('이전 글이 없습니다.');">이전글</a></td>
@@ -71,7 +71,7 @@
 					<c:otherwise>
 						<td class="text-align-left text-indent"><a
 							class="text-blue text-strong"
-							href="read.do?boardNo=${prevBoardNo}">이전글</a></td>
+							href="readArticle?boardNo=${prevBoardNo.prevNo}">이전글</a></td>
 					</c:otherwise>
 				</c:choose>
 
@@ -80,7 +80,7 @@
 
 
 				<c:choose>
-					<c:when test="${nextBoardNo == 0}">
+					<c:when test="${nextBoardNo.nextNo == 0}">
 						<td class="text-align-rigth text-indent"><a
 							class="text-blue text-strong" href="#"
 							onclick="alert('다음 글이 없습니다.');">다음글</a></td>
@@ -88,7 +88,7 @@
 					<c:otherwise>
 						<td class="text-align-rigth text-indent"><a
 							class="text-blue text-strong"
-							href="read.do?boardNo=${nextBoardNo}">다음글</a></td>
+							href="readArticle?boardNo=${nextBoardNo.nextNo}">다음글</a></td>
 					</c:otherwise>
 				</c:choose>
 			</tr>
@@ -99,16 +99,16 @@
 <input type="hidden" name="boardNo">
 <div style="text-align: right;">
 
-	<c:if test="${articleData.boardInfo.userNo == authUser.userNo}">
+	<c:if test="${boardInfo.userNo == authUser.userNo}">
 		<form name="removefrm" action="delete.do" method="post">
 			<!-- <td> -->
 			<input type="button" onclick="removeCheck()" value="삭제" class="btn btn-prime text-weight-bold text-uppercase animation"> <input
 				type="hidden" name="boardContents"
-				value="${articleData.boardInfo.boardContents}"> <input
+				value="${boardInfo.boardContents}"> <input
 				type="hidden" name="boardTitle"
-				value="${articleData.boardInfo.boardTitle}"> <input
+				value="${boardInfo.boardTitle}"> <input
 				type="hidden" name="boardNo"
-				value="${articleData.boardInfo.boardNo}">
+				value="${boardInfo.boardNo}">
 
 			<script>
 				function removeCheck() {
@@ -127,7 +127,7 @@
 			</script>
 		</form>
 
-		<a href="modify.do?boardNo=${articleData.boardInfo.boardNo}"> <input
+		<a href="modify.do?boardNo=${boardInfo.boardNo}"> <input
 			type="button" value="수정" class="btn btn-prime text-weight-bold text-uppercase animation">
 		</a>
 		<!-- </td> -->

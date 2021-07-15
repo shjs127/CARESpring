@@ -1,18 +1,17 @@
 package org.care.controller;
 
-
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
-import org.care.domain.ArticlePage;
-import org.care.dto.BoardDTO;
 import org.care.service.ListArticleService;
+import org.care.service.ReadArticleService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping(value = "/board")
@@ -22,13 +21,17 @@ public class ListArticleController {
 
 	@Inject
 	private ListArticleService listService;
+	
+	@Inject
+	private ReadArticleService readService;
+//	private LoginService loginService;
 
 	@RequestMapping(value = "/listArticle", method = RequestMethod.GET)
-	public String processForm(BoardDTO dto, HttpServletRequest req, Model model) throws Exception {
+	public String listArticleForm(HttpServletRequest req, Model model) throws Exception {
 
 		String searching = req.getParameter("searching");
-		if(searching==null) {
-			searching="";
+		if (searching == null) {
+			searching = "";
 		}
 		String pageNoVal = req.getParameter("p");
 		String pageView = req.getParameter("pageView");
@@ -37,22 +40,20 @@ public class ListArticleController {
 		if (pageNoVal != null) {
 			pageNo = Integer.parseInt(pageNoVal);
 		}
-		if(pageView != null) {
+		if (pageView != null) {
 			pageV = Integer.parseInt(pageView);
 		}
-		ArticlePage articlePage = listService.getArticlePage(pageNo,pageV,searching);
-//		List<BoardInfo> boardInfo = listService.board(dto);
-		model.addAttribute("articlePage", articlePage);
-		
+		model.addAttribute("articlePage", listService.getArticlePage(pageNo, pageV, searching));
+
 		return "board/listArticle";
 	}
-	
+
 	@RequestMapping(value = "/listArticle", method = RequestMethod.POST)
-	public String processSubmit(BoardDTO dto, HttpServletRequest req, Model model) throws Exception {
+	public String listArticleSubmit(HttpServletRequest req, Model model) throws Exception {
 
 		String searching = req.getParameter("searching");
-		if(searching==null) {
-			searching="";
+		if (searching == null) {
+			searching = "";
 		}
 		String pageNoVal = req.getParameter("p");
 		String pageView = req.getParameter("pageView");
@@ -61,14 +62,24 @@ public class ListArticleController {
 		if (pageNoVal != null) {
 			pageNo = Integer.parseInt(pageNoVal);
 		}
-		if(pageView != null) {
+		if (pageView != null) {
 			pageV = Integer.parseInt(pageView);
 		}
-		ArticlePage articlePage = listService.getArticlePage(pageNo,pageV,searching);
-//		List<BoardInfo> boardInfo = listService.board(dto);
-		model.addAttribute("articlePage", articlePage);
-		
+		model.addAttribute("articlePage", listService.getArticlePage(pageNo, pageV, searching));
+
 		return "board/listArticle";
 	}
 
+	@RequestMapping(value = "/readArticle", method = RequestMethod.GET)
+	public String readArticleSubmit(@RequestParam("boardNo") int boardNo, Model model) throws Exception {
+		System.out.println(boardNo);
+		System.out.println("readService="+readService);
+
+		model.addAttribute("boardInfoList", readService.view(boardNo));
+		model.addAttribute("nextBoardNo", readService.nextView(boardNo));
+		model.addAttribute("prevBoardNo", readService.prevView(boardNo));
+//		req.getSession().setAttribute("articleUser", loginService.selectByUserNo(articleData.getBoardInfo().getUserNo());
+		model.addAttribute("boardInfo", readService.getArticle(boardNo));
+		return "board/readArticle";
+	}
 }

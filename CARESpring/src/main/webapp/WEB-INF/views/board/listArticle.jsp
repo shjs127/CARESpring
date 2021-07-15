@@ -127,7 +127,7 @@
 							<%-- 								</c:otherwise> --%>
 							<%-- 							</c:choose> --%>
 							<h5 class="list-box-info-title">
-								<a href="read.do?boardNo=${article.boardNo}"> <c:choose>
+								<a href="readArticle?boardNo=${article.boardNo}"> <c:choose>
 										<c:when test="${fn:length(article.boardTitle) gt 15}">
 											<c:out value="${fn:substring(article.boardTitle,0,14)}...">
 											</c:out>
@@ -138,7 +138,7 @@
 									</c:choose>
 								</a>
 							</h5>
-							<a href="read.do?boardNo=${article.boardNo}"
+							<a href="readArticle?boardNo=${article.boardNo}"
 								class="dropdown-item"><i class="fa fa-angle-right"></i> <c:choose>
 									<c:when test="${fn:length(article.boardContents) gt 50}">
 										<c:out value="${fn:substring(article.boardContents,0,49)}...">
@@ -180,7 +180,7 @@
 						class="pagination animation float-lg-right">
 						<c:if test="${articlePage.startPage>1}">
 							<li class="page-item"><a
-								href="?p=${articlePage.startPage-5}&searching=${param.searching}&v=${articlePage.pageV}">
+								href="?p=${articlePage.startPage-5}&searching=${param.searching}&pageView=${articlePage.pageV}">
 									class="page-link">&laquo;</a></li>
 						</c:if>
 						<c:if test="${articlePage.startPage<=1}">
@@ -192,12 +192,12 @@
 							<c:choose>
 								<c:when test="${pNo == articlePage.currentPage}">
 									<li class="page-item active"><a
-										href="?p=${pNo}&searching=${param.searching}&v=${articlePage.pageV}"
+										href="?p=${pNo}&searching=${param.searching}&pageView=${articlePage.pageV}"
 										class="page-link">${pNo}</a></li>
 								</c:when>
 								<c:otherwise>
 									<li class="page-item"><a
-										href="?p=${pNo}&searching=${param.searching}&v=${articlePage.pageV}"
+										href="?p=${pNo}&searching=${param.searching}&pageView=${articlePage.pageV}"
 										class="page-link">${pNo}</a></li>
 								</c:otherwise>
 							</c:choose>
@@ -205,7 +205,7 @@
 
 						<c:if test="${articlePage.startPage+5 <= articlePage.totalPages}">
 							<li class="page-item"><a
-								href="?p=${articlePage.startPage+5}&searching=${param.searching}&v=${articlePage.pageV}"
+								href="?p=${articlePage.startPage+5}&searching=${param.searching}&pageView=${articlePage.pageV}"
 								class="page-link">&raquo;</a></li>
 						</c:if>
 						<c:if test="${articlePage.startPage+5 > articlePage.totalPages}">

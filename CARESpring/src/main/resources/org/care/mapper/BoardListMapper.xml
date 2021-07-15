@@ -31,7 +31,7 @@
 		LIKE '%'||#{searching}||'%' OR
 		BOARDINFO.BOARDCONTENTS LIKE '%'||#{searching}||'%'
 		ORDER BY BOARDNO DESC) BOARDINFO WHERE RNUM BETWEEN
-		#{arg0} AND #{arg1}
+		#{page} AND #{endSize}
 	</select>
 
 	<select id="selectBoardList" resultType="org.care.domain.BoardInfo">
@@ -73,10 +73,10 @@ SELECT * FROM BOARDINFO
 		(${boardNo}, ${boardPic})
 	</insert>
 
-<!-- 	<select id="SelectByBoardNo" resultType="BoardPicInfo"> -->
-<!-- 		SELECT * FROM BOARDPIC -->
-<!-- 		WHERE BOARDNO = ${boardNo} -->
-<!-- 	</select> -->
+	<select id="selectByBoardNo" resultType="org.care.domain.BoardPicInfo">
+		SELECT * FROM BOARDPIC
+		WHERE BOARDNO = #{boardNo}
+	</select>
 
 <!-- 	<select id="boardViewTop" resultType="BoardViewTop"> -->
 <!-- 	<![CDATA[  -->
@@ -88,25 +88,25 @@ SELECT * FROM BOARDINFO
 <!-- 	</select> -->
 
 
-<!-- 	<select id="nextView" resultType="NextNo"> -->
-<!-- 		SELECT * -->
-<!-- 		FROM( -->
-<!-- 		SELECT BOARDNO, -->
-<!-- 		LEAD(BOARDNO) OVER (ORDER BY BOARDNO) NEXTNO -->
-<!-- 		FROM BOARDINFO ORDER BY -->
-<!-- 		BOARDNO -->
-<!-- 		) -->
-<!-- 		WHERE BOARDNO = ${boardNo} -->
-<!-- 	</select> -->
+	<select id="nextView" resultType="org.care.domain.NextNo">
+		SELECT *
+		FROM(
+		SELECT BOARDNO,
+		LEAD(BOARDNO) OVER (ORDER BY BOARDNO) NEXTNO
+		FROM BOARDINFO ORDER BY
+		BOARDNO
+		)
+		WHERE BOARDNO = #{boardNo}
+	</select>
 
-<!-- 	<select id="prevView" resultType="PrevNo"> -->
-<!-- 		SELECT * -->
-<!-- 		FROM( -->
-<!-- 		SELECT BOARDNO, -->
-<!-- 		LAG(BOARDNO) OVER (ORDER BY BOARDNO) PREVNO -->
-<!-- 		FROM BOARDINFO ORDER BY BOARDNO -->
-<!-- 		) -->
-<!-- 		WHERE BOARDNO = ${boardNo} -->
-<!-- 	</select> -->
+	<select id="prevView" resultType="org.care.domain.PrevNo">
+		SELECT *
+		FROM(
+		SELECT BOARDNO,
+		LAG(BOARDNO) OVER (ORDER BY BOARDNO) PREVNO
+		FROM BOARDINFO ORDER BY BOARDNO
+		)
+		WHERE BOARDNO = #{boardNo}
+	</select>
 
 </mapper>
