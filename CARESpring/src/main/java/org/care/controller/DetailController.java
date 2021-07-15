@@ -17,7 +17,7 @@
  * org.springframework.web.bind.annotation.RequestMethod; import
  * org.springframework.web.servlet.ModelAndView; import
  * org.springframework.web.util.WebUtils;
- * 
+ *
  * @Controller public class DetailController {
  * 
  * @Inject public DetailService detailService;
