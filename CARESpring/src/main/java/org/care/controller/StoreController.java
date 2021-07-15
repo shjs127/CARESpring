@@ -23,7 +23,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.WebUtils;
 
 @Controller
-//@RequestMapping(value = "/storeDetail")
 public class StoreController {
 
 	@Inject
@@ -37,32 +36,4 @@ public class StoreController {
 		return "detail/food-details";
 	}
 
-	@RequestMapping(value = "/login/storeinSuccess", method = RequestMethod.POST)
-	public void storeinPOST(StoreDTO dto, HttpSession session, Model model) throws Exception {
-
-		StoreInfo sInfo = storeService.login(dto);
-
-		if (sInfo == null) {
-			return;
-		}
-
-		model.addAttribute("storeVo", sInfo);
-
-	}
-
-	@RequestMapping(value = "/storeLogout", method = RequestMethod.GET)
-	public String logout(HttpServletRequest request, HttpServletResponse response, HttpSession session)
-			throws Exception {
-
-		Object obj = session.getAttribute("storein");
-
-		if (obj != null) {
-	
-			session.removeAttribute("storein");
-			session.invalidate();
-
-		}
-
-		return "login/storeLogout";
-	}
 }
