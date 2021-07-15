@@ -1,46 +1,50 @@
 
 package org.care.controller;
 
-import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.care.domain.DetailInfo;
 import org.care.domain.StoreInfo;
-import org.care.domain.UserInfo;
-import org.care.dto.LoginDTO;
+import org.care.dto.DetailDTO;
 import org.care.dto.StoreDTO;
-import org.care.service.StoreService;
+import org.care.service.FoodService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.util.WebUtils;
 
 @Controller
-//@RequestMapping(value = "/storeDetail")
-public class StoreController {
+public class FoodController {
 
 	@Inject
-	public StoreService storeService;
+	public FoodService foodService;
 
 	@RequestMapping(value = "/storeDetail", method = RequestMethod.GET)
 	public String StoreInfoList(StoreDTO dto, HttpServletRequest req, Model model) throws Exception {
 
-		List<StoreInfo> storeInfo = storeService.selectStore(dto);
+		List<StoreInfo> storeInfo = foodService.selectStore(dto);
 		model.addAttribute("storeInfo", storeInfo);
 		return "detail/food-details";
-	}
+		
+		}
+	 
+		public String DetailInfoList(DetailDTO dto, HttpServletRequest req, Model model) throws Exception {
+
+			List<DetailInfo> detailInfo = foodService.selectDetail(dto);
+			model.addAttribute("detailInfo", detailInfo);
+			return "detail/food-details";
+		}	
+
 
 	@RequestMapping(value = "/login/storeinSuccess", method = RequestMethod.POST)
 	public void storeinPOST(StoreDTO dto, HttpSession session, Model model) throws Exception {
 
-		StoreInfo sInfo = storeService.login(dto);
+		StoreInfo sInfo = foodService.login(dto);
 
 		if (sInfo == null) {
 			return;
@@ -50,7 +54,7 @@ public class StoreController {
 
 	}
 
-	@RequestMapping(value = "/storeLogout", method = RequestMethod.GET)
+	@RequestMapping(value = "/storeLogout", method = RequestMethod.GET) 
 	public String logout(HttpServletRequest request, HttpServletResponse response, HttpSession session)
 			throws Exception {
 
@@ -65,4 +69,5 @@ public class StoreController {
 
 		return "login/storeLogout";
 	}
+
 }

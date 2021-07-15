@@ -14,6 +14,5 @@ public class StoreInfo {
 	private String closedDays;
 	private String callNumber;
 	private String manageNo;
-	//혜 정언니 
-	//정 귄카 모햐? 비지걸?
+	
 }

@@ -15,3 +15,4 @@ public class StoreDTO {
 	private String callNumber;
 	private String manageNo;
 }
+

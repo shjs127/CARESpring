@@ -50,9 +50,9 @@
 }
 </style>
 
-<script>
+<!-- <script>
 	console.log("${storeInfo[0].address}")
-</script>
+</script> -->
 
 <!-- Search Section Starts -->
 <section class="search-area condensed parallax">
@@ -164,18 +164,18 @@
 									</ul>
 									</c:forEach>
 									<hr>
-									&ensp;&ensp;총 좌석 수: <span class="float-right text-spl-color">${detailinfo.totalSeat }개&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</span><br>
-									&ensp;&ensp;충전기가 있는 좌석 수: <span
-										class="float-right text-spl-color">${detailinfo.socketSeat }개&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</span><br>
-									&ensp;&ensp;디저트: <span class="float-right text-spl-color">${detailinfo.dessertSales }&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</span><br>
-									&ensp;&ensp;테라스: <span class="float-right text-spl-color">${detailinfo.terrace }&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</span><br>
-									&ensp;&ensp;루프탑: <span class="float-right text-spl-color">${detailinfo.roofTop }&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</span><br>
-									&ensp;&ensp;와이파이: <span class="float-right text-spl-color">${detailinfo.wifi }&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</span><br>
-									&ensp;&ensp;애견동반: <span class="float-right text-spl-color">${detailinfo.companionDog }&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</span><br>
-									&ensp;&ensp;주차공간: <span class="float-right text-spl-color">${detailinfo.parkingSpace }&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</span><br>
-									&ensp;&ensp;노키즈존: <span class="float-right text-spl-color">${detailinfo.noKidsZone }&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</span><br>
-									&ensp;&ensp;흡연존: <span class="float-right text-spl-color">${detailinfo.smokingArea }&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</span><br>
-
+									<c:forEach var="detailInfo" items="${detailInfo}">
+									&ensp;&ensp;총 좌석 수: <span class="float-right text-spl-color">${detailInfo.totalSeat }개&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</span><br>
+									&ensp;&ensp;충전기가 있는 좌석 수: <span class="float-right text-spl-color">${detailInfo.socketSeat }개&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</span><br>
+									&ensp;&ensp;디저트: <span class="float-right text-spl-color">${detailInfo.dessertSales }&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</span><br>
+									&ensp;&ensp;테라스: <span class="float-right text-spl-color">${detailInfo.terrace }&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</span><br>
+									&ensp;&ensp;루프탑: <span class="float-right text-spl-color">${detailInfo.roofTop }&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</span><br>
+									&ensp;&ensp;와이파이: <span class="float-right text-spl-color">${detailInfo.wifi }&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</span><br>
+									&ensp;&ensp;애견동반: <span class="float-right text-spl-color">${detailInfo.companionDog }&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</span><br>
+									&ensp;&ensp;주차공간: <span class="float-right text-spl-color">${detailInfo.parkingSpace }&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</span><br>
+									&ensp;&ensp;노키즈존: <span class="float-right text-spl-color">${detailInfo.noKidsZone }&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</span><br>
+									&ensp;&ensp;흡연존: <span class="float-right text-spl-color">${detailInfo.smokingArea }&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</span><br>
+									</c:forEach>
 								</div>
 
 							</div>
@@ -418,25 +418,27 @@
 							<div class="col-md-4 col-sm-12">
 								<div class="side-block-1">
 									<h6>정보</h6>
+										<c:forEach var="storeInfo" items="${storeInfo}">
 									<ul class="list-unstyled list-style-2">
-										<li>주소 : ${storeinfo.address }</li>
-										<li>영업시간 : ${storeinfo.hours }</li>
-										<li>휴무일 : ${storeinfo.closedDays }</li>
-										<li>전화번호 : ${storeinfo.callNumber }</li>
+										<li>주소 : ${storeInfo.address }</li>
+										<li>영업시간 : ${storeInfo.hours }</li>
+										<li>휴무일 : ${storeInfo.closedDays }</li>
+										<li>전화번호 : ${storeInfo.callNumber }</li>
 									</ul>
+									</c:forEach>
 									<hr>
-									&ensp;&ensp;총 좌석 수: <span class="float-right text-spl-color">${detailinfo.totalSeat }개&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</span><br>
-									&ensp;&ensp;충전기가 있는 좌석 수: <span
-										class="float-right text-spl-color">${detailinfo.socketSeat }개&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</span><br>
-									&ensp;&ensp;디저트: <span class="float-right text-spl-color">${detailinfo.dessertSales }&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</span><br>
-									&ensp;&ensp;테라스: <span class="float-right text-spl-color">${detailinfo.terrace }&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</span><br>
-									&ensp;&ensp;루프탑: <span class="float-right text-spl-color">${detailinfo.roofTop }&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</span><br>
-									&ensp;&ensp;와이파이: <span class="float-right text-spl-color">${detailinfo.wifi }&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</span><br>
-									&ensp;&ensp;애견동반: <span class="float-right text-spl-color">${detailinfo.companionDog }&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</span><br>
-									&ensp;&ensp;주차공간: <span class="float-right text-spl-color">${detailinfo.parkingSpace }&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</span><br>
-									&ensp;&ensp;노키즈존: <span class="float-right text-spl-color">${detailinfo.noKidsZone }&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</span><br>
-									&ensp;&ensp;흡연존: <span class="float-right text-spl-color">${detailinfo.smokingArea }&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</span><br>
-
+									<c:forEach var="detailInfo" items="${detailInfo}">
+									&ensp;&ensp;총 좌석 수: <span class="float-right text-spl-color">${detailInfo.totalSeat }개&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</span><br>
+									&ensp;&ensp;충전기가 있는 좌석 수: <span class="float-right text-spl-color">${detailInfo.socketSeat }개&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</span><br>
+									&ensp;&ensp;디저트: <span class="float-right text-spl-color">${detailInfo.dessertSales }&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</span><br>
+									&ensp;&ensp;테라스: <span class="float-right text-spl-color">${detailInfo.terrace }&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</span><br>
+									&ensp;&ensp;루프탑: <span class="float-right text-spl-color">${detailInfo.roofTop }&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</span><br>
+									&ensp;&ensp;와이파이: <span class="float-right text-spl-color">${detailInfo.wifi }&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</span><br>
+									&ensp;&ensp;애견동반: <span class="float-right text-spl-color">${detailInfo.companionDog }&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</span><br>
+									&ensp;&ensp;주차공간: <span class="float-right text-spl-color">${detailInfo.parkingSpace }&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</span><br>
+									&ensp;&ensp;노키즈존: <span class="float-right text-spl-color">${detailInfo.noKidsZone }&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</span><br>
+									&ensp;&ensp;흡연존: <span class="float-right text-spl-color">${detailInfo.smokingArea }&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</span><br>
+									</c:forEach>
 								</div>
 							</div>
 							<!-- Left Column Ends -->
