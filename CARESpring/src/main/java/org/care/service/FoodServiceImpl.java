@@ -3,8 +3,10 @@ package org.care.service;
 import java.util.List;
 
 import org.care.domain.DetailInfo;
+import org.care.domain.ReviewInfo;
 import org.care.domain.StoreInfo;
 import org.care.dto.DetailDTO;
+import org.care.dto.ReviewDTO;
 import org.care.dto.StoreDTO;
 import org.care.mapper.FoodMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +34,13 @@ public class FoodServiceImpl implements FoodService {
 	public List<DetailInfo> selectDetail(DetailDTO dto) throws Exception {
 			
 		return foodMapper.selectDetail(dto);
+		
+	}
+	
+	@Override
+	public List<ReviewInfo> selectReview(ReviewDTO dto) throws Exception {
+			
+		return foodMapper.selectReview(dto);
 		
 	}
 		

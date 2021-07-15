@@ -24,6 +24,15 @@
 		from DETAILINFO
 		where STORENO = 1
 	</select>
+	
+	
+	<select id="selectReview"
+		resultType="org.care.domain.ReviewInfo">
+		SELECT *
+		from REVIEWINFO
+		where STORENO = 1
+	</select>
+	
 </mapper>
 
 

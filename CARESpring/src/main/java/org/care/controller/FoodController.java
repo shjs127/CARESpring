@@ -9,8 +9,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.care.domain.DetailInfo;
+import org.care.domain.ReviewInfo;
 import org.care.domain.StoreInfo;
 import org.care.dto.DetailDTO;
+import org.care.dto.ReviewDTO;
 import org.care.dto.StoreDTO;
 import org.care.service.FoodService;
 import org.springframework.stereotype.Controller;
@@ -25,21 +27,34 @@ public class FoodController {
 	public FoodService foodService;
 
 	@RequestMapping(value = "/storeDetail", method = RequestMethod.GET)
-	public String StoreInfoList(StoreDTO dto, HttpServletRequest req, Model model) throws Exception {
+	public String StoreInfoList(StoreDTO dto, DetailDTO dto1, ReviewDTO dto2, HttpServletRequest req, Model model) throws Exception {
 
 		List<StoreInfo> storeInfo = foodService.selectStore(dto);
 		model.addAttribute("storeInfo", storeInfo);
-		return "detail/food-details";
 		
-		}
+		
+		
+		
+		
+		List<DetailInfo> detailInfo = foodService.selectDetail(dto1);
+		model.addAttribute("detailInfo", detailInfo);
+		
+		
+		
+		List<ReviewInfo> reviewInfo = foodService.selectReview(dto2);
+		model.addAttribute("reviewInfo", reviewInfo);
+		
+		
+		
+		return "detail/food-details";
+
+		  }
+		
+		
+		
+
 	 
-		public String DetailInfoList(DetailDTO dto, HttpServletRequest req, Model model) throws Exception {
-
-			List<DetailInfo> detailInfo = foodService.selectDetail(dto);
-			model.addAttribute("detailInfo", detailInfo);
-			return "detail/food-details";
-		}	
-
+	
 
 	@RequestMapping(value = "/login/storeinSuccess", method = RequestMethod.POST)
 	public void storeinPOST(StoreDTO dto, HttpSession session, Model model) throws Exception {

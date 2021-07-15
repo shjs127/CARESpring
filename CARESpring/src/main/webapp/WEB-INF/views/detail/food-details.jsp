@@ -535,21 +535,18 @@
 												</c:if>
 												<c:if test="${!view.isEmpty()}">
 													<table border="1">
-														<c:forEach var="message" items="${view.messageList}">
 															<div class="clearfix">
 																<div class="float-left">
 																	<h6>
-																		<i class="fa fa-calendar"></i> ${message.reviewDate}
-																	</h6>
-																	<h6>회원 닉네임: ${userInfo.nickName}</h6>
 
 																</div>
-																
 															</div>
 															<div class="review-list-content">
-																<p>리뷰내용: ${message.reviewContents}</p>
-																<p>평점: ${message.avgScore}</p>
-																<p>메시지 번호: ${message.reviewNo}</p>
+															<c:forEach var="reviewInfo" items="${reviewInfo}">
+																<p><i class="fa fa-calendar"> ${reviewInfo.reviewDate }</p></i>
+																<p>리뷰 내용: ${reviewInfo.reviewContents}</p>
+																<p>평점: ${reviewInfo.avgScore}</p>
+																<p>리뷰 번호: ${reviewInfo.reviewNo}</p>
 															</div>
 														</c:forEach>
 													</table>
