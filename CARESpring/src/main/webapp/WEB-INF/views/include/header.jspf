@@ -169,7 +169,7 @@
 						<li class="nav-item active"><a href='index' class="nav-link">Home</a></li>
 						<li class="nav-item"><a href="about.html" class="nav-link">About Us</a></li>
 						<li class="nav-item"><a href='board' class="nav-link">board List</a></li>
-						<li class="nav-item"><a href='storeList' class="nav-link">Food Grid</a></li>
+						<li class="nav-item"><a href='store/storeList' class="nav-link">Food Grid</a></li>
 						<li class="nav-item"><a href='storeDetail' class="nav-link">Food Detail</a></li>
 						<li class="nav-item"><a href="login.html" class="nav-link">Login &amp; Register</a></li>
 						<li class="nav-item"><a href="terms.html" class="nav-link">Terms</a></li>

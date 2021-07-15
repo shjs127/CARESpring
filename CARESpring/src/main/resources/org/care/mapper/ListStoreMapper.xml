@@ -21,63 +21,63 @@
 
 <select id="listPage" resultType="org.care.domain.StoreInfo">
 <![CDATA[
-	select storeno, storename, storepic, address
-	from (select rownum as rum, storeinfo.*
-		  from storeinfo
-		  order by storeno desc) storeinfo
-	where rnum between #{page} and #{page+10}
-	]]>
+select storeno, storename, storepic, address 
+from (select rownum as rnum, storeinfo.* 
+from storeinfo 
+order by storeno desc) storeinfo 
+where rnum between #{page} and #{page+10} 
+]]>
 </select>
 
-<!-- <select id="listCriteria" resultType="org.care.domain.StoreInfo"> -->
-<!-- <![CDATA[ -->
-<!-- 	select storeno, storename, storepic, address -->
-<!-- 	from storeinfo -->
-<!-- 	order by storeno desc -->
-<!-- 	where rnum between #{pageStart} and #{perPageNum} -->
-<!-- ]]> -->
-<!-- </select> -->
+<select id="listCriteria" resultType="org.care.domain.StoreInfo">
+<![CDATA[
+	select storeno, storename, storepic, address 
+	from (select rownum as rnum, storeinfo.*
+	from storeinfo
+	order by storeno desc) storeinfo 
+	where rnum between #{pageStart} and #{perPageNum} 
+]]>
+</select>
 
-<!-- <select id="countPaging" resultType="int"> -->
-<!-- <![CDATA[ -->
-<!-- 	select count(storeno) -->
-<!-- 	from storeinfo -->
-<!-- 	where storeno > 0 -->
-<!-- ]]> -->
-<!-- </select> -->
+<select id="countPaging" resultType="int">
+<![CDATA[
+	select count(storeno) 
+	from storeinfo 
+	where storeno > 0 
+]]>
+</select>
 
-<!-- <sql id="search"> -->
-<!-- 	<if test="searchKeyword != null"> -->
-<!-- 		and storeinfo.storename like '%'||#{searchKeyword}||'%' -->
-<!-- 		or storeinfo.address like '%'||#{searchKeyword}||'%' -->
-<!-- 	</if> -->
-<!-- </sql> -->
+<sql id="search">
+	<if test="searchKeyword != null">
+		and storeinfo.storename like '%'||#{searchKeyword}||'%'
+		or storeinfo.address like '%'||#{searchKeyword}||'%'
+	</if>
+</sql>
 
-<!-- <select id="listSearch" resultType="org.care.domain.StoreInfo"> -->
-<!-- <![CDATA[ -->
-<!-- 	select storeinfo.* -->
-<!-- 	from (select rownum as rnum, storeinfo.* -->
-<!-- 		  from storeinfo -->
-<!-- 		  where storeno > 0 -->
-<!-- 		  order by storeno desc) storeinfo -->
-<!-- ]]> -->
-<!-- 	<include refid="search"></include> -->
-<!-- <![CDATA[ -->
-<!-- 	and between #{pageStart} and #{perPageNum} -->
-<!-- ]]> -->
-<!-- </select> -->
+<select id="listSearch" resultType="org.care.domain.StoreInfo">
+<![CDATA[
+	select storeinfo.* 
+	from (select rownum as rnum, storeinfo.* 
+		  from storeinfo 
+		  where storeno > 0 
+		  order by storeno desc) storeinfo 
+]]>
+	<include refid="search"></include>
+<![CDATA[
+	and between #{pageStart} and #{perPageNum} 
+]]>
+</select>
 
-
-<!-- <select id="listSearchCount" resultType="int"> -->
-<!-- <![CDATA[ -->
-<!-- 	select count(storeno) -->
-<!-- 	from (select rownum as rnum, storeinfo.* -->
-<!-- 		  from storeinfo -->
-<!-- 		  where storeno > 0 -->
-<!-- 		  order by storeno desc) storeinfo -->
-<!-- ]]> -->
-<!-- 	<include refid="search"></include> -->
-<!-- </select> -->
+<select id="listSearchCount" resultType="int">
+<![CDATA[
+	select count(storeno)
+	from (select rownum as rnum, storeinfo.* 
+		  from storeinfo 
+		  where storeno > 0 
+		  order by storeno desc) storeinfo
+]]>
+	<include refid="search"></include>
+</select>
 
 <!-- <select id="selectStoreList" resultType="org.care.domain.StoreInfo"> -->
 <!-- 	select storeno, storename, storepic, address -->

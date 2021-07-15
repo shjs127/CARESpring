@@ -12,13 +12,13 @@
 			솔직한 리뷰, 믿을 수 있는 평점! <br> 카레
 		</h3>
 		<form class="top-search"
-			action="${pageContext.request.contextPath }/board/storelist.do"
+			action="${pageContext.request.contextPath }/store/storeList"
 			method="post" name="frm" id="frm">
 			<div class="input-group">
 				<div class="input-group-prepend search-panel"></div>
 				<input type="text" class="form-control input-lg rounded-0"
-					name="searchKeyword" id="searchKeyword" placeholder="지역 또는 카페"
-					value="${param.searchKeyword}">
+					name="Keyword" id="Keyword" placeholder="지역 또는 카페"
+					value="${param.Keyword}">
 				<button class="btn btn-lg btn-prime animation text-uppercase"
 					type="submit">검색</button>
 			</div>
@@ -149,7 +149,7 @@
 								<!-- Images Starts -->
 								<div class="image text-center">
 									<img
-										src="<%=request.getContextPath()%>/CARE/images/hotels/thumb/hotel-grid-thumb-img1.jpg"
+										src="<%=request.getContextPath()%>/resources/images/hotels/thumb/hotel-grid-thumb-img1.jpg"
 										alt="Eagle Boys Village Plaza" class="img-fluid img-center">
 									<span class="delivery-time">${storeinfo.storeNo}</span>
 								</div>
@@ -159,26 +159,26 @@
 								<div class="content text-center text-lg-left">
 									<!-- Title Starts -->
 									<h6 class="grid-box-title">
-										<a href="${pageContext.request.contextPath}/main/foodDetail.do?storeno=${storeinfo.storeNo}">${storeinfo.storeName}</a>
+										<a href="storeList/storeno=${storeinfo.storeNo}">${storeinfo.storeName}</a>
 									</h6>
 									<!-- Title Ends -->
 									<!-- Tags Starts -->
 									<ul class="list-unstyled list-inline grid-box-tags">
 										<li class="list-inline-item">
-								<%-- 			<c:choose>
+								 			<c:choose>
 											<c:when test = "${fn:length(storeinfo.address) gt 22}">
 											<c:out value = "${fn:substring(storeinfo.address,0,21)}..."></c:out>
 											</c:when>
 											<c:otherwise>
 											<c:out value="${storeinfo.address}"></c:out>
 											</c:otherwise>
-											</c:choose> --%>
+											</c:choose>
 										</li>
 									</ul>
 									<!-- Tags Ends -->
 									<!-- Offer Details Starts -->
 									<ul class="list-unstyled grid-box-info clearfix">
-										<li class="float-lg-right text-lg-right"><a href="${pageContext.request.contextPath}/main/foodDetail.do?storeno=${storeinfo.storeNo}"
+										<li class="float-lg-right text-lg-right"><a href="/storeList/storeno=${storeinfo.storeNo}"
 											class="btn btn-prime animation"> 자세히 보기 <i
 												class="fa fa-chevron-right"></i>
 										</a></li>
@@ -227,7 +227,26 @@
 			</div>
 			<!-- Hotels Grid List Ends -->
 			<!-- 페이징 처리 -->
-			<c:if test="${storePage.hasStores()}">
+			<div class="pagination-block clearfix">
+				<ul class="pagination animation float-lg-right">
+					<c:if test="${pageMaker.prev}">
+						<li class="page-item"><a href="/store/storeList${pageMaker.makeSearch(pageMaker.startPage - 1) }" class="page-link">&laquo;</a></li>
+					</c:if>
+
+					<c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="idx">
+						<li 
+							<c:out value="${pageMaker.cri.page == idx?'class=page-item active':'class=page-item'}"/>>
+							<a href="/store/storeList${pageMaker.makeSearch(idx)}" class="page-link">${idx}</a>
+						</li>
+					</c:forEach>
+
+					<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
+						<li class="page-item"><a
+							href="/store/storeList${pageMaker.makeSearch(pageMaker.endPage +1) }" class="page-link">&raquo;</a></li>
+					</c:if>
+				</ul>
+			</div>
+			<%-- <c:if test="${storePage.hasStores()}">
 				<div class="pagination-block clearfix">
 					<ul class="pagination animation float-lg-right">
 						<c:if test="${storePage.startPage > 5}">
@@ -292,7 +311,8 @@
 						</c:if>
 					</ul>
 				</div>
-			</c:if>
+			</c:if> --%>
+			<!-- 페이징 처리 End -->
 		</div>
 		<!-- Mainarea Ends -->
 	</div>
