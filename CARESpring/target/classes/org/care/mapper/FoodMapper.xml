@@ -40,6 +40,12 @@
 		where STORENO = 1
 	</select>
 	
+	<select id="insertReview"
+		resultType="org.care.domain.ReviewInfo">
+		INSERT INTO REVIEWINFO 
+		VALUES(REVIEWNUM.NEXTVAL,#{userNo},#{storeNo},#{avgScore},#{reviewContents}, SYSDATE)
+	</select>
+	
 </mapper>
 
 

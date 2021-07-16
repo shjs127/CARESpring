@@ -241,8 +241,7 @@
 
 																// 지도의 중심을 결과값으로 받은 위치로 이동시킵니다 
 																map.relayout();
-																map
-																		.setCenter(coords);
+																map.setCenter(coords);
 																// 												map.setLevel(4);
 																// 												map.setLevel(3);
 																// 												map.relayout();
@@ -470,22 +469,21 @@
 												// 현재 로그인된 아이디가 있다면 (= session에 저장된 id가 있다면)
 												else {
 												%> --%>
-
+												
 												<div class="box-body">
-													<form action="writeMessage.do" method="post" id="writeForm">
+												
+												
+													<form action="reviewInfo.insertReview" method="post" id="writeForm">
 														<!-- // form에 ID 지정 -->
-														<input type="hidden" name="storeNo"
-															value="${param.storeno }" />
+														<%-- <input type="hidden" name="storeNo"
+															value="${reviewInfo.storeNo }" /> --%>
 														<p>
-															<textarea name="reviewContents" cols="60" rows="10" id="reviewContents"
+															<textarea name="reviewInforeviewContents" cols="60" rows="10" id="reviewContents"
 																placeholder="리뷰를 작성하세요"></textarea>
 														</p>
-
 														
-
-
 														<h9>별점을 선택하세요.</h9>
-														<select name="avgScore">
+														<select name="reviewInfo.avgScore">
 
 															<option value="1">★☆☆☆☆</option>
 															<option value="2">★★☆☆☆</option>
@@ -499,15 +497,15 @@
 																class="btn btn-black animation text-uppercase float-right" />
 														</p>
 													</form>
-
-													<form action="file.do" method="post"
+											
+													<!-- <form action="file.do" method="post"
 														enctype="multipart/form-data">
 														<tr>
 															<td></td>
 															<td><input type="file" name="fileName1"></td>
 														</tr>
-													</form>
-
+													</form> -->
+														
 													<%-- <%
 														}
 													%> --%>
@@ -515,7 +513,7 @@
 												</div>
 											</div>
 										</section>
-
+							
 
 									</div>
 									<!-- Content Wrapper. Contains page content -->

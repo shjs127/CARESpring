@@ -36,8 +36,6 @@ public class FoodController {
 		
 		
 		
-		
-		
 		List<DetailInfo> detailInfo = foodService.selectDetail(dto1);
 		model.addAttribute("detailInfo", detailInfo);
 		

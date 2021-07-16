@@ -17,5 +17,6 @@ public interface FoodMapper {
 	List<ReviewInfo> selectReview(ReviewDTO dto) throws Exception;
 	List<MenuInfo> selectMenu(MenuDTO dto) throws Exception;
 	
+	List<ReviewInfo> insertReview(ReviewDTO dto) throws Exception;
 	StoreInfo storeLogin(StoreDTO dto) throws Exception;
 }
