@@ -111,7 +111,7 @@
 						<li class="list-inline-item"><div style="margin-left: 11px;"
 								id="google_translate_element"></div></li>
 						<li class="list-inline-item"><a
-							href='profile'>마이페이지</a></li>
+							href='login/profile'>마이페이지</a></li>
 						<li class="list-inline-item"><a
 							href='board'>게시판</a></li>
 						<%

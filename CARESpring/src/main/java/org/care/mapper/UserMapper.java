@@ -12,4 +12,6 @@ public interface UserMapper {
 	void keepLogin(String userId, String sessionId, Date next);
 
 	UserInfo checkUserWithSessionKey(String value);
+
+	void changeInfo(UserInfo uInfo, String password, String nickName, String birth, String email);
 }

@@ -35,6 +35,12 @@ public class UserServiceImpl implements UserService {
 	  return userMapper.checkUserWithSessionKey(value); 
 	  
 	}
+
+	@Override
+	public void changeInfo(UserInfo uInfo,String password,String nickName,String birth,String email) {
+		userMapper.changeInfo(uInfo,password,nickName,birth,email);
+		
+	}
 	 
 	 
 }

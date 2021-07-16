@@ -21,4 +21,9 @@
 		select * from UserInfo where sessionKey = #{value} and sessionLimit > now()
 	</select>
 
+
+	<update id="changeInfo">
+		update USERINFO set PASSWORD = #{arg1}, NICKNAME = #{arg2},
+		 BIRTH = #{arg3} ,EMAIL = #{arg4}, GENDER = #{arg0.gender} where USERNO = #{arg0.userNo}
+	</update>
 </mapper>

@@ -1,5 +1,6 @@
 package org.care.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.inject.Inject;
@@ -45,7 +46,7 @@ public class UserController {
 
 			int amount = 60 * 60 * 24 * 7;
 
-			Date sessionLimit = new Date(System.currentTimeMillis() + (1000 * amount));
+			Date sessionLimit = new Date(System.currentTimeMillis() + (1000 *	 amount));
 
 			userService.keepLogin(uInfo.getUserId(), session.getId(), sessionLimit);
 		}
@@ -57,44 +58,83 @@ public class UserController {
 
 		return "main/index";
 	}
+	@RequestMapping(value = "/login/profile", method = RequestMethod.GET)
+	public String profilePage(LoginDTO dto,HttpServletRequest request,HttpSession session, Model model) throws Exception{
+		session.getAttribute("login");
+		return "profile/profile";
+	}
 
+	@RequestMapping(value = "/login/change", method = RequestMethod.POST)
+	public String profilePost(UserInfo uInfo,HttpSession session,HttpServletRequest req) throws Exception {
+
+		UserInfo user=(UserInfo) session.getAttribute("login");
+		String  curPassword= req.getParameter("curPassword");
+		String  password= req.getParameter("password");
+		String  nickName= req.getParameter("nickName");
+		String  birth= req.getParameter("birth");
+		/*
+		 * SimpleDateFormat inFormat=new SimpleDateFormat("yyyy-MM-dd"); Date
+		 * birth=inFormat.parse(sbirth);
+		 */
+		String  email= req.getParameter("email");
+		System.out.println(curPassword);
+		System.out.println(nickName);
+		System.out.println(birth);
+		System.out.println(email);
+		
+		if(!user.getPassword().equals(curPassword)) {
+
+			 return "redirect:/login/profile"; 
+		}
+	  if(password==null || password.isEmpty()) { 
+		  password=user.getPassword(); 
+		  }
+	  if(nickName==null || nickName.isEmpty()) { 
+		  nickName=user.getNickName(); 
+		  }
+	  if(birth==null||birth.isEmpty()) { 
+		  birth=user.getBirth(); 
+		  }
+	  if(email==null || email.isEmpty()) { 
+		  email=user.getEmail(); 
+		  }
+		 
+		
+		userService.changeInfo(uInfo,password,nickName,birth,email);
+		session.removeAttribute("login");
+		session.invalidate();
+		return "redirect:/login";
+	}
+	
 	@RequestMapping(value = "/board", method = RequestMethod.GET)
 	public String boardPage(HttpServletRequest request, Model model) {
 
 		return "board/listArticle";
 	}
 
-	/*
-	 * @RequestMapping(value = "/storeDetail", method = RequestMethod.GET) public
-	 * String detailPage(HttpServletRequest request, Model model) {
-	 * 
-	 * return "detail/food-details"; }
-	 */
-	  
-	  @RequestMapping(value = "/logout", method = RequestMethod.GET)
-	  public String logout(HttpServletRequest request, 
-	      HttpServletResponse response, HttpSession session) throws Exception {
+	@RequestMapping(value = "/logout", method = RequestMethod.GET)
+	public String logout(HttpServletRequest request, HttpServletResponse response, HttpSession session)
+			throws Exception {
 
-	    Object obj = session.getAttribute("login");
+		Object obj = session.getAttribute("login");
 
-	    if (obj != null) {
-	      UserInfo vo = (UserInfo) obj;
+		if (obj != null) {
+			UserInfo vo = (UserInfo) obj;
 
-	      session.removeAttribute("login");
-	      session.invalidate();
+			session.removeAttribute("login");
+			session.invalidate();
 
-	      Cookie loginCookie = WebUtils.getCookie(request, "loginCookie");
+			Cookie loginCookie = WebUtils.getCookie(request, "loginCookie");
 
-	      if (loginCookie != null) {
-	        loginCookie.setPath("/");
-	        loginCookie.setMaxAge(0);
-	        response.addCookie(loginCookie);
-	        userService.keepLogin(vo.getUserId(), session.getId(), new Date());
-	      }
-	    }
-	    
-	    return "login/logout";
-	  }
+			if (loginCookie != null) {
+				loginCookie.setPath("/");
+				loginCookie.setMaxAge(0);
+				response.addCookie(loginCookie);
+				userService.keepLogin(vo.getUserId(), session.getId(), new Date());
+			}
+		}
 
-	 
+		return "login/logout";
+	}
+
 }

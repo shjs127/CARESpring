@@ -13,5 +13,7 @@ public interface UserService {
 	  public void keepLogin(String uid, String sessionId, Date next)throws Exception;
 	  
 	  public UserInfo checkLoginBefore(String value);
+	  
+	  public void changeInfo(UserInfo uInfo,String password,String nickName,String birth,String email);
 	 
 }
