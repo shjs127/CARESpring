@@ -5,6 +5,7 @@ import java.util.List;
 import org.care.domain.Criteria;
 import org.care.domain.SearchCriteria;
 import org.care.domain.StoreInfo;
+import org.care.dto.StoreDTO;
 import org.care.mapper.ListStoreMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,9 +17,9 @@ public class ListStoreServiceImpl implements ListStoreService {
 	private ListStoreMapper listStoreMapper;
 
 	@Override
-	public StoreInfo read(Integer storeno) throws Exception {
+	public StoreInfo read(Integer storeNo) throws Exception {
 
-		return listStoreMapper.read(storeno);
+		return listStoreMapper.read(storeNo);
 	}
 
 	@Override
@@ -56,6 +57,11 @@ public class ListStoreServiceImpl implements ListStoreService {
 	@Override
 	public int listSearchCount(SearchCriteria cri) throws Exception {
 		return 0;
+	}
+
+	@Override
+	public List<StoreInfo> readPage(Integer storeNo) throws Exception {
+		return (List<StoreInfo>) listStoreMapper.read(storeNo);
 	}
 
 }

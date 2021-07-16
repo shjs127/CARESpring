@@ -159,7 +159,7 @@
 								<div class="content text-center text-lg-left">
 									<!-- Title Starts -->
 									<h6 class="grid-box-title">
-										<a href="storeList/storeno=${storeinfo.storeNo}">${storeinfo.storeName}</a>
+										<a href="storeList/detail?storeNo=${storeinfo.storeNo}">${storeinfo.storeName}</a>
 									</h6>
 									<!-- Title Ends -->
 									<!-- Tags Starts -->
@@ -178,7 +178,7 @@
 									<!-- Tags Ends -->
 									<!-- Offer Details Starts -->
 									<ul class="list-unstyled grid-box-info clearfix">
-										<li class="float-lg-right text-lg-right"><a href="/storeList/storeno=${storeinfo.storeNo}"
+										<li class="float-lg-right text-lg-right"><a href="/storeList/detail?storeNo=${storeinfo.storeNo}"
 											class="btn btn-prime animation"> 자세히 보기 <i
 												class="fa fa-chevron-right"></i>
 										</a></li>
@@ -230,19 +230,19 @@
 			<div class="pagination-block clearfix">
 				<ul class="pagination animation float-lg-right">
 					<c:if test="${pageMaker.prev}">
-						<li class="page-item"><a href="/store/storeList${pageMaker.makeSearch(pageMaker.startPage - 1) }" class="page-link">&laquo;</a></li>
+						<li class="page-item"><a href="${pageContext.request.contextPath }/store/storeList${pageMaker.makeSearch(pageMaker.startPage - 1) }" class="page-link">&laquo;</a></li>
 					</c:if>
 
 					<c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="idx">
 						<li 
-							<c:out value="${pageMaker.cri.page == idx?'class=page-item active':'class=page-item'}"/>>
-							<a href="/store/storeList${pageMaker.makeSearch(idx)}" class="page-link">${idx}</a>
+							<c:out value="${pageMaker.cri.page == idx?'class=page-item active':'class=page-item '}"/>>
+							<a href="${pageContext.request.contextPath }/store/storeList${pageMaker.makeSearch(idx)}" class="page-link">${idx}</a>
 						</li>
 					</c:forEach>
 
 					<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
 						<li class="page-item"><a
-							href="/store/storeList${pageMaker.makeSearch(pageMaker.endPage +1) }" class="page-link">&raquo;</a></li>
+							href="${pageContext.request.contextPath }/store/storeList${pageMaker.makeSearch(pageMaker.endPage +1) }" class="page-link">&raquo;</a></li>
 					</c:if>
 				</ul>
 			</div>

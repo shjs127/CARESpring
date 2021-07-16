@@ -5,10 +5,13 @@ import java.util.List;
 import org.care.domain.Criteria;
 import org.care.domain.SearchCriteria;
 import org.care.domain.StoreInfo;
+import org.care.dto.StoreDTO;
 
 public interface ListStoreService {
 
-	public StoreInfo read(Integer storeno) throws Exception;
+	public List<StoreInfo> readPage(Integer storeNo) throws Exception;
+	
+	public StoreInfo read(Integer storeNo) throws Exception;
 
 	public List<StoreInfo> listAll() throws Exception;
 	

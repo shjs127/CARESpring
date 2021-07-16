@@ -8,7 +8,7 @@ import org.care.domain.StoreInfo;
 
 public interface ListStoreMapper {
 	
-	public StoreInfo read(Integer storeno) throws Exception;
+	public StoreInfo read(Integer storeNo) throws Exception;
 	
 	public List<StoreInfo> listAll() throws Exception;
 	

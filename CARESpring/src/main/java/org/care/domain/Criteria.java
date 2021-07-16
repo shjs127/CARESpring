@@ -30,14 +30,18 @@ public class Criteria {
 		this.perPageNum = perPageNum;
 	}
 	
-	public int getPage() {  // 현재 페이지 번호
+	public int getPage() {  // currentPage
 		return page;
 	}	
 	
 	//method for MyBatis SQL Mapper - 
 	public int getPageStart() {
 		
-		return (this.page -1)* perPageNum;
+		return (this.page -1) * perPageNum + 1;
+	}
+	
+	public int getPageEnd() {
+		return this.page * perPageNum;
 	}
 	
 	//method for MyBatis SQL Mapper 

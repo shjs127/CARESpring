@@ -5,9 +5,9 @@
 <mapper namespace="org.care.mapper.ListStoreMapper">
 
 <select id="read" resultType="org.care.domain.StoreInfo">
-	select storeno, storename, storepic, address
+	select *
 	from storeinfo
-	where storeno = #{storeno}
+	where storeno = #{storeNo}
 </select>
 
 <select id="listAll" resultType="org.care.domain.StoreInfo">
@@ -35,7 +35,7 @@ where rnum between #{page} and #{page+10}
 	from (select rownum as rnum, storeinfo.*
 	from storeinfo
 	order by storeno desc) storeinfo 
-	where rnum between #{pageStart} and #{perPageNum} 
+	where rnum between #{pageStart} and #{pageEnd} 
 ]]>
 </select>
 
@@ -64,7 +64,7 @@ where rnum between #{page} and #{page+10}
 ]]>
 	<include refid="search"></include>
 <![CDATA[
-	and between #{pageStart} and #{perPageNum} 
+	and rnum between #{pageStart} and #{perPageNum} 
 ]]>
 </select>
 

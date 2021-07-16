@@ -1,11 +1,14 @@
 package org.care.controller;
 
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
 import org.care.domain.Criteria;
 import org.care.domain.PageMaker;
 import org.care.domain.SearchCriteria;
+import org.care.domain.StoreInfo;
 import org.care.service.ListStoreService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,19 +52,14 @@ public class ListStoreController {
 		return "board/cafeGrid";
 	}
 	
-	@RequestMapping(value = "/storeList/storeno={storeno}")
-	public String StoreDetailPage(@RequestParam("storeno") int storeno, @ModelAttribute("cri") SearchCriteria cri, Model model) throws Exception {
-		model.addAttribute(service.read(storeno));
+	@RequestMapping(value = "/storeList/detail", method = RequestMethod.GET)
+	public String StoreDetailPage(@RequestParam("storeNo") int storeNo, @ModelAttribute("cri") SearchCriteria cri, Model model) throws Exception {
+		
+		model.addAttribute(service.read(storeNo));
 		
 		return "detail/food-detail";
 	}
 	 
-//	 @RequestMapping(value = "/storeList", method = RequestMethod.GET) 
-//	 public void listAll(Model model) throws Exception {
-//	 
-//	 Logger.info("show all list..."); 
-//	 model.addAttribute("list", service.listAll()); 
-//	 }
 	 
 
 }
