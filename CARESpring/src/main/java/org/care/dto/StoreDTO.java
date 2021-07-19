@@ -14,5 +14,6 @@ public class StoreDTO {
 	private String closedDays;
 	private String callNumber;
 	private String manageNo;
+	private float storeAvg;
 }
 

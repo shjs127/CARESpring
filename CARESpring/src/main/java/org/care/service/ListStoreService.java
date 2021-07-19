@@ -24,5 +24,7 @@ public interface ListStoreService {
 	public List<StoreInfo> listSearch(SearchCriteria cri) throws Exception;
 	  
 	public int listSearchCount(SearchCriteria cri) throws Exception;
+
+	public List<StoreDTO> listTop(StoreDTO dto);
  
 }

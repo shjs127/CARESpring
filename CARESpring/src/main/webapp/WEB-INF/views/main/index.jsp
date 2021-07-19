@@ -40,7 +40,7 @@
 			</h4>
 		<div class="food-menu-grid row text-center">
 			<!-- Food Menu #1 Starts -->
-			<c:forEach var="storea" items="${storageAvgTop}">
+			<c:forEach var="storea" items="${sTop}">
 				<div class="col-lg-4 col-md-6 col-sm-12">
 					<div class="hover-content">
 						<a

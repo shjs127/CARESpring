@@ -202,9 +202,9 @@
 							<div class="col-md-8 col-sm-12">
 								<!-- Information Tab Pane Starts -->
 								<div class="information-tab-pane">
-									<%
+							<%-- 		<%
 										// 현재 로그인된 아이디가 없다면 (= session에 저장된 id가 없다면)
-									if (session.getAttribute("authUser") == null) {
+									if (session.getAttribute("login") == null) {
 									%>
 									로그인을 해주세요.
 									<li class="list-inline-item"><a
@@ -213,7 +213,7 @@
 										}
 									// 현재 로그인된 아이디가 있다면 (= session에 저장된 id가 있다면)
 									else {
-									%>
+									%> --%>
 
 									<h5>내 리뷰 목록</h5>
 									<br>
@@ -274,10 +274,10 @@
 
 
 
-					<%
+				<%-- 	<%
 						}
 					%>
-
+ --%>
 
 				</div>
 				<!-- Information Tab Pane Ends -->

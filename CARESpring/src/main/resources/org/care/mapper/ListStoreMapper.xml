@@ -4,22 +4,22 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.care.mapper.ListStoreMapper">
 
-<select id="read" resultType="org.care.domain.StoreInfo">
-	select *
-	from storeinfo
-	where storeno = #{storeNo}
-</select>
+	<select id="read" resultType="org.care.domain.StoreInfo">
+		select *
+		from storeinfo
+		where storeno = #{storeNo}
+	</select>
 
-<select id="listAll" resultType="org.care.domain.StoreInfo">
+	<select id="listAll" resultType="org.care.domain.StoreInfo">
 <![CDATA[
 	select storeno, storename, storepic, address
 	from storeinfo
 	where storeno > 0
 	order by storeno desc
 ]]>
-</select>
+	</select>
 
-<select id="listPage" resultType="org.care.domain.StoreInfo">
+	<select id="listPage" resultType="org.care.domain.StoreInfo">
 <![CDATA[
 select storeno, storename, storepic, address 
 from (select rownum as rnum, storeinfo.* 
@@ -27,9 +27,9 @@ from storeinfo
 order by storeno desc) storeinfo 
 where rnum between #{page} and #{page+10} 
 ]]>
-</select>
+	</select>
 
-<select id="listCriteria" resultType="org.care.domain.StoreInfo">
+	<select id="listCriteria" resultType="org.care.domain.StoreInfo">
 <![CDATA[
 	select storeno, storename, storepic, address 
 	from (select rownum as rnum, storeinfo.*
@@ -37,24 +37,24 @@ where rnum between #{page} and #{page+10}
 	order by storeno desc) storeinfo 
 	where rnum between #{pageStart} and #{pageEnd} 
 ]]>
-</select>
+	</select>
 
-<select id="countPaging" resultType="int">
+	<select id="countPaging" resultType="int">
 <![CDATA[
 	select count(storeno) 
 	from storeinfo 
 	where storeno > 0 
 ]]>
-</select>
+	</select>
 
-<sql id="search">
-	<if test="searchKeyword != null">
-		and storeinfo.storename like '%'||#{searchKeyword}||'%'
-		or storeinfo.address like '%'||#{searchKeyword}||'%'
-	</if>
-</sql>
+	<sql id="search">
+		<if test="searchKeyword != null">
+			and storeinfo.storename like '%'||#{searchKeyword}||'%'
+			or storeinfo.address like '%'||#{searchKeyword}||'%'
+		</if>
+	</sql>
 
-<select id="listSearch" resultType="org.care.domain.StoreInfo">
+	<select id="listSearch" resultType="org.care.domain.StoreInfo">
 <![CDATA[
 	select storeinfo.* 
 	from (select rownum as rnum, storeinfo.* 
@@ -62,13 +62,13 @@ where rnum between #{page} and #{page+10}
 		  where storeno > 0 
 		  order by storeno desc) storeinfo 
 ]]>
-	<include refid="search"></include>
+		<include refid="search"></include>
 <![CDATA[
 	and rnum between #{pageStart} and #{perPageNum} 
 ]]>
-</select>
+	</select>
 
-<select id="listSearchCount" resultType="int">
+	<select id="listSearchCount" resultType="int">
 <![CDATA[
 	select count(storeno)
 	from (select rownum as rnum, storeinfo.* 
@@ -76,14 +76,24 @@ where rnum between #{page} and #{page+10}
 		  where storeno > 0 
 		  order by storeno desc) storeinfo
 ]]>
-	<include refid="search"></include>
-</select>
+		<include refid="search"></include>
+	</select>
 
-<!-- <select id="selectStoreList" resultType="org.care.domain.StoreInfo"> -->
-<!-- 	select storeno, storename, storepic, address -->
-<!-- 	from storeinfo -->
-<!-- 	order by storeno desc -->
-<!-- </select> -->
+	<!-- <select id="selectStoreList" resultType="org.care.domain.StoreInfo"> -->
+	<!-- select storeno, storename, storepic, address -->
+	<!-- from storeinfo -->
+	<!-- order by storeno desc -->
+	<!-- </select> -->
 
+	<select id="topList" resultType="org.care.dto.StoreDTO">
+<![CDATA[
+		select r.storeno storeNo, r.aa storeAvg, s.storename storeName from 
+		(select storeNo , AVG(avgScore) as aa from reviewInfo
+		group by storeNo order by aa DESC,storeNo DESC) r, storeInfo s
+		where r.storeno = s.storeNo and ROWNUM < 7
+		
+		]]>
+
+	</select>
 
 </mapper>

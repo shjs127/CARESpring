@@ -53,11 +53,6 @@ public class UserController {
 
 	}
 
-	@RequestMapping(value = "/index", method = RequestMethod.GET)
-	public String mainPage(HttpServletRequest request, Model model) {
-
-		return "main/index";
-	}
 
 	@RequestMapping(value = "/login/profile", method = RequestMethod.GET)
 	public String profilePage(LoginDTO dto, HttpServletRequest request, HttpSession session, Model model)

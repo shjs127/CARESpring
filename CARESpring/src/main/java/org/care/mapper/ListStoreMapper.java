@@ -5,6 +5,7 @@ import java.util.List;
 import org.care.domain.Criteria;
 import org.care.domain.SearchCriteria;
 import org.care.domain.StoreInfo;
+import org.care.dto.StoreDTO;
 
 public interface ListStoreMapper {
 	
@@ -21,4 +22,6 @@ public interface ListStoreMapper {
 	public List<StoreInfo> listSearch(SearchCriteria cri) throws Exception;
 	
 	public int listSearchCount(SearchCriteria cri) throws Exception;
+
+	public List<StoreDTO> topList(StoreDTO dto);
 }
