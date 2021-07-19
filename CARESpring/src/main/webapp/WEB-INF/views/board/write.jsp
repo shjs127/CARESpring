@@ -79,17 +79,18 @@ button {
 					return true;
 			}
 		</script>
-		<form onsubmit="return writeConfirm();" action="write.do"
-			method="post" enctype="multipart/form-data">
+		<form onsubmit="return writeConfirm();" action="write" method="post"
+			enctype="multipart/form-data">
 
 			<table>
 				<tr>
 					<td>파일명 :</td>
-					<td><input type="file" name="fileName1"></td>
+					<td><input type="file" name="file"></td>
 				</tr>
 				<tr>
 					<td>제목</td>
-					<td><input type="text" name="boardTitle" id="boardTitle" /></td>
+					<td><input type="text" name="boardTitle" id="boardTitle" /> 
+					</td>
 				</tr>
 				<tr>
 					<td style="padding-top: 20px;" colspan="2"><textarea rows="12"
@@ -104,12 +105,12 @@ button {
 			</table>
 		</form>
 		<div>
-			<a href="${pageContext.request.contextPath }/board/list.do">
+			<a href="${pageContext.request.contextPath }/board/listArticle">
 				<button>게시판</button>
 			</a>
 		</div>
 		<div>
-			<a href="${pageContext.request.contextPath }/main/index.do">
+			<a href="${pageContext.request.contextPath }/main/index">
 				<button>홈으로</button>
 			</a>
 		</div>

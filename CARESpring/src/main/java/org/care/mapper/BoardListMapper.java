@@ -7,6 +7,7 @@ import org.care.domain.BoardInfo;
 import org.care.domain.BoardPicInfo;
 import org.care.domain.NextNo;
 import org.care.domain.PrevNo;
+import org.care.dto.BoardDTO;
 
 public interface BoardListMapper {
 	List<BoardInfo> selectBoardList() throws Exception;
@@ -15,13 +16,19 @@ public interface BoardListMapper {
 	
 	List<BoardInfo> search(@Param("page")int page, @Param("endSize")int endSize, @Param("searching") String searching) throws Exception;
 	
-	BoardInfo selectById(@Param("boardNo")int boardNo) throws Exception;
+	BoardInfo selectById(BoardDTO dto) throws Exception;
 	
-	int increaseReadCount(@Param("boardNo") int boardNo) throws Exception;
+	int increaseReadCount(BoardDTO dto) throws Exception;
 	
-	List<BoardPicInfo> selectByBoardNo(@Param("boardNo") int boardNo) throws Exception;
+	List<BoardPicInfo> selectByBoardNo(BoardDTO dto) throws Exception;
 	
-	NextNo nextView(@Param("boardNo") int boardNo) throws Exception;
+	NextNo nextView(BoardDTO dto) throws Exception;
 	
-	PrevNo prevView(@Param("boardNo") int boardNo) throws Exception;
+	PrevNo prevView(BoardDTO dto) throws Exception;
+	
+	void insert(BoardDTO dto) throws Exception;
+	
+	void picInsert(BoardPicInfo pic) throws Exception;
+	
+	List<BoardPicInfo> picView(BoardDTO dto) throws Exception;
 }

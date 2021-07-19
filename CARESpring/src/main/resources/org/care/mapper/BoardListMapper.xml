@@ -4,9 +4,13 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.care.mapper.BoardListMapper">
 
-	<insert id="insert">
-		INTSERT INTO BOARDINFO
-		VALUES(BOARDNUM.NEXTVAL,
+	<insert id="insert" parameterType="org.care.domain.BoardInfo">
+		<selectKey keyProperty="boardNo" resultType="int" order="BEFORE">
+	select BOARDNUM.NEXTVAL from dual
+	</selectKey>
+	
+		INSERT INTO BOARDINFO
+		VALUES(#{boardNo},
 		#{userNo},
 		#{boardTitle},
 		#{boardContents},
@@ -70,10 +74,10 @@ SELECT * FROM BOARDINFO
 
 	<insert id="picInsert">
 		INSERT INTO BOARDPIC (BoardNo, BoardPic1) VALUES
-		(${boardNo}, ${boardPic})
+		(#{boardNo}, #{boardPic1})
 	</insert>
 
-	<select id="selectByBoardNo" resultType="org.care.domain.BoardPicInfo">
+	<select id="picView" resultType="org.care.domain.BoardPicInfo">
 		SELECT * FROM BOARDPIC
 		WHERE BOARDNO = #{boardNo}
 	</select>
