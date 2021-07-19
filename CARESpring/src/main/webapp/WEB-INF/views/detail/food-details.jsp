@@ -631,13 +631,7 @@
 						</ul>
 						</c:forEach>
 					</div>
-					<%-- <c:forEach var="menuInfo2" items="${menuListView.menuInfoList}">
-						 ${menuInfo2.menu }  &nbsp;&nbsp;&nbsp;
-						 <span class="float-right text-spl-color">${menuInfo2.price }<br>
-						</span>
-
-						<br>
-					</c:forEach> --%>
+					
 
 				</div>
 				</div>
