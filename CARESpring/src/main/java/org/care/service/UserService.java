@@ -14,6 +14,6 @@ public interface UserService {
 	  
 	  public UserInfo checkLoginBefore(String value);
 	  
-	  public void changeInfo(UserInfo uInfo,String password,String nickName,String birth,String email);
+	  public void changeInfo(LoginDTO uInfo);
 	 
 }

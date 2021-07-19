@@ -45,7 +45,7 @@
 			<beans:ref bean="storeinInterceptor" />
 		</interceptor>
 		<interceptor>
-			<mapping path="/board" />
+			<mapping path="/login/profile" />
 			<beans:ref bean="authInterceptor" />
 		</interceptor>
 	</interceptors>

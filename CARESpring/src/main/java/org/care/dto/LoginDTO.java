@@ -11,4 +11,9 @@ public class LoginDTO {
 	private String name;
 	private String nickName;
 	private boolean UseCookie;
+	private String userName;
+	private String newPassword;
+	private String birth;
+	private String email;
+	private String gender;
 }

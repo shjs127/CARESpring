@@ -23,7 +23,7 @@
 
 
 	<update id="changeInfo">
-		update USERINFO set PASSWORD = #{arg1}, NICKNAME = #{arg2},
-		 BIRTH = #{arg3} ,EMAIL = #{arg4}, GENDER = #{arg0.gender} where USERNO = #{arg0.userNo}
+		update USERINFO set PASSWORD = #{newPassword}, NICKNAME = #{nickName},
+		 BIRTH = #{birth} ,EMAIL = #{email}, GENDER = #{gender} where USERNO = #{userNo}
 	</update>
 </mapper>

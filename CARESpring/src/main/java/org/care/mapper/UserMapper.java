@@ -13,5 +13,5 @@ public interface UserMapper {
 
 	UserInfo checkUserWithSessionKey(String value);
 
-	void changeInfo(UserInfo uInfo, String password, String nickName, String birth, String email);
+	void changeInfo(LoginDTO uInfo);
 }

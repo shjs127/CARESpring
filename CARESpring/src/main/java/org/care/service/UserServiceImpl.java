@@ -37,8 +37,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void changeInfo(UserInfo uInfo,String password,String nickName,String birth,String email) {
-		userMapper.changeInfo(uInfo,password,nickName,birth,email);
+	public void changeInfo(LoginDTO uInfo) {
+		userMapper.changeInfo(uInfo);
 		
 	}
 	 

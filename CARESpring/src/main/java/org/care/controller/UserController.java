@@ -1,6 +1,5 @@
 package org.care.controller;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.inject.Inject;
@@ -16,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.WebUtils;
 
 @Controller
@@ -46,7 +46,7 @@ public class UserController {
 
 			int amount = 60 * 60 * 24 * 7;
 
-			Date sessionLimit = new Date(System.currentTimeMillis() + (1000 *	 amount));
+			Date sessionLimit = new Date(System.currentTimeMillis() + (1000 * amount));
 
 			userService.keepLogin(uInfo.getUserId(), session.getId(), sessionLimit);
 		}
@@ -58,54 +58,45 @@ public class UserController {
 
 		return "main/index";
 	}
+
 	@RequestMapping(value = "/login/profile", method = RequestMethod.GET)
-	public String profilePage(LoginDTO dto,HttpServletRequest request,HttpSession session, Model model) throws Exception{
+	public String profilePage(LoginDTO dto, HttpServletRequest request, HttpSession session, Model model)
+			throws Exception {
 		session.getAttribute("login");
 		return "profile/profile";
 	}
 
 	@RequestMapping(value = "/login/change", method = RequestMethod.POST)
-	public String profilePost(UserInfo uInfo,HttpSession session,HttpServletRequest req) throws Exception {
+	public String profilePost(LoginDTO uInfo, HttpSession session, HttpServletRequest req, RedirectAttributes rttr)
+			throws Exception {
 
-		UserInfo user=(UserInfo) session.getAttribute("login");
-		String  curPassword= req.getParameter("curPassword");
-		String  password= req.getParameter("password");
-		String  nickName= req.getParameter("nickName");
-		String  birth= req.getParameter("birth");
-		/*
-		 * SimpleDateFormat inFormat=new SimpleDateFormat("yyyy-MM-dd"); Date
-		 * birth=inFormat.parse(sbirth);
-		 */
-		String  email= req.getParameter("email");
-		System.out.println(curPassword);
-		System.out.println(nickName);
-		System.out.println(birth);
-		System.out.println(email);
-		
-		if(!user.getPassword().equals(curPassword)) {
+		UserInfo user = (UserInfo) session.getAttribute("login");
 
-			 return "redirect:/login/profile"; 
+		if (!user.getPassword().equals(uInfo.getPassword())) {
+
+			rttr.addFlashAttribute("msg", "fail");
+			return "redirect:/login/profile";
 		}
-	  if(password==null || password.isEmpty()) { 
-		  password=user.getPassword(); 
-		  }
-	  if(nickName==null || nickName.isEmpty()) { 
-		  nickName=user.getNickName(); 
-		  }
-	  if(birth==null||birth.isEmpty()) { 
-		  birth=user.getBirth(); 
-		  }
-	  if(email==null || email.isEmpty()) { 
-		  email=user.getEmail(); 
-		  }
-		 
-		
-		userService.changeInfo(uInfo,password,nickName,birth,email);
+
+		if (uInfo.getNewPassword() == null || uInfo.getNewPassword().isEmpty()) {
+			uInfo.setNewPassword(user.getPassword());
+		}
+		if (uInfo.getNickName() == null || uInfo.getNickName().isEmpty()) {
+			uInfo.setNickName(user.getNickName());
+		}
+		if (uInfo.getBirth() == null || uInfo.getBirth().isEmpty()) {
+			uInfo.setBirth(user.getBirth());
+		}
+		if (uInfo.getEmail() == null || uInfo.getEmail().isEmpty()) {
+			uInfo.setEmail(user.getEmail());
+		}
+
+		userService.changeInfo(uInfo);
 		session.removeAttribute("login");
 		session.invalidate();
 		return "redirect:/login";
 	}
-	
+
 	@RequestMapping(value = "/board", method = RequestMethod.GET)
 	public String boardPage(HttpServletRequest request, Model model) {
 
