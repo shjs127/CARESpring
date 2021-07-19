@@ -8,8 +8,8 @@
 	<select id="selectStore"
 		resultType="org.care.domain.StoreInfo">
 		SELECT *
-		from STOREINFO
-		where STORENO = 1
+		FROM STOREINFO
+		WHERE STORENO = 1
 	</select>
 
 	<select id="storeLogin" resultType="org.care.domain.StoreInfo">
@@ -31,8 +31,8 @@
 		SELECT *
 		from REVIEWINFO
 		where STORENO = 1
+		ORDER BY REVIEWNO DESC
 	</select>
-	
 	<select id="selectMenu"
 		resultType="org.care.domain.MenuInfo">
 		SELECT *
@@ -42,8 +42,8 @@
 	
 	<select id="insertReview"
 		resultType="org.care.domain.ReviewInfo">
-		INSERT INTO REVIEWINFO 
-		VALUES(REVIEWNUM.NEXTVAL,#{userNo},#{storeNo},#{avgScore},#{reviewContents}, SYSDATE)
+		INSERT INTO REVIEWINFO (REVIEWNO, USERNO, STORENO, AVGSCORE, REVIEWCONTENTS, REVIEWDATE) 
+		VALUES(REVIEWNUM.NEXTVAL,1,1,#{avgScore},#{reviewContents}, SYSDATE)
 	</select>
 	
 </mapper>

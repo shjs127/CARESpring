@@ -6,9 +6,6 @@ import org.care.domain.DetailInfo;
 import org.care.domain.MenuInfo;
 import org.care.domain.ReviewInfo;
 import org.care.domain.StoreInfo;
-import org.care.dto.DetailDTO;
-import org.care.dto.MenuDTO;
-import org.care.dto.ReviewDTO;
 import org.care.dto.StoreDTO;
 import org.care.mapper.FoodMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +18,8 @@ public class FoodServiceImpl implements FoodService {
 	public FoodMapper foodMapper;
 
 	@Override
-	public List<StoreInfo> selectStore(StoreDTO dto) throws Exception {
-		return foodMapper.selectStore(dto);
+	public StoreInfo selectStore(StoreInfo storeInfo) throws Exception {
+		return foodMapper.selectStore(storeInfo);
 	}
 
 	@Override
@@ -33,25 +30,33 @@ public class FoodServiceImpl implements FoodService {
 	
 
 	@Override
-	public List<DetailInfo> selectDetail(DetailDTO dto) throws Exception {
+	public DetailInfo selectDetail(DetailInfo detailInfo) throws Exception {
 			
-		return foodMapper.selectDetail(dto);
+		return foodMapper.selectDetail(detailInfo);
 		
 	}
 	
 	@Override
-	public List<ReviewInfo> selectReview(ReviewDTO dto) throws Exception {
+	public List<ReviewInfo> selectReview(ReviewInfo reviewInfo) throws Exception {
 			
-		return foodMapper.selectReview(dto);
+		return foodMapper.selectReview(reviewInfo);
 		
 	}
 	
 	@Override
-	public List<MenuInfo> selectMenu(MenuDTO dto) throws Exception {
+	public List<MenuInfo> selectMenu(MenuInfo menuInfo) throws Exception {
 			
-		return foodMapper.selectMenu(dto);
+		return foodMapper.selectMenu(menuInfo);
 		
 	}
+	
+	@Override
+	public List<ReviewInfo> insertReview(ReviewInfo reviewInfo) throws Exception {
+			
+		return foodMapper.insertReview(reviewInfo);
+		
+	}
+
 		
 	
 }

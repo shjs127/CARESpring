@@ -448,17 +448,17 @@
 												<div class="box-body">
 												
 												
-													<form action="reviewInfo.insertReview" method="post" id="writeForm">
+													<form action="storeDetail" method="post" id="writeForm">
 														<!-- // form에 ID 지정 -->
 														<%-- <input type="hidden" name="storeNo"
 															value="${reviewInfo.storeNo }" /> --%>
 														<p>
-															<textarea name="reviewInforeviewContents" cols="60" rows="10" id="reviewContents"
-																placeholder="리뷰를 작성하세요"></textarea>
+															<textarea name="reviewContents" cols="60" rows="10" placeholder="리뷰를 작성하세요">
+															</textarea>
 														</p>
 														
 														<h9>별점을 선택하세요.</h9>
-														<select name="reviewInfo.avgScore">
+														<select name="avgScore">
 
 															<option value="1">★☆☆☆☆</option>
 															<option value="2">★★☆☆☆</option>
@@ -511,12 +511,13 @@
 															
 															
 															<div class="review-list-content">
-<%-- 															<c:forEach var="reviewInfo" items="${reviewInfo}"> --%>
+															
+															<c:forEach var="reviewInfo" items="${reviewInfo}"> 
 																<p><i class="fa fa-calendar"> ${reviewInfo.reviewDate }</p></i>
 																<p>리뷰 내용: ${reviewInfo.reviewContents}</p>
 																<p>평점: ${reviewInfo.avgScore}</p>
 																<p>리뷰 번호: ${reviewInfo.reviewNo}</p>
-<%-- 																	</c:forEach> --%>
+ 																	</c:forEach> 
 															</div>
 													
 													</table>
@@ -619,17 +620,16 @@
 					<h6 class="text-center">가게 메뉴</h6>
 					
 					
-					<!-- Heading Ends -->
 					<!-- Order Content Starts -->
 					<div class="side-block-order-content">
-<%-- 						<c:forEach var="menuInfo" items="${menuInfo}"> --%>
+						<c:forEach var="menuInfo" items="${menuInfo}">
 						<ul class="list-unstyled order-item-list">
 							<li class="clearfix">
 								<span class="float-left"> ${menuInfo.menu } </span>
 								<span class="float-right text-sql-color">${menuInfo.price }￦</span>
 							</li>
 						</ul>
-<%-- 						</c:forEach> --%>
+						</c:forEach>
 					</div>
 					<%-- <c:forEach var="menuInfo2" items="${menuListView.menuInfoList}">
 						 ${menuInfo2.menu }  &nbsp;&nbsp;&nbsp;
@@ -644,6 +644,8 @@
 
 			</div>
 	</div>
+
+
 
 
 <script type="text/javascript">
