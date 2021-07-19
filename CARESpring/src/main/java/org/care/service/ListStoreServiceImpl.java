@@ -64,11 +64,9 @@ public class ListStoreServiceImpl implements ListStoreService {
 		return (List<StoreInfo>) listStoreMapper.read(storeNo);
 	}
 
-
 	@Override
 	public List<StoreDTO> listTop(StoreDTO dto) {
 		return listStoreMapper.topList(dto);
 		
 	}
-
 }
