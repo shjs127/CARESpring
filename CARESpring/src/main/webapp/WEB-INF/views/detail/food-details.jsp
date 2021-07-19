@@ -3,17 +3,6 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<%@ page import="java.sql.DriverManager"%>
-<%@ page import="java.sql.Connection"%>
-<%@ page import="java.sql.Statement"%>
-<%@ page import="java.sql.ResultSet"%>
-<%@ page import="java.sql.*"%>
-
-
-<%-- <%@ page import="auth.service.Message"
-	import="auth.service.MessageListView"
-	import="auth.service.GetMessageListViewService"%> --%>
-
 <%@ include file="../include/header.jspf"%>
 
 <style type="text/css">
@@ -49,10 +38,6 @@
 	margin-top: 2%;
 }
 </style>
-
-<!-- <script>
-	console.log("${storeInfo[0].address}")
-</script> -->
 
 <!-- Search Section Starts -->
 <section class="search-area condensed parallax">
@@ -96,9 +81,7 @@
 <div class="main-container container">
 	<!-- Heading Starts -->
 	<h4 class="main-heading-1 text-xs-center text-sm-center text-md-left">
-	<c:forEach var="storeInfo" items="${storeInfo}">
 		${storeInfo.storeName}
-	</c:forEach>
 		<ul class="list-unstyled float-lg-right text-lg-right">
 			<li class="list-inline-item">${storeAvg}</li>
 		</ul>
@@ -155,16 +138,13 @@
 							<div class="col-md-4 col-sm-12">
 								<div class="side-block-1">
 									<h6>정보</h6>
-									<c:forEach var="storeInfo" items="${storeInfo}">
 									<ul class="list-unstyled list-style-2">
 										<li>주소 : ${storeInfo.address }</li>
 										<li>영업시간 : ${storeInfo.hours }</li>
 										<li>휴무일 : ${storeInfo.closedDays }</li>
 										<li>전화번호 : ${storeInfo.callNumber }</li>
 									</ul>
-									</c:forEach>
 									<hr>
-									<c:forEach var="detailInfo" items="${detailInfo}">
 									&ensp;&ensp;총 좌석 수: <span class="float-right text-spl-color">${detailInfo.totalSeat }개&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</span><br>
 									&ensp;&ensp;충전기가 있는 좌석 수: <span class="float-right text-spl-color">${detailInfo.socketSeat }개&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</span><br>
 									&ensp;&ensp;디저트: <span class="float-right text-spl-color">${detailInfo.dessertSales }&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</span><br>
@@ -175,7 +155,6 @@
 									&ensp;&ensp;주차공간: <span class="float-right text-spl-color">${detailInfo.parkingSpace }&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</span><br>
 									&ensp;&ensp;노키즈존: <span class="float-right text-spl-color">${detailInfo.noKidsZone }&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</span><br>
 									&ensp;&ensp;흡연존: <span class="float-right text-spl-color">${detailInfo.smokingArea }&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</span><br>
-									</c:forEach>
 								</div>
 
 							</div>
@@ -195,8 +174,8 @@
 									<script type="text/javascript"
 										src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ecfa9545ea95f1247efbf60cf9429d4c&libraries=services"></script>
 									<script>
-										var storeAddress = "${storeInfo[0].address}";
-										var storeName = "${storeInfo[0].storeName}";
+										var storeAddress = "${storeInfo.address}";
+										var storeName = "${storeInfo.storeName}";
 										var mapContainer = document
 												.getElementById('map'), // 지도를 표시할 div 
 										mapOption = {
@@ -272,54 +251,54 @@
 						<div class="row">
 							<!-- Left Column Starts -->
 							<div class="col-md-4 col-sm-12">
-								<script>
-									function wishList1() {
-										let answer = confirm("로그인이 필요합니다.");
+<!-- 								<script> -->
+// 									function wishList1() {
+// 										let answer = confirm("로그인이 필요합니다.");
 
-										if (answer == true) {
-											location.href = "/CARE/login.do";
-										} else if (answer != true) {
+// 										if (answer == true) {
+// 											location.href = "/CARE/login.do";
+// 										} else if (answer != true) {
 
-										}
+// 										}
 
-									}
-									$(function() {
-										$("#starCheck")
-												.on(
-														"click",
-														function() {
+// 									}
+// 									$(function() {
+// 										$("#starCheck")
+// 												.on(
+// 														"click",
+// 														function() {
 
-															var storeNo = "${storeinfo[0].storeNo}";
-															var userNo = "${authUser[0].userNo}";
-															var sendData = 'storeNo='
-																	+ storeNo
-																	+ '&userNo='
-																	+ userNo;
+// 															var storeNo = "${storeinfo[0].storeNo}";
+// 															var userNo = "${authUser[0].userNo}";
+// 															var sendData = 'storeNo='
+// 																	+ storeNo
+// 																	+ '&userNo='
+// 																	+ userNo;
 
-															if (userNo == "") {
+// 															if (userNo == "") {
 
-																let answer = confirm("로그인이 필요합니다.");
-																if (answer == true) {
-																	location.href = "/CARE/login.do";
-																} else if (answer != true) {
+// 																let answer = confirm("로그인이 필요합니다.");
+// 																if (answer == true) {
+// 																	location.href = "/CARE/login.do";
+// 																} else if (answer != true) {
 
-																}
+// 																}
 
-															}
+// 															}
 
-															$
-																	.ajax({
-																		url : "favorite.do",
-																		type : "POST",
-																		data : sendData,
-																		success : function() {
-																			location
-																					.reload();
-																		}
-																	});
-														});
-									});
-								</script>
+// 															$
+// 																	.ajax({
+// 																		url : "favorite.do",
+// 																		type : "POST",
+// 																		data : sendData,
+// 																		success : function() {
+// 																			location
+// 																					.reload();
+// 																		}
+// 																	});
+// 														});
+// 									});
+<!-- 								</script> -->
 
 								<br>
 							</div>
@@ -417,16 +396,13 @@
 							<div class="col-md-4 col-sm-12">
 								<div class="side-block-1">
 									<h6>정보</h6>
-										<c:forEach var="storeInfo" items="${storeInfo}">
 									<ul class="list-unstyled list-style-2">
 										<li>주소 : ${storeInfo.address }</li>
 										<li>영업시간 : ${storeInfo.hours }</li>
 										<li>휴무일 : ${storeInfo.closedDays }</li>
 										<li>전화번호 : ${storeInfo.callNumber }</li>
 									</ul>
-									</c:forEach>
 									<hr>
-									<c:forEach var="detailInfo" items="${detailInfo}">
 									&ensp;&ensp;총 좌석 수: <span class="float-right text-spl-color">${detailInfo.totalSeat }개&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</span><br>
 									&ensp;&ensp;충전기가 있는 좌석 수: <span class="float-right text-spl-color">${detailInfo.socketSeat }개&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</span><br>
 									&ensp;&ensp;디저트: <span class="float-right text-spl-color">${detailInfo.dessertSales }&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</span><br>
@@ -437,7 +413,6 @@
 									&ensp;&ensp;주차공간: <span class="float-right text-spl-color">${detailInfo.parkingSpace }&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</span><br>
 									&ensp;&ensp;노키즈존: <span class="float-right text-spl-color">${detailInfo.noKidsZone }&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</span><br>
 									&ensp;&ensp;흡연존: <span class="float-right text-spl-color">${detailInfo.smokingArea }&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</span><br>
-									</c:forEach>
 								</div>
 							</div>
 							<!-- Left Column Ends -->
@@ -536,12 +511,12 @@
 															
 															
 															<div class="review-list-content">
-															<c:forEach var="reviewInfo" items="${reviewInfo}">
+<%-- 															<c:forEach var="reviewInfo" items="${reviewInfo}"> --%>
 																<p><i class="fa fa-calendar"> ${reviewInfo.reviewDate }</p></i>
 																<p>리뷰 내용: ${reviewInfo.reviewContents}</p>
 																<p>평점: ${reviewInfo.avgScore}</p>
 																<p>리뷰 번호: ${reviewInfo.reviewNo}</p>
-																	</c:forEach>
+<%-- 																	</c:forEach> --%>
 															</div>
 													
 													</table>
@@ -647,14 +622,14 @@
 					<!-- Heading Ends -->
 					<!-- Order Content Starts -->
 					<div class="side-block-order-content">
-						<c:forEach var="menuInfo" items="${menuInfo}">
+<%-- 						<c:forEach var="menuInfo" items="${menuInfo}"> --%>
 						<ul class="list-unstyled order-item-list">
 							<li class="clearfix">
 								<span class="float-left"> ${menuInfo.menu } </span>
 								<span class="float-right text-sql-color">${menuInfo.price }￦</span>
 							</li>
 						</ul>
-						</c:forEach>
+<%-- 						</c:forEach> --%>
 					</div>
 					<%-- <c:forEach var="menuInfo2" items="${menuListView.menuInfoList}">
 						 ${menuInfo2.menu }  &nbsp;&nbsp;&nbsp;

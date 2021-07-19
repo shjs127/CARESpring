@@ -55,9 +55,11 @@ public class ListStoreController {
 	@RequestMapping(value = "/storeList/detail", method = RequestMethod.GET)
 	public String StoreDetailPage(@RequestParam("storeNo") int storeNo, @ModelAttribute("cri") SearchCriteria cri, Model model) throws Exception {
 		
-		model.addAttribute(service.read(storeNo));
+		StoreInfo storeInfo = service.read(storeNo);
 		
-		return "detail/food-detail";
+		model.addAttribute("storeInfo", storeInfo);
+		
+		return "detail/food-details";
 	}
 	 
 	 
