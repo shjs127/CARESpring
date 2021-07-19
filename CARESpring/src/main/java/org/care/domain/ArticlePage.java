@@ -7,7 +7,7 @@ public class ArticlePage {
 	private int total;
 	private int currentPage;
 	private List<BoardInfo> list;
-	private List<BoardPic> picList;
+	private List<BoardPicInfo> picList;
 	private int totalPages;
 	private int startPage;
 	private int endPage;
@@ -39,7 +39,7 @@ public class ArticlePage {
 		}
 	}
 
-	public ArticlePage(List<BoardPic> picList) {
+	public ArticlePage(List<BoardPicInfo> picList) {
 		this.picList = picList;
 	}
 
@@ -79,11 +79,11 @@ public class ArticlePage {
 		return pageV;
 	}
 
-	public List<BoardPic> getPicList() {
+	public List<BoardPicInfo> getPicList() {
 		return picList;
 	}
 
-	public void setPicList(List<BoardPic> picList) {
+	public void setPicList(List<BoardPicInfo> picList) {
 		this.picList = picList;
 	}
 

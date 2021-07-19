@@ -10,7 +10,7 @@ public class ReviewDTO {
 	private int reviewNo;
 	private int userNo;
 	private int storeNo;
-	private int avgScore;
+	private double avgScore;
 	private String reviewContents;
 	private Date reviewDate;
 	

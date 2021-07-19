@@ -12,9 +12,6 @@ import org.care.domain.DetailInfo;
 import org.care.domain.MenuInfo;
 import org.care.domain.ReviewInfo;
 import org.care.domain.StoreInfo;
-import org.care.dto.DetailDTO;
-import org.care.dto.MenuDTO;
-import org.care.dto.ReviewDTO;
 import org.care.dto.StoreDTO;
 import org.care.service.FoodService;
 import org.springframework.stereotype.Controller;
@@ -25,39 +22,55 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class FoodController {
 
+	
+
 	@Inject
 	public FoodService foodService;
+	
 
-	@RequestMapping(value = "/storeDetail", method = RequestMethod.GET)
-	public String StoreInfoList(StoreDTO dto, DetailDTO dto1, ReviewDTO dto2, MenuDTO dto3, HttpServletRequest req, Model model) throws Exception {
-
-		List<StoreInfo> storeInfo = foodService.selectStore(dto);
+	@RequestMapping(value = "/storeDetail", method = {RequestMethod.GET})
+	public String FoodService(StoreInfo sInfo, DetailInfo dInfo, ReviewInfo rInfo, MenuInfo mInfo, HttpServletRequest req, Model model) throws Exception {  //StoreInfo storeInfo, DetailInfo detailInfo, ReviewInfo reviewInfo, MenuInfo menuInfo뺌
+  
+    
+		System.out.println("ReviewInfo.reviewContents="+rInfo.getReviewContents());
+		StoreInfo storeInfo = foodService.selectStore(sInfo);
 		model.addAttribute("storeInfo", storeInfo);
-		
-		
-		
-		List<DetailInfo> detailInfo = foodService.selectDetail(dto1);
+
+		DetailInfo detailInfo = foodService.selectDetail(dInfo);
 		model.addAttribute("detailInfo", detailInfo);
-		
-		
-		
-		List<ReviewInfo> reviewInfo = foodService.selectReview(dto2);
+
+		List<ReviewInfo> reviewInfo = foodService.selectReview(rInfo);
+		//foodService.insertReview(rInfo);
 		model.addAttribute("reviewInfo", reviewInfo);
-		
-		
-		
-		List<MenuInfo> menuInfo = foodService.selectMenu(dto3);
+
+		List<MenuInfo> menuInfo = foodService.selectMenu(mInfo);
 		model.addAttribute("menuInfo", menuInfo);
-		
+
 		return "detail/food-details";
 
-		  }
-		
-		
-		
-
-	 
+	}
 	
+
+	@RequestMapping(value = "/storeDetail", method = {RequestMethod.POST})
+	public String Insert(StoreInfo sInfo, DetailInfo dInfo, ReviewInfo rInfo, MenuInfo mInfo, HttpServletRequest req, Model model) throws Exception { 
+		//StoreInfo storeInfo, DetailInfo detailInfo, ReviewInfo reviewInfo, MenuInfo menuInfo뺌
+		
+		System.out.println("ReviewInfo.reviewContents="+rInfo.getReviewContents());
+		StoreInfo storeInfo = foodService.selectStore(sInfo);
+		model.addAttribute("storeInfo", storeInfo);
+
+		DetailInfo detailInfo = foodService.selectDetail(dInfo);
+		model.addAttribute("detailInfo", detailInfo);
+		
+		List<ReviewInfo> reviewInfo = foodService.selectReview(rInfo);
+		foodService.insertReview(rInfo);
+		model.addAttribute("reviewInfo", reviewInfo);
+		
+		List<MenuInfo> menuInfo = foodService.selectMenu(mInfo);
+		model.addAttribute("menuInfo", menuInfo);
+
+		return "detail/food-details";
+	}
 
 	@RequestMapping(value = "/login/storeinSuccess", method = RequestMethod.POST)
 	public void storeinPOST(StoreDTO dto, HttpSession session, Model model) throws Exception {
@@ -72,14 +85,14 @@ public class FoodController {
 
 	}
 
-	@RequestMapping(value = "/storeLogout", method = RequestMethod.GET) 
+	@RequestMapping(value = "/storeLogout", method = RequestMethod.GET)
 	public String logout(HttpServletRequest request, HttpServletResponse response, HttpSession session)
 			throws Exception {
 
 		Object obj = session.getAttribute("storein");
 
 		if (obj != null) {
-	
+
 			session.removeAttribute("storein");
 			session.invalidate();
 
@@ -87,5 +100,9 @@ public class FoodController {
 
 		return "login/storeLogout";
 	}
+
+
+
+
 
 }

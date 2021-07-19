@@ -167,7 +167,7 @@
 					if (session.getAttribute("login") != null) {
 				%>
 				<div style="float: right;">
-					<a href="write.do"
+					<a href="write"
 						class="btn btn-prime text-weight-bold text-uppercase animation"
 						style="margin-bottom: 14px;">글쓰기</a>
 				</div>
