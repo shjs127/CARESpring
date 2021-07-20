@@ -68,12 +68,12 @@ textarea {
 				return true;
 		}
 	</script>
-	<form onsubmit="return modify()" action="modify.do" method="post" enctype="multipart/form-data">
+	<form onsubmit="return modify()" action="modify" method="post" enctype="multipart/form-data">
 		<table class="table">
 			<tbody>
 				<tr>
 					<td>파일명 :</td>
-					<td><input type="file" name="fileName1"></td>
+					<td><input type="file" name="file"></td>
 				</tr>
 				<tr>
 					<th>제목</th>
@@ -84,7 +84,7 @@ textarea {
 				</tr>
 				<tr>
 					<th>작성자</th>
-					<td>${modReq.userId}</td>
+					<td>${nickName.nickName}</td>
 				</tr>
 				<tr class="content">
 					<td colspan="4"><textarea name="boardContents" rows="12"

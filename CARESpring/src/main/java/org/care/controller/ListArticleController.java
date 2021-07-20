@@ -12,6 +12,7 @@ import org.care.domain.BoardPicInfo;
 import org.care.domain.UserInfo;
 import org.care.dto.BoardDTO;
 import org.care.service.ListArticleService;
+import org.care.service.ModifyArticleService;
 import org.care.service.ReadArticleService;
 import org.care.service.WriteArticleService;
 import org.slf4j.Logger;
@@ -40,7 +41,9 @@ public class ListArticleController {
 
 	@Inject
 	private WriteArticleService writeService;
-//	private LoginService loginService;
+	
+	@Inject
+	private ModifyArticleService modifyService;
 
 	@RequestMapping(value = "/listArticle", method = RequestMethod.GET)
 	public String listArticleForm(HttpServletRequest req, Model model) throws Exception {
@@ -94,8 +97,9 @@ public class ListArticleController {
 		model.addAttribute("boardInfoList", readService.view(dto));
 		model.addAttribute("nextBoardNo", readService.nextView(dto));
 		model.addAttribute("prevBoardNo", readService.prevView(dto));
-//		req.getSession().setAttribute("articleUser", loginService.selectByUserNo(articleData.getBoardInfo().getUserNo());
 		model.addAttribute("boardInfo", readService.getArticle(dto));
+		model.addAttribute("nickName", readService.getName(dto));
+		
 		return "board/readArticle";
 	}
 
@@ -125,6 +129,37 @@ public class ListArticleController {
 		return "board/success";
 	}
 
+	
+	@RequestMapping(value = "/modify", method = RequestMethod.GET)
+	public String ModifyForm(BoardDTO dto, Model model) throws Exception {
+		
+		model.addAttribute("nickName", readService.getName(dto));
+		model.addAttribute("modReq", dto);
+		
+		return "board/modifyForm";
+	}
+	
+	@RequestMapping(value = "/modify", method = RequestMethod.POST)
+	public String ModifySubmit(MultipartFile file, BoardDTO dto, Model model) throws Exception {
+		
+		BoardPicInfo pic = new BoardPicInfo();
+		
+		
+		modifyService.update(dto);
+		
+		//파일을 선택한 경우에만 업로드 실행
+		if(file.getOriginalFilename() != "") {
+		String save = uploadFile(file.getOriginalFilename(), file.getBytes());
+		
+		pic.setBoardPic1(save);
+		pic.setBoardNo(dto.getBoardNo());
+		modifyService.updatePic(pic);
+		}
+
+		return "board/success";
+		
+	}
+	
 	private String uploadFile(String originalName, byte[] fileData) throws Exception {
 
 		//이름이 중복되지 않도록 랜덤하게 이름을 추가

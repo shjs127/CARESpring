@@ -7,6 +7,7 @@ import org.care.domain.BoardInfoList;
 import org.care.domain.BoardPicInfo;
 import org.care.domain.NextNo;
 import org.care.domain.PrevNo;
+import org.care.domain.UserInfo;
 import org.care.dto.BoardDTO;
 import org.care.mapper.BoardListMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,14 +36,19 @@ public class ReadArticleServiceImpl implements ReadArticleService {
 
 	@Override
 	public NextNo nextView(BoardDTO dto) throws Exception {
-		System.out.println("nextView = "+ boardListMapper.nextView(dto));
 		return boardListMapper.nextView(dto);
 	}
 
 	@Override
 	public PrevNo prevView(BoardDTO dto) throws Exception {
-		System.out.println("prevView = "+ boardListMapper.prevView(dto));
 		return boardListMapper.prevView(dto);
 	}
+	
+	public UserInfo getName(BoardDTO dto) throws Exception {
+		
+		int userNo = boardListMapper.getUserNo(dto);
+		return boardListMapper.getName(userNo);
+	}
+
 	
 }

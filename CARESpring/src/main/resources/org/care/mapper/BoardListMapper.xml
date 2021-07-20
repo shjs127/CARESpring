@@ -39,12 +39,7 @@
 	</select>
 
 	<select id="selectBoardList" resultType="org.care.domain.BoardInfo">
-<!-- 		SELECT BOARDINFO.* FROM (SELECT -->
-<!-- 		ROWNUM AS RNUM, BOARDINFO.* FROM BOARDINFO -->
-<!-- 		ORDER BY BOARDNO DESC) -->
-<!-- 		BOARDINFO -->
-<!-- 		WHERE RNUM BETWEEN #{startRow}, AND #{size} -->
-SELECT * FROM BOARDINFO
+		SELECT * FROM BOARDINFO
 
 	</select>
 
@@ -59,17 +54,17 @@ SELECT * FROM BOARDINFO
 	</update>
 
 	<update id="update">
-		UPDATE BOARDINFO SET BOARDTITLE = ${boardTitle} where
-		BOARDNO = ${boardNo}
+		  UPDATE BOARDINFO SET BOARDTITLE = #{boardTitle}, BOARDCONTENTS = #{boardContents} where
+		BOARDNO = #{boardNo}
 	</update>
 
 	<delete id="delete">
 		DELETE FROM BOARDINFO WHERE BOARDNO = ${boardNo}
 	</delete>
 
-	<update id="picUpdate">
-		UPDATE BOARDPIC SET BOARDPIC1 = ${boardPic1} WHERE
-		BOARDNO = ${boardNo}
+	<update id="updatePic">
+		UPDATE BOARDPIC SET BOARDPIC1 = #{boardPic1} WHERE
+		BOARDNO = #{boardNo}
 	</update>
 
 	<insert id="picInsert">
@@ -110,6 +105,16 @@ SELECT * FROM BOARDINFO
 		LAG(BOARDNO) OVER (ORDER BY BOARDNO) PREVNO
 		FROM BOARDINFO ORDER BY BOARDNO
 		)
+		WHERE BOARDNO = #{boardNo}
+	</select>
+	
+	<select id="getName" resultType="org.care.domain.UserInfo">
+		SELECT NICKNAME FROM USERINFO
+		WHERE USERNO = #{userNo}
+	</select>
+	
+	<select id="getUserNo" resultType="int">
+		SELECT USERNO FROM BOARDINFO
 		WHERE BOARDNO = #{boardNo}
 	</select>
 

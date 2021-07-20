@@ -20,7 +20,7 @@
 		</tr>
 		<tr>
 			<th>작성자</th>
-<%-- 			<td>${articleUser.nickName}</td> --%>
+ 			<td>${nickName.nickName}</td> 
 			<th>조회수</th>
 			<td>${boardInfo.viewCount}</td>
 		</tr>
@@ -99,7 +99,7 @@
 <input type="hidden" name="boardNo">
 <div style="text-align: right;">
 
-	<c:if test="${boardInfo.userNo == authUser.userNo}">
+	<c:if test="${boardInfo.userNo == login.userNo}">
 		<form name="removefrm" action="delete.do" method="post">
 			<!-- <td> -->
 			<input type="button" onclick="removeCheck()" value="삭제" class="btn btn-prime text-weight-bold text-uppercase animation"> <input
@@ -127,7 +127,7 @@
 			</script>
 		</form>
 
-		<a href="modify.do?boardNo=${boardInfo.boardNo}"> <input
+		<a href="modify?boardNo=${boardInfo.boardNo}"> <input
 			type="button" value="수정" class="btn btn-prime text-weight-bold text-uppercase animation">
 		</a>
 		<!-- </td> -->
