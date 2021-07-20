@@ -404,27 +404,29 @@
 
 											<div class="box-body">
 
-												<%-- <%
-													// 현재 로그인된 아이디가 없다면 (= session에 저장된 id가 없다면)
-												if (session.getAttribute("authUser") == null) {
-												%>
-												<a href="#"
-													class="btn btn-black animation text-uppercase float-right"
-													onclick="wishList1();">리뷰쓰기</a>
-												<%
-													}
-
-												// 현재 로그인된 아이디가 있다면 (= session에 저장된 id가 있다면)
-												else {
-												%> --%>
 
 												<div class="box-body">
 
 
-													<form action="storeDetail" method="post" id="writeForm">
-														<!-- // form에 ID 지정 -->
-														<%-- <input type="hidden" name="storeNo"
+													<%
+														// 현재 로그인된 아이디가 없다면 (= session에 저장된 id가 없다면)
+													if (session.getAttribute("login") == null && session.getAttribute("storein") == null) {
+													%>
+													<input type="submit" value="리뷰쓰기" class="btn btn-black animation text-uppercase float-right" 
+													onclick="rlogin()"/></a>
+													<br>
+													
+													<%
+														}
+													// 현재 로그인된 아이디가 있다면 (= session에 저장된 id가 있다면)
+													else if (session.getAttribute("storein") != null) {
+													%>
+													
+													<!-- // form에 ID 지정 -->
+													<%-- <input type="hidden" name="storeNo"
 															value="${reviewInfo.storeNo }" /> --%>
+
+													<form action="storeDetail" method="post" id="writeForm">
 														<p>
 															<textarea name="reviewContents" cols="60" rows="10"
 																placeholder="리뷰를 작성하세요">
@@ -441,6 +443,8 @@
 															<option value="5" selected>★★★★★</option>
 														</select> <br> <br>
 
+
+
 														<p>
 															<input type="submit" value="리뷰쓰기"
 																class="btn btn-black animation text-uppercase float-right" />
@@ -455,9 +459,9 @@
 														</tr>
 													</form>
 
-													<%-- <%
-														}
-													%> --%>
+													<%
+														} 
+													%>
 
 												</div>
 											</div>
@@ -483,31 +487,34 @@
 												<c:if test="${!view.isEmpty()}">
 													<table border="1">
 
-<!--  -->
+														<!--  -->
 														<div class="review-list-content">
 
 															<c:forEach var="reviewInfo" items="${reviewInfo}">
 																<p>
 																	<i class="fa fa-calendar"> ${reviewInfo.reviewDate}</i>
 																</p>
-																<p>닉네임: ${reviewInfo.nickName}
+																<p>닉네임: ${reviewInfo.nickName}</p>
 																<p>리뷰 내용: ${reviewInfo.reviewContents}</p>
 																<p>평점: ${reviewInfo.avgScore}</p>
 																<p>리뷰 번호: ${reviewInfo.reviewNo}</p>
-																<p><form action="storeDetail" method="post"/>
-																<input type="button" value="수정" onclick="location.href='modify?seq=${reviewInfo.reviewNo}'">
-																<input type="button" value="삭제" onclick="del(${reviewInfo.reviewNo})">
+																<p>
+																<form action="storeDetail" method="post" />
+																<input type="button" value="수정"
+																	onclick="location.href='modify?seq=${reviewInfo.reviewNo}'">
+																<input type="button" value="삭제"
+																	onclick="del(${reviewInfo.reviewNo})">
 																</form>
 																</p>
-																
-																	<%-- <p> ${reviewPic.reviewPic1}</p> --%>
- 																	
-																</c:forEach> 
-															</div>
-													
+
+																<%-- <p> ${reviewPic.reviewPic1}</p> --%>
+
+															</c:forEach>
+														</div>
+
 													</table>
 
-													
+
 												</c:if>
 											</div>
 										</div>
@@ -596,33 +603,32 @@
 			</div>
 		</div>
 		<div class="col-md-3 col-sm-12">
-				<!-- Spacer Starts -->
-				<div class="spacer-1 medium d-xs-block d-sm-block d-md-none"></div>
-				<!-- Spacer Ends -->
-				<!-- Your Order Starts -->
-				<div class="side-block-order border-radius-4">
-					<!-- Heading Starts -->
-					<h6 class="text-center">가게 메뉴</h6>
-					
-					
-					<!-- Order Content Starts -->
-					<div class="side-block-order-content">
-						<c:forEach var="menuInfo" items="${menuInfo}">
+			<!-- Spacer Starts -->
+			<div class="spacer-1 medium d-xs-block d-sm-block d-md-none"></div>
+			<!-- Spacer Ends -->
+			<!-- Your Order Starts -->
+			<div class="side-block-order border-radius-4">
+				<!-- Heading Starts -->
+				<h6 class="text-center">가게 메뉴</h6>
+
+
+				<!-- Order Content Starts -->
+				<div class="side-block-order-content">
+					<c:forEach var="menuInfo" items="${menuInfo}">
 						<ul class="list-unstyled order-item-list">
-							<li class="clearfix">
-								<span class="float-left"> ${menuInfo.menu} </span>
-								<span class="float-right text-sql-color">${menuInfo.price}￦</span>
+							<li class="clearfix"><span class="float-left">
+									${menuInfo.menu} </span> <span class="float-right text-sql-color">${menuInfo.price}￦</span>
 							</li>
 						</ul>
-						</c:forEach>
-					</div>
-					
+					</c:forEach>
+				</div>
 
-				</div>
-				</div>
 
 			</div>
+		</div>
+
 	</div>
+</div>
 
 
 
@@ -631,10 +637,29 @@
 	function del(seq) {
 		var chk = confirm("정말 삭제하시겠습니까?");
 		if (chk) {
-			location.href='delete?seq='+seq;
+			location.href='storeDetail';
 		}
 	}	
 </script>
+
+<script>
+	function rlogin(seq) {
+		var chk = confirm("로그인이 필요합니다.");
+		if (chk) {
+			location.href='login';
+		}
+	}	
+</script>
+
+
+<!-- <script>
+	function del(seq) {
+		var chk = confirm("정말 삭제하시겠습니까?");
+		if (chk) {
+			location.href='food-details'+seq;
+		}
+	}	
+</script> -->
 
 
 <script type="text/javascript">

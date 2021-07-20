@@ -13,5 +13,6 @@ public class ReviewInfo {
 	private double avgScore;
 	private String reviewContents;
 	private Date reviewDate;
+	private String nickName;
 	
 }
