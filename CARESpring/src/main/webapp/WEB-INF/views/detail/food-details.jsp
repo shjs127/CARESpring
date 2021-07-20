@@ -640,13 +640,17 @@
 		var chk = confirm("정말 삭제하시겠습니까?");
 		if (chk) {
 			location.href='deleteReview?seq=' + revReq;
+			
+		
 		}
+		window.location.reload();
 	}	
 	
 	function rlogin(seq) {
 		var chk = confirm("로그인이 필요합니다.");
 		if (chk) {
 			location.href='login';
+			
 		}
 	}	
 </script>
