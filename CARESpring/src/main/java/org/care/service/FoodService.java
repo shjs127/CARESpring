@@ -15,12 +15,8 @@ public interface FoodService {
   public List<ReviewInfo> selectReview(ReviewInfo reviewInfo) throws Exception;
   public List<ReviewInfo> selectReviewList(ReviewInfo reviewInfo) throws Exception;
   public List<ReviewInfo> insertReview(ReviewInfo reviewInfo) throws Exception;
-	/*
-	 * public void deleteReview(List<ReviewInfo> reviewInfoList) throws Exception;
-	 */
   public List<MenuInfo> selectMenu(MenuInfo menuInfo) throws Exception;
   public List<Favorite> selectFavorite(Favorite favorite) throws Exception;
-  public void deleteReview(List<ReviewInfo> reviewInfoList) throws Exception;
   public StoreInfo login(StoreDTO dto) throws Exception;
 
 }

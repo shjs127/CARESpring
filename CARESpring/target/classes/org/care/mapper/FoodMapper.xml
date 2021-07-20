@@ -57,11 +57,10 @@
 		VALUES(REVIEWNUM.NEXTVAL,1,1,#{avgScore},#{reviewContents}, SYSDATE)
 	</select>
 
-	<select id="deleteReview"
-		resultType="org.care.domain.ReviewInfo">
+	<delete id="deleteReview" parameterType="string">
 		DELETE REVIEWINFO
-		WHERE REVIEWNO = ${reviewNo} 
-	</select>
+		WHERE REVIEWNO = #{param}
+	</delete>
 
 	<select id="selectFavorite"
 		resultType="org.care.domain.Favorite">

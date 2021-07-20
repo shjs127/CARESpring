@@ -501,9 +501,9 @@
 																<p>
 																<form action="storeDetail" method="post" />
 																<input type="button" value="수정"
-																	onclick="location.href='modify?seq=${reviewInfo.reviewNo}'">
+																	onclick="modifyReview(${reviewInfo.reviewNo})">
 																<input type="button" value="삭제"
-																	onclick="del(${reviewInfo.reviewNo})">
+																	onclick="deleteReview(${reviewInfo.reviewNo})">
 																</form>
 																</p>
 
@@ -634,15 +634,15 @@
 
 
 <script>
-	function del(seq) {
+	
+	
+	function deleteReview(revReq) {
 		var chk = confirm("정말 삭제하시겠습니까?");
 		if (chk) {
-			location.href='storeDetail';
+			location.href='deleteReview?seq=' + revReq;
 		}
 	}	
-</script>
-
-<script>
+	
 	function rlogin(seq) {
 		var chk = confirm("로그인이 필요합니다.");
 		if (chk) {

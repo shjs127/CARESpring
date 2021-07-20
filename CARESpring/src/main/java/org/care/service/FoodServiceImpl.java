@@ -51,15 +51,6 @@ public class FoodServiceImpl implements FoodService {
 		
 	}
 	
-	
-	  @Override
-	  public void deleteReview(List<ReviewInfo> reviewInfoList) throws Exception {
-	  
-	  foodMapper.deleteReview(reviewInfoList);
-	 
-	  }
-	
-	
 	@Override
 	public List<ReviewInfo> insertReview(ReviewInfo reviewInfo) throws Exception {
 		
