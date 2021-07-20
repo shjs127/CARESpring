@@ -419,7 +419,7 @@
 													<%
 														}
 													// 현재 로그인된 아이디가 있다면 (= session에 저장된 id가 있다면)
-													else if (session.getAttribute("storein") != null) {
+													else if (session.getAttribute("login") != null) {
 													%>
 													
 													<!-- // form에 ID 지정 -->
