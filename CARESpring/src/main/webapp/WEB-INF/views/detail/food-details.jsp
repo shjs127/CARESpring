@@ -34,7 +34,7 @@
 	height: 450px;
 	position: relative;
 	overflow: hidden;
-	background: url('./pages/image/loading_n.png');
+	/* background: url('./pages/image/loading_n.png'); */
 	margin-top: 2%;
 }
 </style>
@@ -68,8 +68,11 @@
 	<!-- Nested Container Starts -->
 	<div class="container text-xs-center text-sm-center text-md-left">
 		<ul class="list-unstyled list-inline">
-			<li class="list-inline-item"><a href="${pageContext.request.contextPath }/main/index.do">홈</a></li>
-			<li class="list-inline-item"><a href="${pageContext.request.contextPath }/board/storelist.do">매장 리스트</a></li>
+			<li class="list-inline-item"><a
+				href="${pageContext.request.contextPath }/main/index.do">홈</a></li>
+			<li class="list-inline-item"><a
+				href="${pageContext.request.contextPath }/board/storelist.do">매장
+					리스트</a></li>
 			<li class="active list-inline-item">매장 상세 정보</li>
 		</ul>
 
@@ -85,7 +88,7 @@
 		<ul class="list-unstyled float-lg-right text-lg-right">
 			<li class="list-inline-item">${storeAvg}</li>
 		</ul>
-		
+
 		<c:if test="${isExisFavoriteData}">
 			<button id="starCheck">
 				<ul class="list-unstyled list-inline rating-star-list">
@@ -146,7 +149,8 @@
 									</ul>
 									<hr>
 									&ensp;&ensp;총 좌석 수: <span class="float-right text-spl-color">${detailInfo.totalSeat }개&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</span><br>
-									&ensp;&ensp;충전기가 있는 좌석 수: <span class="float-right text-spl-color">${detailInfo.socketSeat }개&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</span><br>
+									&ensp;&ensp;충전기가 있는 좌석 수: <span
+										class="float-right text-spl-color">${detailInfo.socketSeat }개&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</span><br>
 									&ensp;&ensp;디저트: <span class="float-right text-spl-color">${detailInfo.dessertSales }&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</span><br>
 									&ensp;&ensp;테라스: <span class="float-right text-spl-color">${detailInfo.terrace }&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</span><br>
 									&ensp;&ensp;루프탑: <span class="float-right text-spl-color">${detailInfo.roofTop }&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</span><br>
@@ -220,7 +224,8 @@
 
 																// 지도의 중심을 결과값으로 받은 위치로 이동시킵니다 
 																map.relayout();
-																map.setCenter(coords);
+																map
+																		.setCenter(coords);
 																// 												map.setLevel(4);
 																// 												map.setLevel(3);
 																// 												map.relayout();
@@ -251,54 +256,21 @@
 						<div class="row">
 							<!-- Left Column Starts -->
 							<div class="col-md-4 col-sm-12">
-<!-- 								<script> -->
-// 									function wishList1() {
-// 										let answer = confirm("로그인이 필요합니다.");
+								<!-- 								<script> -->
+								// function wishList1() { // let answer = confirm("로그인이
+								필요합니다."); // if (answer == true) { // location.href =
+								"/CARE/login.do"; // } else if (answer != true) { // } // } //
+								$(function() { // $("#starCheck") // .on( // "click", //
+								function() { // var storeNo = "${storeinfo[0].storeNo}"; // var
+								userNo = "${authUser[0].userNo}"; // var sendData = 'storeNo='
+								// + storeNo // + '&userNo=' // + userNo; // if (userNo == "") {
 
-// 										if (answer == true) {
-// 											location.href = "/CARE/login.do";
-// 										} else if (answer != true) {
-
-// 										}
-
-// 									}
-// 									$(function() {
-// 										$("#starCheck")
-// 												.on(
-// 														"click",
-// 														function() {
-
-// 															var storeNo = "${storeinfo[0].storeNo}";
-// 															var userNo = "${authUser[0].userNo}";
-// 															var sendData = 'storeNo='
-// 																	+ storeNo
-// 																	+ '&userNo='
-// 																	+ userNo;
-
-// 															if (userNo == "") {
-
-// 																let answer = confirm("로그인이 필요합니다.");
-// 																if (answer == true) {
-// 																	location.href = "/CARE/login.do";
-// 																} else if (answer != true) {
-
-// 																}
-
-// 															}
-
-// 															$
-// 																	.ajax({
-// 																		url : "favorite.do",
-// 																		type : "POST",
-// 																		data : sendData,
-// 																		success : function() {
-// 																			location
-// 																					.reload();
-// 																		}
-// 																	});
-// 														});
-// 									});
-<!-- 								</script> -->
+								// let answer = confirm("로그인이 필요합니다."); // if (answer == true) {
+								// location.href = "/CARE/login.do"; // } else if (answer !=
+								true) { // } // } // $ // .ajax({ // url : "favorite.do", //
+								type : "POST", // data : sendData, // success : function() { //
+								location // .reload(); // } // }); // }); // });
+								<!-- 								</script> -->
 
 								<br>
 							</div>
@@ -404,7 +376,8 @@
 									</ul>
 									<hr>
 									&ensp;&ensp;총 좌석 수: <span class="float-right text-spl-color">${detailInfo.totalSeat }개&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</span><br>
-									&ensp;&ensp;충전기가 있는 좌석 수: <span class="float-right text-spl-color">${detailInfo.socketSeat }개&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</span><br>
+									&ensp;&ensp;충전기가 있는 좌석 수: <span
+										class="float-right text-spl-color">${detailInfo.socketSeat }개&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</span><br>
 									&ensp;&ensp;디저트: <span class="float-right text-spl-color">${detailInfo.dessertSales }&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</span><br>
 									&ensp;&ensp;테라스: <span class="float-right text-spl-color">${detailInfo.terrace }&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</span><br>
 									&ensp;&ensp;루프탑: <span class="float-right text-spl-color">${detailInfo.roofTop }&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</span><br>
@@ -444,19 +417,20 @@
 												// 현재 로그인된 아이디가 있다면 (= session에 저장된 id가 있다면)
 												else {
 												%> --%>
-												
+
 												<div class="box-body">
-												
-												
+
+
 													<form action="storeDetail" method="post" id="writeForm">
 														<!-- // form에 ID 지정 -->
 														<%-- <input type="hidden" name="storeNo"
 															value="${reviewInfo.storeNo }" /> --%>
 														<p>
-															<textarea name="reviewContents" cols="60" rows="10" placeholder="리뷰를 작성하세요">
+															<textarea name="reviewContents" cols="60" rows="10"
+																placeholder="리뷰를 작성하세요">
 															</textarea>
 														</p>
-														
+
 														<h9>별점을 선택하세요.</h9>
 														<select name="avgScore">
 
@@ -472,15 +446,15 @@
 																class="btn btn-black animation text-uppercase float-right" />
 														</p>
 													</form>
-											
-													<!-- <form action="file.do" method="post"
+
+													<form action="file" method="post"
 														enctype="multipart/form-data">
 														<tr>
 															<td></td>
 															<td><input type="file" name="fileName1"></td>
 														</tr>
-													</form> -->
-														
+													</form>
+
 													<%-- <%
 														}
 													%> --%>
@@ -488,7 +462,7 @@
 												</div>
 											</div>
 										</section>
-							
+
 
 									</div>
 									<!-- Content Wrapper. Contains page content -->
@@ -508,16 +482,27 @@
 												</c:if>
 												<c:if test="${!view.isEmpty()}">
 													<table border="1">
-															
-															
-															<div class="review-list-content">
-															
-															<c:forEach var="reviewInfo" items="${reviewInfo}"> 
-																<p><i class="fa fa-calendar"> ${reviewInfo.reviewDate }</p></i>
+
+<!--  -->
+														<div class="review-list-content">
+
+															<c:forEach var="reviewInfo" items="${reviewInfo}">
+																<p>
+																	<i class="fa fa-calendar"> ${reviewInfo.reviewDate}</i>
+																</p>
+																<p>닉네임: ${reviewInfo.nickName}
 																<p>리뷰 내용: ${reviewInfo.reviewContents}</p>
 																<p>평점: ${reviewInfo.avgScore}</p>
 																<p>리뷰 번호: ${reviewInfo.reviewNo}</p>
- 																	</c:forEach> 
+																<p><form action="storeDetail" method="post"/>
+																<input type="button" value="수정" onclick="location.href='modify?seq=${reviewInfo.reviewNo}'">
+																<input type="button" value="삭제" onclick="del(${reviewInfo.reviewNo})">
+																</form>
+																</p>
+																
+																	<%-- <p> ${reviewPic.reviewPic1}</p> --%>
+ 																	
+																</c:forEach> 
 															</div>
 													
 													</table>
@@ -625,8 +610,8 @@
 						<c:forEach var="menuInfo" items="${menuInfo}">
 						<ul class="list-unstyled order-item-list">
 							<li class="clearfix">
-								<span class="float-left"> ${menuInfo.menu } </span>
-								<span class="float-right text-sql-color">${menuInfo.price }￦</span>
+								<span class="float-left"> ${menuInfo.menu} </span>
+								<span class="float-right text-sql-color">${menuInfo.price}￦</span>
 							</li>
 						</ul>
 						</c:forEach>
@@ -642,15 +627,25 @@
 
 
 
+<script>
+	function del(seq) {
+		var chk = confirm("정말 삭제하시겠습니까?");
+		if (chk) {
+			location.href='delete?seq='+seq;
+		}
+	}	
+</script>
+
+
 <script type="text/javascript">
 	$(function() {
 		$("#writeForm").submit(function() {
-					if ($("#reviewContents").val() == "") {
-						alert("리뷰 내용을 입력하세요!");
-						$("#reviewContents").focus();
-						return false;
-					}
-				});
+			if ($("#reviewContents").val() == "") {
+				alert("리뷰 내용을 입력하세요!");
+				$("#reviewContents").focus();
+				return false;
+			}
+		});
 	});
 </script>
 

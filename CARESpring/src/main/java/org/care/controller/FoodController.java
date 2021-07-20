@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.care.domain.DetailInfo;
+import org.care.domain.Favorite;
 import org.care.domain.MenuInfo;
 import org.care.domain.ReviewInfo;
 import org.care.domain.StoreInfo;
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class FoodController {
@@ -27,12 +29,13 @@ public class FoodController {
 	@Inject
 	public FoodService foodService;
 	
-
+	
+	
 	@RequestMapping(value = "/storeDetail", method = {RequestMethod.GET})
 	public String FoodService(StoreInfo sInfo, DetailInfo dInfo, ReviewInfo rInfo, MenuInfo mInfo, HttpServletRequest req, Model model) throws Exception {  //StoreInfo storeInfo, DetailInfo detailInfo, ReviewInfo reviewInfo, MenuInfo menuInfo뺌
   
     
-		System.out.println("ReviewInfo.reviewContents="+rInfo.getReviewContents());
+		
 		StoreInfo storeInfo = foodService.selectStore(sInfo);
 		model.addAttribute("storeInfo", storeInfo);
 
@@ -40,7 +43,6 @@ public class FoodController {
 		model.addAttribute("detailInfo", detailInfo);
 
 		List<ReviewInfo> reviewInfo = foodService.selectReview(rInfo);
-		//foodService.insertReview(rInfo);
 		model.addAttribute("reviewInfo", reviewInfo);
 
 		List<MenuInfo> menuInfo = foodService.selectMenu(mInfo);
@@ -52,10 +54,9 @@ public class FoodController {
 	
 
 	@RequestMapping(value = "/storeDetail", method = {RequestMethod.POST})
-	public String Insert(StoreInfo sInfo, DetailInfo dInfo, ReviewInfo rInfo, MenuInfo mInfo, HttpServletRequest req, Model model) throws Exception { 
+	public String Insert(StoreInfo sInfo, DetailInfo dInfo, ReviewInfo rInfo, MenuInfo mInfo, Favorite fr,HttpServletRequest req,HttpSession session, Model model) throws Exception { 
 		//StoreInfo storeInfo, DetailInfo detailInfo, ReviewInfo reviewInfo, MenuInfo menuInfo뺌
 		
-		System.out.println("ReviewInfo.reviewContents="+rInfo.getReviewContents());
 		StoreInfo storeInfo = foodService.selectStore(sInfo);
 		model.addAttribute("storeInfo", storeInfo);
 
@@ -65,13 +66,29 @@ public class FoodController {
 		List<ReviewInfo> reviewInfo = foodService.selectReview(rInfo);
 		foodService.insertReview(rInfo);
 		model.addAttribute("reviewInfo", reviewInfo);
-		
+		//
 		List<MenuInfo> menuInfo = foodService.selectMenu(mInfo);
 		model.addAttribute("menuInfo", menuInfo);
+		
 
+		List<ReviewInfo> reviewInfoList = foodService.selectReviewList(rInfo);
+		model.addAttribute("reviewInfoList", reviewInfoList);
+		
+		foodService.deleteReview(reviewInfoList); 
+		
+			
+		
+		List<Favorite> favorite = foodService.selectFavorite(fr);
+		model.addAttribute("favorite", favorite);
+		
+		
+		
 		return "detail/food-details";
 	}
+	
 
+	
+	
 	@RequestMapping(value = "/login/storeinSuccess", method = RequestMethod.POST)
 	public void storeinPOST(StoreDTO dto, HttpSession session, Model model) throws Exception {
 

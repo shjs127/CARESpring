@@ -1,6 +1,7 @@
 package org.care.controller;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.servlet.http.Cookie;
@@ -8,8 +9,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.care.domain.Favorite;
+import org.care.domain.ReviewInfo;
+import org.care.domain.StoreInfo;
 import org.care.domain.UserInfo;
 import org.care.dto.LoginDTO;
+import org.care.service.FoodService;
 import org.care.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -53,15 +58,59 @@ public class UserController {
 
 	}
 
+
+
+
+
+	@Inject
+	public FoodService foodService;
+
 	
 
 	@RequestMapping(value = "/login/profile", method = RequestMethod.GET)
-	public String profilePage(LoginDTO dto, HttpServletRequest request, HttpSession session, Model model)
-			throws Exception {
+	public String profilePage(LoginDTO dto, StoreInfo sInfo, ReviewInfo rInfo, Favorite fr,HttpServletRequest request, HttpSession session, Model model) throws Exception {
+		
+		StoreInfo storeInfo = foodService.selectStore(sInfo);
+		model.addAttribute("storeInfo", storeInfo);
+
+
+		List<ReviewInfo> reviewInfo = foodService.selectReview(rInfo);
+		model.addAttribute("reviewInfo", reviewInfo);
+
+		List<ReviewInfo> reviewInfoList = foodService.selectReviewList(rInfo);
+		model.addAttribute("reviewInfoList", reviewInfoList);
+		
+		
+		List<Favorite> favorite = foodService.selectFavorite(fr);
+		model.addAttribute("favorite", favorite);
+		
 		session.getAttribute("login");
 		return "profile/profile";
 	}
-
+	
+	
+	/*
+	 * @RequestMapping(value = "/login/profile", method = RequestMethod.POST) public
+	 * String profile(LoginDTO dto, StoreInfo sInfo, ReviewInfo rInfo, Favorite
+	 * fr,HttpServletRequest request, HttpSession session, Model model) throws
+	 * Exception { StoreInfo storeInfo = foodService.selectStore(sInfo);
+	 * model.addAttribute("storeInfo", storeInfo);
+	 * 
+	 * List<ReviewInfo> reviewInfoList = foodService.selectReviewList(rInfo);
+	 * model.addAttribute("reviewInfoList", reviewInfoList);
+	 * 
+	 * foodService.deleteReview(reviewInfoList);
+	 * 
+	 * List<Favorite> favorite = foodService.selectFavorite(fr);
+	 * model.addAttribute("favorite", favorite);
+	 * 
+	 * session.getAttribute("login");
+	 * 
+	 * return "profile/profile"; }
+	 */
+		
+		
+		
 	@RequestMapping(value = "/login/change", method = RequestMethod.POST)
 	public String profilePost(LoginDTO uInfo, HttpSession session, HttpServletRequest req, RedirectAttributes rttr)
 			throws Exception {

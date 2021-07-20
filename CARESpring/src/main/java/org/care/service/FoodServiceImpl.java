@@ -3,6 +3,7 @@ package org.care.service;
 import java.util.List;
 
 import org.care.domain.DetailInfo;
+import org.care.domain.Favorite;
 import org.care.domain.MenuInfo;
 import org.care.domain.ReviewInfo;
 import org.care.domain.StoreInfo;
@@ -44,6 +45,29 @@ public class FoodServiceImpl implements FoodService {
 	}
 	
 	@Override
+	public List<ReviewInfo> selectReviewList(ReviewInfo reviewInfo) throws Exception {
+			
+		return foodMapper.selectReviewList(reviewInfo);
+		
+	}
+	
+	
+	  @Override
+	  public void deleteReview(List<ReviewInfo> reviewInfoList) throws Exception {
+	  
+	  foodMapper.deleteReview(reviewInfoList);
+	 
+	  }
+	
+	
+	@Override
+	public List<ReviewInfo> insertReview(ReviewInfo reviewInfo) throws Exception {
+		
+		return foodMapper.insertReview(reviewInfo);
+		
+	}
+	
+	@Override
 	public List<MenuInfo> selectMenu(MenuInfo menuInfo) throws Exception {
 			
 		return foodMapper.selectMenu(menuInfo);
@@ -51,13 +75,12 @@ public class FoodServiceImpl implements FoodService {
 	}
 	
 	@Override
-	public List<ReviewInfo> insertReview(ReviewInfo reviewInfo) throws Exception {
+	public List<Favorite> selectFavorite(Favorite favorite) throws Exception {
 			
-		return foodMapper.insertReview(reviewInfo);
+		return foodMapper.selectFavorite(favorite);
 		
 	}
 
-		
 	
 }
   

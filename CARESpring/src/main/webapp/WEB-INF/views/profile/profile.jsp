@@ -9,11 +9,7 @@
 <%@ page import="java.sql.ResultSet"%>
 <%@ page import="java.sql.*"%>
 
-<%-- 
-<%@ page import="auth.service.Message"
-	import="auth.service.MessageListView"  
-	import="auth.service.GetMessageListViewService"%>
- --%>
+
 <!-- Main Container Starts -->
 <div class="main-container container">
 	<!-- Nested Row Starts -->
@@ -189,31 +185,22 @@
 					<!-- Tab #1 Ends -->
 
 					<!-- Tab #2 Starts -->
-					<div id="information" class="tab-pane fade">
-						<!-- Tab #2 Nested Row Starts -->
+					<div id="information" class="tab-pane fade show active">
+						<!-- Tab #1 Nested Row Starts -->
 						<div class="row">
 							<!-- Left Column Starts -->
-							<div class="col-md-4 col-sm-12"></div>
-
-
-
-							<!-- Left Column Ends -->
-							<!-- Right Column Starts -->
-							<div class="col-md-8 col-sm-12">
-								<!-- Information Tab Pane Starts -->
-								<div class="information-tab-pane">
-									<%
-										// 현재 로그인된 아이디가 없다면 (= session에 저장된 id가 없다면)
-									if (session.getAttribute("authUser") == null) {
-									%>
-									로그인을 해주세요.
-									<li class="list-inline-item"><a
-										href="${pageContext.request.contextPath }/login.do">로그인</a></li>
-									<%
-										}
-									// 현재 로그인된 아이디가 있다면 (= session에 저장된 id가 있다면)
-									else {
-									%>
+							<div class="col-md-12 col-sm-20">
+								<section class="registration-area">
+									<div class="row">
+										<div class="col-sm-9">
+											<!-- Registration Block Starts -->
+											<div class="panel panel-smart">
+												<div class="panel-heading">
+													<h3 class="panel-title">내 리뷰 및 즐겨찾기</h3>
+												</div>
+												<br>
+												<div class="panel-body">
+									
 
 									<h5>내 리뷰 목록</h5>
 									<br>
@@ -224,27 +211,22 @@
 								<table border="1">
 									<tr>
 
-										<th><p>리뷰 번호</p></th>
+										<th><p>가게 번호</p></th>
+										<th><p>리뷰 넘버</p></th>
 										<th><p>리뷰 내용</p></th>
 										<th><p>평점</p></th>
-										<th><p>삭제</p></th>
 
 									</tr>
-									<c:forEach var="message" items="${messageListView.messageList}">
+									<c:forEach var="reviewInfo" items="${reviewInfoList}">
 										<tr>
-											<td>${message.reviewNo }</td>
-											<td>${message.reviewContents }</td>
-											<td>${message.avgScore }</td>
-											<td>
-												<form action='msgdelete.do' method="post">
-													<input type="hidden" name="reviewNo"
-														value="${message.reviewNo }" /> <input type="submit"
-														value="삭제" />
-												</form>
-											</td>
-
+											<td>${reviewInfo.storeNo}</td>
+											<td>${reviewInfo.reviewNo}</td>
+											<td>${reviewInfo.reviewContents}</td>
+											<td>${reviewInfo.avgScore}</td>
+											
+											
 										</tr>
-									</c:forEach>
+									</c:forEach> 
 								</table>
 								<br>
 								<hr>
@@ -260,27 +242,26 @@
 										<th><p>가게 번호</p></th>
 										<th><p>가게 이름</p></th>
 									</tr>
-									<c:forEach var="storeInfo" items="${storeInfoList}">
+									<c:forEach var="favorite" items="${favorite}">
 										<tr>
-											<td>${storeInfo.storeNo }</td>
+											<td>${favorite.storeNo }</td>
 											<td>${storeInfo.storeName }</td>
 										</tr>
 									</c:forEach>
 								</table>
 							</div>
+						</div>
 
 						</div>
+						</section>
 					</div>
 
 
 
-					<%
-						}
-					%>
-
 
 				</div>
 				<!-- Information Tab Pane Ends -->
+				
 			</div>
 			<!-- Right Column Ends -->
 		</div>

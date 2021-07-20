@@ -5,47 +5,75 @@
 <mapper namespace="org.care.mapper.FoodMapper">
 
 
-	<select id="selectStore"
-		resultType="org.care.domain.StoreInfo">
+	<select id="selectStore" resultType="org.care.domain.StoreInfo">
 		SELECT *
 		FROM STOREINFO
-		WHERE STORENO = 1
+		WHERE
+		STORENO = 1
 	</select>
 
 	<select id="storeLogin" resultType="org.care.domain.StoreInfo">
 		SELECT *
 		FROM STOREINFO
-		 WHERE MANAGENO = #{manageNo} and STORENO = #{storeNo}
+		WHERE
+		MANAGENO = #{manageNo} and STORENO = #{storeNo}
 	</select>
-	
+
 	<select id="selectDetail"
 		resultType="org.care.domain.DetailInfo">
 		SELECT *
 		from DETAILINFO
 		where STORENO = 1
 	</select>
-	
-	
+
+
 	<select id="selectReview"
 		resultType="org.care.domain.ReviewInfo">
 		SELECT *
-		from REVIEWINFO
-		where STORENO = 1
+		FROM REVIEWINFO, USERINFO
+		WHERE REVIEWINFO.STORENO = 1 AND USERINFO.USERNO = 1 
 		ORDER BY REVIEWNO DESC
 	</select>
-	<select id="selectMenu"
-		resultType="org.care.domain.MenuInfo">
+
+	<select id="selectReviewList"
+		resultType="org.care.domain.ReviewInfo">
+		SELECT *
+		FROM REVIEWINFO
+		WHERE USERNO = 1
+
+	</select>
+
+	<select id="selectMenu" resultType="org.care.domain.MenuInfo">
 		SELECT *
 		from MENUINFO
-		where STORENO = 1
+		WHERE
+		STORENO = 1
 	</select>
-	
+
 	<select id="insertReview"
 		resultType="org.care.domain.ReviewInfo">
-		INSERT INTO REVIEWINFO (REVIEWNO, USERNO, STORENO, AVGSCORE, REVIEWCONTENTS, REVIEWDATE) 
+		INSERT INTO REVIEWINFO (REVIEWNO, USERNO, STORENO,
+		AVGSCORE, REVIEWCONTENTS, REVIEWDATE)
 		VALUES(REVIEWNUM.NEXTVAL,1,1,#{avgScore},#{reviewContents}, SYSDATE)
 	</select>
-	
+
+	<select id="deleteReview"
+		resultType="org.care.domain.ReviewInfo">
+		DELETE REVIEWINFO
+		WHERE REVIEWNO = ${reviewNo} 
+	</select>
+
+	<select id="selectFavorite"
+		resultType="org.care.domain.Favorite">
+		SELECT STOREINFO.STORENO , STOREINFO.STORENAME
+		FROM
+		STOREINFO, FAVORITE
+		WHERE STOREINFO.STORENO = FAVORITE.STORENO AND
+		FAVORITE.USERNO=1
+		AND FAVORITECHECK = 'y'
+
+	</select>
+
 </mapper>
 
 
