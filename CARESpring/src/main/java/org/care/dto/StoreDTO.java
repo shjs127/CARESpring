@@ -15,5 +15,6 @@ public class StoreDTO {
 	private String callNumber;
 	private String manageNo;
 	private float storeAvg;
+	private int reviewCount;
 }
 

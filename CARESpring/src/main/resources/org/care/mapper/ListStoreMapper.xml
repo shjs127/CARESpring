@@ -95,4 +95,14 @@ where rnum between #{page} and #{page+10}
 		]]>
 </select>
 
+<select id="reviewTop" resultType="org.care.dto.StoreDTO">
+
+<![CDATA[
+		SELECT A.* FROM (SELECT A.*, ROWNUM AS RNUM FROM (
+					SELECT A.* FROM ( SELECT A.*, (SELECT COUNT(1) FROM REVIEWINFO R 
+					WHERE A.STORENO = R.STORENO GROUP BY R.STORENO) AS REVIEWCOUNT FROM STOREINFO A ) A 
+					WHERE NOT REVIEWCOUNT IS NULL ORDER BY REVIEWCOUNT DESC ) A ) A WHERE RNUM BETWEEN 1 AND 6
+		
+		]]>
+</select>
 </mapper>

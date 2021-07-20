@@ -69,4 +69,9 @@ public class ListStoreServiceImpl implements ListStoreService {
 		return listStoreMapper.topList(dto);
 		
 	}
+
+	@Override
+	public List<StoreDTO> reviewTop(StoreDTO dto) {
+		return listStoreMapper.reviewTop(dto);
+	}
 }

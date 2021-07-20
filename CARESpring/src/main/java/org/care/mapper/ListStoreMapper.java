@@ -24,4 +24,6 @@ public interface ListStoreMapper {
 	public int listSearchCount(SearchCriteria cri) throws Exception;
 
 	public List<StoreDTO> topList(StoreDTO dto);
+
+	public List<StoreDTO> reviewTop(StoreDTO dto);
 }

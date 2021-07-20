@@ -26,6 +26,9 @@ public class MainController {
 		List<StoreDTO> listStore=listStoreService.listTop(dto);
 		model.addAttribute("sTop", listStore);
 		
+		List<StoreDTO> reviewStore=listStoreService.reviewTop(dto);
+		model.addAttribute("reviewTop", reviewStore);
+		
 		return "main/index";
 	}
 
