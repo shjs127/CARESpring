@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping("/store")
@@ -52,6 +53,21 @@ public class ListStoreController {
 		return "board/cafeGrid";
 	}
 	
+	@RequestMapping(value = "/storeList", method = RequestMethod.POST)
+	public String SearchListPage(@ModelAttribute("scri") SearchCriteria scri, Model model) throws Exception {
+		
+		model.addAttribute("list", service.listSearch(scri));
+		
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(scri);
+		
+		pageMaker.setTotalCount(service.listSearchCount(scri));
+		
+		model.addAttribute("pageMaker", pageMaker);
+		
+		return "board/cafeGrid";
+	}
+	
 	@RequestMapping(value = "/storeList/detail", method = RequestMethod.GET)
 	public String StoreDetailPage(@RequestParam("storeNo") int storeNo, @ModelAttribute("cri") SearchCriteria cri, Model model) throws Exception {
 		
@@ -62,6 +78,13 @@ public class ListStoreController {
 		return "detail/food-details";
 	}
 	 
-	 
+//	@RequestMapping(value = "/storeList/orderby", method = )	
+	
+	@RequestMapping(value = "/storeList/detailInfoChk", method = RequestMethod.POST)
+	@ResponseBody
+	public void detailInfoChk(@RequestParam(value = "valueArrTest[]") List<String> valueArr) {
+
+	}
+
 
 }
