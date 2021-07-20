@@ -224,9 +224,13 @@
 			<scope>provided</scope>
 		</dependency>
 		<!-- lab end -->
-
-
-
+		
+	<dependency>
+		<groupId>org.mindrot</groupId>
+		<artifactId>jbcrypt</artifactId>
+		<version>0.4</version>
+	</dependency>
+		
 	</dependencies>
 	<build>
 		<plugins>
