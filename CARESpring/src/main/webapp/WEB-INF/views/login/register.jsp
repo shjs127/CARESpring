@@ -94,7 +94,7 @@
 				<c:if test="${errors.email}">이메일을 입력하세요.</c:if>
 			</p>
 			<!-- <form action="registerProcess.jsp" method="post"> -->
-			<form action="join.do" method="post">
+			<form action="register" method="post">
 				<div class="form-group has-feedback">
 					<input id="ID" type="text" class="form-control" name="userid"
 						placeholder="ID"> <span

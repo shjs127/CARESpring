@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.care.domain.ArticlePage;
 import org.care.domain.BoardInfo;
+import org.care.dto.BoardDTO;
 import org.care.mapper.BoardListMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,18 +28,13 @@ public class ListArticleServiceImpl implements ListArticleService {
 		
 		return new ArticlePage(total, pageNo, pageV, boardList);
 	}
+
+
+	@Override
+	public List<BoardDTO> boardTop(BoardDTO bdto) throws Exception{
+		return boardListMapper.boardTop(bdto);
+	}
 	
 	
 }
 
-//	public List<Board> boardTop(int top) {
-//		
-//		try (Connection conn = ConnectionProvider.getConnection()) {
-//			List<Board> boardTop = boardInfoDao.boardViewTop(conn,top);
-//	
-//			return boardTop;
-//		} catch (SQLException e) {
-//			throw new RuntimeException(e);
-//		}
-//	}
-//}

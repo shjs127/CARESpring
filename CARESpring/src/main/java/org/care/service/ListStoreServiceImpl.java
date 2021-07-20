@@ -51,12 +51,12 @@ public class ListStoreServiceImpl implements ListStoreService {
 
 	@Override
 	public List<StoreInfo> listSearch(SearchCriteria cri) throws Exception {
-		return null;
+		return listStoreMapper.listSearch(cri);
 	}
 
 	@Override
 	public int listSearchCount(SearchCriteria cri) throws Exception {
-		return 0;
+		return listStoreMapper.listSearchCount(cri);
 	}
 
 	@Override
@@ -65,13 +65,13 @@ public class ListStoreServiceImpl implements ListStoreService {
 	}
 
 	@Override
-	public List<StoreDTO> listTop(StoreDTO dto) {
+	public List<StoreDTO> listTop(StoreDTO dto)throws Exception {
 		return listStoreMapper.topList(dto);
 		
 	}
 
 	@Override
-	public List<StoreDTO> reviewTop(StoreDTO dto) {
+	public List<StoreDTO> reviewTop(StoreDTO dto)throws Exception {
 		return listStoreMapper.reviewTop(dto);
 	}
 }

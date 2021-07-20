@@ -17,8 +17,8 @@
 			<div class="input-group">
 				<div class="input-group-prepend search-panel"></div>
 				<input type="text" class="form-control input-lg rounded-0"
-					name="Keyword" id="Keyword" placeholder="지역 또는 카페"
-					value="${param.Keyword}">
+					name="keyword" id="keyword" placeholder="지역 또는 카페"
+					value="${scri.keyword}">
 				<button class="btn btn-lg btn-prime animation text-uppercase"
 					type="submit">검색</button>
 			</div>
@@ -70,52 +70,52 @@
 				<div class="sidearea-filter-checkbox-list">
 					<div class="form-check">
 						<label class="form-check-label"> <input type="checkbox"
-							class="form-check-input" value="option1"> 총 테이블 수
+							class="form-check-input" name="detailChk" value="totalSeat"> 총 테이블 수
 						</label>
 					</div>
 					<div class="form-check">
 						<label class="form-check-label"> <input type="checkbox"
-							class="form-check-input" value="option2"> 콘센트 테이블 수
+							class="form-check-input" name="detailChk" value="socketSeat"> 콘센트 테이블 수
 						</label>
 					</div>
 					<div class="form-check">
 						<label class="form-check-label"> <input type="checkbox"
-							class="form-check-input" value="option3"> 디저트 판매
+							class="form-check-input" name="detailChk" value="dessertSales"> 디저트 판매
 						</label>
 					</div>
 					<div class="form-check">
 						<label class="form-check-label"> <input type="checkbox"
-							class="form-check-input" value="option4"> 테라스
+							class="form-check-input" name="detailChk" value="terrace"> 테라스
 						</label>
 					</div>
 					<div class="form-check">
 						<label class="form-check-label"> <input type="checkbox"
-							class="form-check-input" value="option5"> 루프탑
+							class="form-check-input" name="detailChk" value="rooftop"> 루프탑
 						</label>
 					</div>
 					<div class="form-check">
 						<label class="form-check-label"> <input type="checkbox"
-							class="form-check-input" value="option6"> 와이파이
+							class="form-check-input" name="detailChk" value="wifi"> 와이파이
 						</label>
 					</div>
 					<div class="form-check">
 						<label class="form-check-label"> <input type="checkbox"
-							class="form-check-input" value="option7"> 애견 동반
+							class="form-check-input" name="detailChk" value="companionDog"> 애견 동반
 						</label>
 					</div>
 					<div class="form-check">
 						<label class="form-check-label"> <input type="checkbox"
-							class="form-check-input" value="option8"> 주차 공간
+							class="form-check-input" name="detailChk" value="parkingSpace"> 주차 공간
 						</label>
 					</div>
 					<div class="form-check">
 						<label class="form-check-label"> <input type="checkbox"
-							class="form-check-input" value="option9"> 노키즈존
+							class="form-check-input" name="detailChk" value="noKidsZone"> 노키즈존
 						</label>
 					</div>
 					<div class="form-check">
 						<label class="form-check-label"> <input type="checkbox"
-							class="form-check-input" value="option10"> 흡연구역
+							class="form-check-input" name="detailChk" value="smokinigArea"> 흡연구역
 						</label>
 					</div>
 				</div>
@@ -159,15 +159,15 @@
 								<div class="content text-center text-lg-left">
 									<!-- Title Starts -->
 									<h6 class="grid-box-title">
-										<a href="storeList/detail?storeNo=${storeinfo.storeNo}">${storeinfo.storeName}</a>
+										<a href="store/storeList/detail?storeNo=${storeinfo.storeNo}">${storeinfo.storeName}</a>
 									</h6>
 									<!-- Title Ends -->
 									<!-- Tags Starts -->
 									<ul class="list-unstyled list-inline grid-box-tags">
 										<li class="list-inline-item">
 								 			<c:choose>
-											<c:when test = "${fn:length(storeinfo.address) gt 22}">
-											<c:out value = "${fn:substring(storeinfo.address,0,21)}..."></c:out>
+											<c:when test = "${fn:length(storeinfo.address) gt 20}">
+											<c:out value = "${fn:substring(storeinfo.address,0,19)}..."></c:out>
 											</c:when>
 											<c:otherwise>
 											<c:out value="${storeinfo.address}"></c:out>
@@ -178,7 +178,7 @@
 									<!-- Tags Ends -->
 									<!-- Offer Details Starts -->
 									<ul class="list-unstyled grid-box-info clearfix">
-										<li class="float-lg-right text-lg-right"><a href="/storeList/detail?storeNo=${storeinfo.storeNo}"
+										<li class="float-lg-right text-lg-right"><a href="store t/storeList/detail?storeNo=${storeinfo.storeNo}"
 											class="btn btn-prime animation"> 자세히 보기 <i
 												class="fa fa-chevron-right"></i>
 										</a></li>
@@ -323,10 +323,14 @@
 <script type="text/javascript">
 	$(function(){
 		$("#frm").submit(function(){
-			if($("#searchKeyword").val() == ""){
+			if($("#keyword").val() == ""){
 				alert("검색어를 입력하세요!");
-				$("#searchKeyword").focus();
+				$("#keyword").focus();
 				return false;
+			}else{
+				self.location = "cafeGrid"
+					+ '${pageMaker.makeQuery(1)}'
+					+ '&keyword='+ $('#keyword').val();
 			}
 		});
 	});
@@ -336,10 +340,133 @@
 	$(function(){
 		$("#orderBy").change(function(){
 			var orderby = $(this).val();
-			var searchKeyword = $('#searchKeyword').val();
+			var keyword = $('#keyword').val();
 			
-			$(location).attr('href', '${pageContext.request.contextPath}/board/storelist.do?orderBy='+orderby+'&searchKeyword='+searchKeyword);
+			$(location).attr('href', '${pageContext.request.contextPath}/store/storeList?orderBy='+orderby+'&keyword='+keyword);
 		});
 	});
 </script>
+
+<script id="template" type="text/x-handlebars-template">
+{{#each .}}
+<div class="col-lg-4 col-md-6 col-sm-12">
+	<!-- Grid Box Starts -->
+	<div class="grid-box">
+		<!-- Images Starts -->
+		<div class="image text-center">
+			<img
+				src="<%=request.getContextPath()%>/resources/images/hotels/thumb/hotel-grid-thumb-img1.jpg"
+				alt="Eagle Boys Village Plaza" class="img-fluid img-center">
+			<span class="delivery-time">${storeinfo.storeNo}</span>
+		</div>
+
+		<!-- Images Ends -->
+		<!-- Content Starts -->
+		<div class="content text-center text-lg-left">
+			<!-- Title Starts -->
+			<h6 class="grid-box-title">
+				<a href="storeList/detail?storeNo=${storeinfo.storeNo}">${storeinfo.storeName}</a>
+			</h6>
+			<!-- Title Ends -->
+			<!-- Tags Starts -->
+			<ul class="list-unstyled list-inline grid-box-tags">
+				<li class="list-inline-item">
+		 			<c:choose>
+					<c:when test = "${fn:length(storeinfo.address) gt 22}">
+					<c:out value = "${fn:substring(storeinfo.address,0,21)}..."></c:out>
+					</c:when>
+					<c:otherwise>
+					<c:out value="${storeinfo.address}"></c:out>
+					</c:otherwise>
+					</c:choose>
+				</li>
+			</ul>
+			<!-- Tags Ends -->
+			<!-- Offer Details Starts -->
+			<ul class="list-unstyled grid-box-info clearfix">
+				<li class="float-lg-right text-lg-right"><a href="/storeList/detail?storeNo=${storeinfo.storeNo}"
+					class="btn btn-prime animation"> 자세히 보기 <i
+						class="fa fa-chevron-right"></i>
+				</a></li>
+			</ul>
+			<!-- Offer Details Ends -->
+			<!-- Links Starts -->
+			<div class="clearfix">
+				<!-- Info Links Starts -->
+				<ul
+					class="list-unstyled list-inline grid-box-info-links float-lg-left">
+					<li class="list-inline-item"><a href="#"
+						data-toggle="tooltip" data-placement="top" title="Coupons"><i
+							class="fa fa-tag"></i></a></li>
+					<li class="list-inline-item"><a href="#"
+						data-toggle="tooltip" data-placement="top"
+						title="Information"><i class="fa fa-info-circle"></i></a></li>
+					<li class="list-inline-item"><a href="#"
+						data-toggle="tooltip" data-placement="top" title="Reviews"><i
+							class="fa fa-star-half-full"></i></a></li>
+					<li class="list-inline-item"><a href="#"
+						data-toggle="tooltip" data-placement="top" title="Specials"><i
+							class="fa fa-asterisk"></i></a></li>
+				</ul>
+				<!-- Info Links Ends -->
+				<!-- Ratings Starts -->
+				<ul
+					class="list-unstyled list-inline grid-box-ratings float-lg-right text-lg-right">
+					<li class="list-inline-item star-rating"><i
+						class="fa fa-star"></i> 45</li>
+					<li class="list-inline-item"><a href="#"
+						class="badge animation"><i class="fa fa-heart"></i> 10</a></li>
+				</ul>
+				<!-- Ratings Ends -->
+			</div>
+			<!-- Links Ends -->
+		</div>
+		<!-- Content Ends -->
+	</div>
+	<!-- Grid Box Ends -->
+</div>
+<!-- List Box #1 Ends -->
+{{/each}}
+</script>
+
+<script>
+	var source = $("#template").html();
+	var template = Handlebars.complie(source);
+	var data = [];
+	
+	$("#replies").html(template(data));
+</script>
+
+<script>
+	var printData = function(replyArr, target, templateObject){
+		var template = Handlebars.compile(templateObject.html());
+		
+		var html = template(replyArr);
+		$(".row").remove();
+		target.after(html);
+	}
+	
+	var storeNo = ${storeInfo.storeNo};
+	var PageNo = 1;
+	
+	function getPage(pageInfo){
+		
+		$.getJSON(pageInfo, function(data){
+			printData(data.list, $("#replisDiv"), $('#template'));
+			printPaging(data.pageMaker, $(".pagination"));
+			
+			$("#modifyModal").modal('hide');
+			$("#replycntSmall").html("[ " + data.pageMaker.totalCount + " ]");
+		});
+	}
+	
+	$("#repliesDiv").on("click", function(){
+		if($(".timeline li").size() > 1){
+			return;
+		}
+		getPage("/replies/"+storeNo+"/"+replyPage)
+	});
+	
+</script>
+
 <%@ include file="../include/footer.jspf"%>

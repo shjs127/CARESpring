@@ -48,10 +48,8 @@ where rnum between #{page} and #{page+10}
 </select>
 
 <sql id="search">
-	<if test="searchKeyword != null">
-		and storeinfo.storename like '%'||#{searchKeyword}||'%'
-		or storeinfo.address like '%'||#{searchKeyword}||'%'
-	</if>
+		and storeinfo.storename like '%'||#{keyword}||'%'
+		or storeinfo.address like '%'||#{keyword}||'%'
 </sql>
 
 <select id="listSearch" resultType="org.care.domain.StoreInfo">
@@ -59,12 +57,12 @@ where rnum between #{page} and #{page+10}
 	select storeinfo.* 
 	from (select rownum as rnum, storeinfo.* 
 		  from storeinfo 
-		  where storeno > 0 
-		  order by storeno desc) storeinfo 
+		  order by storeno desc) storeinfo
+	where storeno > 0  
 ]]>
 	<include refid="search"></include>
 <![CDATA[
-	and rnum between #{pageStart} and #{perPageNum} 
+	and rnum between #{pageStart} and #{pageEnd} 
 ]]>
 </select>
 
@@ -73,17 +71,13 @@ where rnum between #{page} and #{page+10}
 	select count(storeno)
 	from (select rownum as rnum, storeinfo.* 
 		  from storeinfo 
-		  where storeno > 0 
-		  order by storeno desc) storeinfo
+		  order by storeno desc) storeinfo 
+	where storeno > 0 
 ]]>
 	<include refid="search"></include>
 </select>
 
-<!-- <select id="selectStoreList" resultType="org.care.domain.StoreInfo"> -->
-<!-- 	select storeno, storename, storepic, address -->
-<!-- 	from storeinfo -->
-<!-- 	order by storeno desc -->
-<!-- </select> -->
+
 <select resultType="org.care.dto.StoreDTO" id="topList">
 
 <![CDATA[

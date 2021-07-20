@@ -65,7 +65,7 @@
 					<button type="submit" class="btn btn-block btn-prime animation">
 						Login <i class="fa fa-caret-right"></i>
 					</button>
-					<br> <a href="join.do" class="text-center">회원 가입</a>
+					<br> <a href="register" class="text-center">회원 가입</a>
 
 					<div class="form-group">
 						<p class="help-block">

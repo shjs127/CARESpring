@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.care.mapper.RegisterMapper">
+	
+	<insert id="Register">
+	    INSERT USERINFO(   USERNO
+	    					   , USERID 
+	   					       , PASSWORD 
+	   					       , USERNAME
+	   					       , NICKNAME
+	   					       , BIRTH
+	   					       , EMAIL
+	   					       , GENDER 	
+	   					       , ADMINISTER    )
+	                  VALUES(    #{userId} 
+	                 		   , #{password}
+	                 		   , #{userName}
+	                 		   , #{nickName}
+	                 		   , #{birth}
+	                 		   , #{email}
+	                 		   , #{gender}
+	                 		   , #{administer})
+    </insert>
+   
+</mapper>

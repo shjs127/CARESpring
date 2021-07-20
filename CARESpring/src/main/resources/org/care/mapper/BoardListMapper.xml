@@ -77,15 +77,6 @@
 		WHERE BOARDNO = #{boardNo}
 	</select>
 
-<!-- 	<select id="boardViewTop" resultType="BoardViewTop"> -->
-<!-- 	<![CDATA[  -->
-<!-- 	SELECT B.BOARDNO BNO, B.BOARDTITLE BTITLE, B.VC BVC FROM -->
-<!-- 					(SELECT BOARDNO , BOARDTITLE, VIEWCOUNT AS VC FROM BOARDINFO -->
-<!-- 					ORDER BY VC DESC ) B -->
-<!-- 					WHERE ROWNUM <= ${top} -->
-<!-- 	]]> -->
-<!-- 	</select> -->
-
 
 	<select id="nextView" resultType="org.care.domain.NextNo">
 		SELECT *
@@ -117,5 +108,12 @@
 		SELECT USERNO FROM BOARDINFO
 		WHERE BOARDNO = #{boardNo}
 	</select>
-
+<select id="boardTop" resultType="org.care.dto.BoardDTO">
+<![CDATA[
+    select b.BOARDNO boardNo, b.BOARDTITLE boardTitle, b.VIEWCOUNT viewCount from ( 
+	select BOARDNO, BOARDTITLE, VIEWCOUNT from BOARDINFO 
+	order by VIEWCOUNT DESC ) b 
+	where ROWNUM <6
+]]>
+</select>
 </mapper>
