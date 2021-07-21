@@ -58,8 +58,11 @@
 		BOARDNO = #{boardNo}
 	</update>
 
+	<delete id = "deletePic">
+		DELETE FROM BOARDPIC WHERE BOARDNO = #{boardNo}
+	</delete>
 	<delete id="delete">
-		DELETE FROM BOARDINFO WHERE BOARDNO = ${boardNo}
+		DELETE FROM BOARDINFO WHERE BOARDNO = #{boardNo}
 	</delete>
 
 	<update id="updatePic">
@@ -106,6 +109,11 @@
 	
 	<select id="getUserNo" resultType="int">
 		SELECT USERNO FROM BOARDINFO
+		WHERE BOARDNO = #{boardNo}
+	</select>
+	
+	<select id="getBoardPic" resultType="org.care.domain.BoardPicInfo">
+		SELECT BOARDPIC1 FROM BOARDPIC
 		WHERE BOARDNO = #{boardNo}
 	</select>
 <select id="boardTop" resultType="org.care.dto.BoardDTO">

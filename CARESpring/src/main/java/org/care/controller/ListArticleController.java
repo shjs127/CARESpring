@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 import org.care.domain.BoardPicInfo;
 import org.care.domain.UserInfo;
 import org.care.dto.BoardDTO;
+import org.care.service.DeleteArticleService;
 import org.care.service.ListArticleService;
 import org.care.service.ModifyArticleService;
 import org.care.service.ReadArticleService;
@@ -44,6 +45,11 @@ public class ListArticleController {
 	
 	@Inject
 	private ModifyArticleService modifyService;
+	
+	@Inject
+	private DeleteArticleService deleteService;
+	
+	
 
 	@RequestMapping(value = "/listArticle", method = RequestMethod.GET)
 	public String listArticleForm(HttpServletRequest req, Model model) throws Exception {
@@ -159,6 +165,22 @@ public class ListArticleController {
 		return "board/success";
 		
 	}
+	
+	@RequestMapping(value = "/delete", method = RequestMethod.POST)
+	public String DeleteForm(BoardDTO dto, Model model) throws Exception {
+		
+		BoardPicInfo boardPic = deleteService.getBoardPic(dto);
+		
+		File file = new File(uploadPath+"\\"+boardPic.getBoardPic1());
+		if (file.exists()) {
+			file.delete();
+		}
+		deleteService.delete(dto);
+		
+		
+		return "board/success";
+	}
+	
 	
 	private String uploadFile(String originalName, byte[] fileData) throws Exception {
 

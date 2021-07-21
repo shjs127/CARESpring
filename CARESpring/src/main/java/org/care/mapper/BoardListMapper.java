@@ -41,5 +41,11 @@ public interface BoardListMapper {
 	
 	void updatePic(BoardPicInfo pic) throws Exception;
 
-	List<BoardDTO> boardTop(BoardDTO bdto)throws Exception;
+	List<BoardDTO> boardTop(BoardDTO dto)throws Exception;
+	
+	void deletePic(BoardDTO dto) throws Exception;
+	
+	void delete(BoardDTO dto) throws Exception;
+	
+	BoardPicInfo getBoardPic(BoardDTO dto) throws Exception;
 }

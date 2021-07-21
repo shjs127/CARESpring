@@ -113,13 +113,13 @@
 						<li class="list-inline-item"><a
 							href='login/profile'>마이페이지</a></li>
 						<li class="list-inline-item"><a
-							href='board'>게시판</a></li>
+							href='${pageContext.request.contextPath}/board/listArticle'>게시판</a></li>
 						<%
 							// 현재 로그인된 아이디가 없다면 (= session에 저장된 id가 없다면)
 						if (session.getAttribute("login") == null && session.getAttribute("storein") == null) {
 						%>
 						<li class="list-inline-item"><a
-							href='login'>로그인</a></li>
+							href='${pageContext.request.contextPath}/login'>로그인</a></li>
 						<%
 							}
 						// 현재 로그인된 아이디가 있다면 (= session에 저장된 id가 있다면)
@@ -168,7 +168,7 @@
 					<ul class="nav navbar-nav text-uppercase text-weight-bold">
 						<li class="nav-item active"><a href='index' class="nav-link">Home</a></li>
 						<li class="nav-item"><a href="about.html" class="nav-link">About Us</a></li>
-						<li class="nav-item"><a href='board' class="nav-link">board List</a></li>
+						<li class="nav-item"><a href='${pageContext.request.contextPath}/board/listArticle' class="nav-link">board List</a></li>
 						<li class="nav-item"><a href='store/storeList' class="nav-link">Food Grid</a></li>
 						<li class="nav-item"><a href='storeDetail' class="nav-link">Food Detail</a></li>
 						<li class="nav-item"><a href="login.html" class="nav-link">Login &amp; Register</a></li>

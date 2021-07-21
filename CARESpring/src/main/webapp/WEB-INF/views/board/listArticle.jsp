@@ -180,7 +180,7 @@
 						class="pagination animation float-lg-right">
 						<c:if test="${articlePage.startPage>1}">
 							<li class="page-item"><a
-								href="?p=${articlePage.startPage-5}&searching=${param.searching}&pageView=${articlePage.pageV}">
+								href="?p=${articlePage.startPage-5}&searching=${param.searching}&pageView=${articlePage.pageV}"
 									class="page-link">&laquo;</a></li>
 						</c:if>
 						<c:if test="${articlePage.startPage<=1}">
