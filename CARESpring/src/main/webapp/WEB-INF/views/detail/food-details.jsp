@@ -634,7 +634,7 @@
 
 
 <script>
-	
+	var storeNo = ${storeInfo.storeNo};
 	
 	function deleteReview(revReq) {
 		var chk = confirm("정말 삭제하시겠습니까?");
@@ -663,7 +663,7 @@
 			location.href='food-details'+seq;
 		}
 	}	
-</script> -->
+</script> -->var storeNo = ${storeInfo.storeNo};
 
 
 <script type="text/javascript">

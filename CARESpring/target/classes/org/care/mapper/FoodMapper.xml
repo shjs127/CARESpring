@@ -9,7 +9,7 @@
 		SELECT *
 		FROM STOREINFO
 		WHERE
-		STORENO = 1
+		STORENO = #{storeNo}
 	</select>
 
 	<select id="storeLogin" resultType="org.care.domain.StoreInfo">
@@ -23,7 +23,7 @@
 		resultType="org.care.domain.DetailInfo">
 		SELECT *
 		from DETAILINFO
-		where STORENO = 1
+		where STORENO = #{storeNo}
 	</select>
 
 
@@ -31,7 +31,7 @@
 		resultType="org.care.domain.ReviewInfo">
 		SELECT *
 		FROM REVIEWINFO, USERINFO
-		WHERE REVIEWINFO.STORENO = 1 AND USERINFO.USERNO = 1 
+		WHERE REVIEWINFO.STORENO = #{storeNo} AND USERINFO.USERNO = 1 
 		ORDER BY REVIEWNO DESC
 	</select>
 
@@ -47,14 +47,14 @@
 		SELECT *
 		from MENUINFO
 		WHERE
-		STORENO = 1
+		STORENO = #{storeNo}
 	</select>
 
 	<select id="insertReview"
 		resultType="org.care.domain.ReviewInfo">
 		INSERT INTO REVIEWINFO (REVIEWNO, USERNO, STORENO,
 		AVGSCORE, REVIEWCONTENTS, REVIEWDATE)
-		VALUES(REVIEWNUM.NEXTVAL,1,1,#{avgScore},#{reviewContents}, SYSDATE)
+		VALUES(REVIEWNUM.NEXTVAL,1,#{storeNo},#{avgScore},#{reviewContents}, SYSDATE)
 	</select>
 
 	<delete id="deleteReview" parameterType="string">

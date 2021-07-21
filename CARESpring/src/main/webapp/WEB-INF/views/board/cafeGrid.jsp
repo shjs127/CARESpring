@@ -159,7 +159,7 @@
 								<div class="content text-center text-lg-left">
 									<!-- Title Starts -->
 									<h6 class="grid-box-title">
-										<a href="store/storeList/detail?storeNo=${storeinfo.storeNo}">${storeinfo.storeName}</a>
+										<a href="${pageContext.request.contextPath}/store/storeList/detail?storeNo=${storeinfo.storeNo}">${storeinfo.storeName}</a>
 									</h6>
 									<!-- Title Ends -->
 									<!-- Tags Starts -->
@@ -178,7 +178,7 @@
 									<!-- Tags Ends -->
 									<!-- Offer Details Starts -->
 									<ul class="list-unstyled grid-box-info clearfix">
-										<li class="float-lg-right text-lg-right"><a href="store t/storeList/detail?storeNo=${storeinfo.storeNo}"
+										<li class="float-lg-right text-lg-right"><a href="${pageContext.request.contextPath}/store/storeList/detail?storeNo=${storeinfo.storeNo}"
 											class="btn btn-prime animation"> 자세히 보기 <i
 												class="fa fa-chevron-right"></i>
 										</a></li>
