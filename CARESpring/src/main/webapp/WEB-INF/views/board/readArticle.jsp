@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <%@ include file="../include/header.jspf"%>
 
@@ -16,7 +17,9 @@
 		</tr>
 		<tr>
 			<th>작성일</th>
-			<td class="text-align-left text-indent" colspan="3">${boardInfo.boardDate}</td>
+			<td class="text-align-left text-indent" colspan="3">
+			<fmt:formatDate pattern="yyyy/MM/dd HH:mm"
+									value="${boardInfo.boardDate}" /></td>
 		</tr>
 		<tr>
 			<th>작성자</th>

@@ -6,6 +6,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <%@ include file="../include/header.jspf"%>
 
@@ -59,7 +60,7 @@
 			<!-- 검색창 Start -->
 			<div class="sidearea-filter">
 				<form class="teble-form" action="listArticle" method="post">
-				<!-- Search Field Starts -->
+					<!-- Search Field Starts -->
 					<div class="input-group sidearea-filter-search">
 						<input type="text" id="searching" name="searching"
 							class="form-control rounded-0" placeholder="검색..."
@@ -153,8 +154,9 @@
 								<li class="list-inline-item"><i
 									class="fa fa-star-half-full"></i> <a href="">글번호 :
 										${article.boardNo}</a></li>
-
-								<li class="list-inline-item"><i class="fa fa-info-circle"></i>${article.boardDate}</li>
+								
+								<li class="list-inline-item"><i class="fa fa-info-circle"></i><fmt:formatDate pattern="yyyy/MM/dd HH:mm"
+									value="${article.boardDate}" /></li>
 
 								<li class="list-inline-item"><i class="fa fa-asterisk"></i>${article.viewCount}</li>
 							</ul>
@@ -181,11 +183,11 @@
 						<c:if test="${articlePage.startPage>1}">
 							<li class="page-item"><a
 								href="?p=${articlePage.startPage-5}&searching=${param.searching}&pageView=${articlePage.pageV}"
-									class="page-link">&laquo;</a></li>
+								class="page-link">&laquo;</a></li>
 						</c:if>
 						<c:if test="${articlePage.startPage<=1}">
 							<li class="page-item" onclick="alert('이전 페이지가 없습니다.');"><a
-									class="page-link">&laquo;</a></li>
+								class="page-link">&laquo;</a></li>
 						</c:if>
 						<c:forEach var="pNo" begin="${articlePage.startPage}"
 							end="${articlePage.endPage}">
@@ -210,7 +212,7 @@
 						</c:if>
 						<c:if test="${articlePage.startPage+5 > articlePage.totalPages}">
 							<li class="page-item" onclick="alert('다음 페이지가 없습니다.');"><a
-									class="page-link">&raquo;</a></li>
+								class="page-link">&raquo;</a></li>
 						</c:if>
 					</ul>
 				</div>
