@@ -430,7 +430,7 @@
 													<%-- <input type="hidden" name="storeNo"
 															value="${reviewInfo.storeNo }" /> --%>
 
-													<form action="storeDetail" method="post" id="writeForm">
+													<form action="/care/store/storeList/detail?storeNo=${storeInfo.storeNo}#reviews" method="post" id="writeForm">
 														<p>
 															<textarea name="reviewContents" cols="60" rows="10"
 																placeholder="리뷰를 작성하세요">
