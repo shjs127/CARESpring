@@ -1,22 +1,25 @@
 package org.care.controller;
 
+import java.lang.reflect.Member;
+
 import javax.inject.Inject;
 
-import org.mindrot.jbcrypt.BCrypt;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import org.care.domain.UserInfo;
 import org.care.service.RegisterService;
-
+import org.care.domain.RegisterInfo;
 @Controller
-// @RequestMapping("/care")
+ @RequestMapping("/care/*")
 public class RegisterController {
 	
-	@Inject
-	private RegisterService registerService;
+	private static final Logger logger = LoggerFactory.getLogger(RegisterController.class);
+	
+@Inject
+ RegisterService registerService;
 	
 	
 	/*
@@ -29,20 +32,18 @@ public class RegisterController {
 	 */
 	
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
-	public String registerGET() throws Exception {
-		return "/login/register";
+	public void getRegister() throws Exception {
+		logger.info("get register");
 	}
 	
 	//회원가입 처리
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public String registerPOST(UserInfo userInfo, RedirectAttributes redirectAttributes) throws Exception {
+	public String postRegister(RegisterInfo registerInfo) throws Exception {
+		logger.info("post register");
 		
-		String hashedPw = BCrypt.hashpw(userInfo.getPassword(), BCrypt.gensalt());
-		userInfo.setPassword(hashedPw);
-		//registerService.register(userInfo);
-		redirectAttributes.addFlashAttribute("msg", "REGISTERED");
+		registerService.register(registerInfo);
 		
-		return "redirect:/login";
+		return null;
 	}
 	
 

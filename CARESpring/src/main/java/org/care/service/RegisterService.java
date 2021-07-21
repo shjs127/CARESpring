@@ -1,9 +1,9 @@
 package org.care.service;
 
-import org.care.domain.UserInfo;
+import org.care.domain.RegisterInfo;
 
 public interface RegisterService {
 	
-	void register(UserInfo userInfo) throws Exception;
+	public void register(RegisterInfo registerInfo) throws Exception;
 
 }

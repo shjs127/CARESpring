@@ -1,9 +1,10 @@
 package org.care.mapper;
 
-import org.care.domain.UserInfo;
+import org.care.domain.RegisterInfo;
 
 public interface RegisterMapper {
 	
-	void register(UserInfo userInfo) throws Exception;
+	// 회원가입
+	public void register(RegisterInfo registerInfo) throws Exception;
 
 }

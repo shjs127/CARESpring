@@ -4,8 +4,8 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.care.mapper.RegisterMapper">
 	
-	<insert id="Register">
-	    INSERT USERINFO(   USERNO
+	<insert id="register">
+	    INSERT INTO USERINFO(   USERNO
 	    					   , USERID 
 	   					       , PASSWORD 
 	   					       , USERNAME
