@@ -4,11 +4,18 @@ import java.util.List;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.care.domain.Criteria;
+import org.care.domain.DetailInfo;
+import org.care.domain.Favorite;
+import org.care.domain.MenuInfo;
 import org.care.domain.PageMaker;
+import org.care.domain.ReviewInfo;
 import org.care.domain.SearchCriteria;
 import org.care.domain.StoreInfo;
+import org.care.dto.ReviewDTO;
+import org.care.service.FoodService;
 import org.care.service.ListStoreService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -67,17 +74,65 @@ public class ListStoreController {
 		
 		return "board/cafeGrid";
 	}
+	@Inject
+	public FoodService foodService;
 	
 	@RequestMapping(value = "/storeList/detail", method = RequestMethod.GET)
-	public String StoreDetailPage(@RequestParam("storeNo") int storeNo, @ModelAttribute("cri") SearchCriteria cri, Model model) throws Exception {
+	public String StoreDetailPage(@RequestParam("storeNo") int storeNo, StoreInfo sInfo, DetailInfo dInfo, ReviewInfo rInfo, MenuInfo mInfo,@ModelAttribute("cri") SearchCriteria cri, Model model) throws Exception {
 		
-		StoreInfo storeInfo = service.read(storeNo);
-		
+		StoreInfo storeInfo = foodService.selectStore(sInfo);
+		service.read(storeNo);
+		model.addAttribute("storeInfo", storeInfo);
+
+		DetailInfo detailInfo = foodService.selectDetail(dInfo);
+		model.addAttribute("detailInfo", detailInfo);
+
+		List<ReviewInfo> reviewInfo = foodService.selectReview(rInfo);
+		model.addAttribute("reviewInfo", reviewInfo);
+
+		List<MenuInfo> menuInfo = foodService.selectMenu(mInfo);
+		model.addAttribute("menuInfo", menuInfo);
+
+			
 		model.addAttribute("storeInfo", storeInfo);
 		
 		return "detail/food-details";
 	}
 	 
+	
+	@RequestMapping(value = "/storeList/detail", method = {RequestMethod.POST})
+	public String Insert(ReviewDTO dto, StoreInfo sInfo, DetailInfo dInfo, ReviewInfo rInfo, MenuInfo mInfo, Favorite fr,HttpServletRequest req,HttpSession session, Model model) throws Exception { 
+		//StoreInfo storeInfo, DetailInfo detailInfo, ReviewInfo reviewInfo, MenuInfo menuInfo뺌
+		
+		
+		//storeInfo부분
+		StoreInfo storeInfo = foodService.selectStore(sInfo);
+		model.addAttribute("storeInfo", storeInfo);
+		
+		//detailInfo부분
+		DetailInfo detailInfo = foodService.selectDetail(dInfo);
+		model.addAttribute("detailInfo", detailInfo);
+		
+		//reviewInfo부분
+		List<ReviewInfo> reviewInfo = foodService.selectReview(rInfo);
+		foodService.insertReview(rInfo);
+		model.addAttribute("reviewInfo", reviewInfo);
+		
+		List<ReviewInfo> reviewInfoList = foodService.selectReviewList(rInfo);
+		model.addAttribute("reviewInfoList", reviewInfoList);
+		
+		
+		//menuInfo부분
+		List<MenuInfo> menuInfo = foodService.selectMenu(mInfo);
+		model.addAttribute("menuInfo", menuInfo);
+		
+		//favorite부분
+		List<Favorite> favorite = foodService.selectFavorite(fr);
+		model.addAttribute("favorite", favorite);
+		
+		
+		return "detail/food-details";
+	}
 //	@RequestMapping(value = "/storeList/orderby", method = )	
 	
 	@RequestMapping(value = "/storeList/detailInfoChk", method = RequestMethod.POST)

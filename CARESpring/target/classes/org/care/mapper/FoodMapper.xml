@@ -22,8 +22,8 @@
 	<select id="selectDetail"
 		resultType="org.care.domain.DetailInfo">
 		SELECT *
-		from DETAILINFO
-		where STORENO = #{storeNo}
+		FROM DETAILINFO
+	    WHERE STORENO = #{storeNo}
 	</select>
 
 
