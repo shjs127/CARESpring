@@ -1,6 +1,5 @@
 package org.care.controller;
 
-import java.lang.reflect.Member;
 
 import javax.inject.Inject;
 
@@ -11,17 +10,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import org.care.service.RegisterService;
-import org.care.domain.RegisterInfo;
+import org.care.dto.LoginDTO;
+
 @Controller
- @RequestMapping("/care/*")
+@RequestMapping("/")
 public class RegisterController {
-	
+
 	private static final Logger logger = LoggerFactory.getLogger(RegisterController.class);
-	
-@Inject
- RegisterService registerService;
-	
-	
+
+	@Inject
+	RegisterService registerService;
+
 	/*
 	 * private final RegisterService registerService;
 	 * 
@@ -30,24 +29,23 @@ public class RegisterController {
 	 * 
 	 * }
 	 */
-	
+
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
-	public void getRegister() throws Exception {
+	public String getRegister() throws Exception {
 		logger.info("get register");
+
+		return "login/register";
 	}
-	
-	//회원가입 처리
+
+	// 회원가입 처리
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public String postRegister(RegisterInfo registerInfo) throws Exception {
+	public String postRegister(LoginDTO dto) throws Exception {
 		logger.info("post register");
-		
-		registerService.register(registerInfo);
-		
-		return null;
+		logger.info("userId=" + dto.getUserId());
+		logger.info("userName=" + dto.getUserName());
+
+		registerService.register(dto);
+		return "login/login";
 	}
-	
 
 }
-
-
-

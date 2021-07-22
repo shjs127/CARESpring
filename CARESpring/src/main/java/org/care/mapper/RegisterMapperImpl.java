@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import org.care.domain.RegisterInfo;
+import org.care.dto.LoginDTO;
 
 @Repository
 public class RegisterMapperImpl implements RegisterMapper {
@@ -14,7 +15,7 @@ public class RegisterMapperImpl implements RegisterMapper {
 	// 회원가입
 
 	@Override
-	public void register(RegisterInfo registerInfo) throws Exception {
-		sql.insert("RegisterMapper.register", registerInfo);
+	public void register(LoginDTO dto) throws Exception {
+		sql.insert("RegisterMapper.register", dto);
 	}
 }

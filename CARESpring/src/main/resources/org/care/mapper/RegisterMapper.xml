@@ -12,16 +12,15 @@
 	   					       , NICKNAME
 	   					       , BIRTH
 	   					       , EMAIL
-	   					       , GENDER 	
-	   					       , ADMINISTER    )
-	                  VALUES(    #{userId} 
+	   					       , GENDER )
+	                  VALUES(  USERNUM.NEXTVAL
+	                			, #{userId} 
 	                 		   , #{password}
 	                 		   , #{userName}
 	                 		   , #{nickName}
 	                 		   , #{birth}
 	                 		   , #{email}
-	                 		   , #{gender}
-	                 		   , #{administer})
+	                 		   , #{gender})
     </insert>
    
 </mapper>
