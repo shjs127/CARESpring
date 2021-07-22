@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.care.domain.Criteria;
@@ -15,6 +16,7 @@ import org.care.domain.ReviewInfo;
 import org.care.domain.SearchCriteria;
 import org.care.domain.StoreInfo;
 import org.care.dto.ReviewDTO;
+import org.care.service.DeleteFoodService;
 import org.care.service.FoodService;
 import org.care.service.ListStoreService;
 import org.slf4j.Logger;
@@ -76,22 +78,24 @@ public class ListStoreController {
 	}
 	@Inject
 	public FoodService foodService;
+	@Inject
+	private DeleteFoodService deleteFoodService;
 	
 	@RequestMapping(value = "/storeList/detail", method = RequestMethod.GET)
 	public String StoreDetailPage(@RequestParam("storeNo") int storeNo, StoreInfo sInfo, DetailInfo dInfo, ReviewInfo rInfo, MenuInfo mInfo,@ModelAttribute("cri") SearchCriteria cri, Model model) throws Exception {
 		
-		StoreInfo storeInfo = foodService.selectStore(sInfo);
-		service.read(storeNo);
-		model.addAttribute("storeInfo", storeInfo);
-
-		DetailInfo detailInfo = foodService.selectDetail(dInfo);
-		model.addAttribute("detailInfo", detailInfo);
-
-		List<ReviewInfo> reviewInfo = foodService.selectReview(rInfo);
-		model.addAttribute("reviewInfo", reviewInfo);
-
-		List<MenuInfo> menuInfo = foodService.selectMenu(mInfo);
-		model.addAttribute("menuInfo", menuInfo);
+		  StoreInfo storeInfo = foodService.selectStore(sInfo); service.read(storeNo);
+		  model.addAttribute("storeInfo", storeInfo);
+		  
+		 DetailInfo detailInfo = foodService.selectDetail(dInfo);
+		  model.addAttribute("detailInfo", detailInfo);
+		  
+		  List<ReviewInfo> reviewInfo = foodService.selectReview(rInfo);
+		  model.addAttribute("reviewInfo", reviewInfo);
+		  
+		  List<MenuInfo> menuInfo = foodService.selectMenu(mInfo);
+		  model.addAttribute("menuInfo", menuInfo);
+		
 
 			
 		model.addAttribute("storeInfo", storeInfo);
@@ -117,21 +121,44 @@ public class ListStoreController {
 		List<ReviewInfo> reviewInfo = foodService.selectReview(rInfo);
 		foodService.insertReview(rInfo);
 		model.addAttribute("reviewInfo", reviewInfo);
-		
-		List<ReviewInfo> reviewInfoList = foodService.selectReviewList(rInfo);
-		model.addAttribute("reviewInfoList", reviewInfoList);
-		
+	
 		
 		//menuInfo부분
 		List<MenuInfo> menuInfo = foodService.selectMenu(mInfo);
 		model.addAttribute("menuInfo", menuInfo);
 		
-		//favorite부분
-		List<Favorite> favorite = foodService.selectFavorite(fr);
-		model.addAttribute("favorite", favorite);
-		
+	
 		
 		return "detail/food-details";
+	}
+	
+	@RequestMapping(value = "/storeList/deleteReview", method = RequestMethod.GET)
+	public String delete(ReviewDTO dto, HttpServletRequest req, HttpServletResponse response, HttpSession session, Model model) throws Exception { 
+		
+		  String param = req.getParameter("seq");
+		  deleteFoodService.deleteReview(param);
+		
+		return "detail/food-details";
+				
+	}
+
+	
+	@RequestMapping(value = "/storeList/writeReview", method = RequestMethod.POST)
+	public String deleter(StoreInfo sInfo, ReviewInfo rInfo,ReviewDTO dto, ReviewInfo rin,HttpSession session, Model model) throws Exception { 
+		System.out.println("session :: " + session.getAttributeNames());
+		//storeInfo부분
+		StoreInfo storeInfo = foodService.selectStore(sInfo);
+		model.addAttribute("storeInfo", storeInfo);
+		
+		
+		//reviewInfo부분
+		List<ReviewInfo> reviewInfo = foodService.selectReview(rInfo);
+		foodService.insertReview(rInfo);
+		model.addAttribute("reviewInfo", reviewInfo);
+	
+		/* System.out.println("dto :: " + dto); */
+		return "detail/food-details";
+				
 	}
 //	@RequestMapping(value = "/storeList/orderby", method = )	
 	

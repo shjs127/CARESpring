@@ -45,7 +45,7 @@
 
 	<select id="selectMenu" resultType="org.care.domain.MenuInfo">
 		SELECT *
-		from MENUINFO
+		FROM MENUINFO
 		WHERE
 		STORENO = #{storeNo}
 	</select>

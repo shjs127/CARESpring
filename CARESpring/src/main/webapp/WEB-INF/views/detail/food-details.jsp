@@ -428,13 +428,15 @@
 													
 													<!-- // form에 ID 지정 -->
 													<%-- <input type="hidden" name="storeNo"
-															value="${reviewInfo.storeNo }" /> --%>
+															value="${reviewInfo.storeNo }" /> 
+															
+														
+															--%>
 
-													<form action="/care/store/storeList/detail?storeNo=${storeInfo.storeNo}#reviews" method="post" id="writeForm">
+													<form action="/care/store/storeList/writeReview?storeNo=${storeInfo.storeNo}" method="post" id="writeForm">
+													
 														<p>
-															<textarea name="reviewContents" cols="60" rows="10"
-																placeholder="리뷰를 작성하세요">
-															</textarea>
+															<textarea name="reviewContents" cols="60" rows="10" placeholder="리뷰를 작성하세요"></textarea>
 														</p>
 
 														<h9>별점을 선택하세요.</h9>
@@ -446,9 +448,6 @@
 															<option value="4">★★★★☆</option>
 															<option value="5" selected>★★★★★</option>
 														</select> <br> <br>
-
-
-
 														<p>
 															<input type="submit" value="리뷰쓰기"
 																class="btn btn-black animation text-uppercase float-right" />
@@ -490,10 +489,7 @@
 												</c:if>
 												<c:if test="${!view.isEmpty()}">
 													<table border="1">
-
-														<!--  -->
 														<div class="review-list-content">
-
 															<c:forEach var="reviewInfo" items="${reviewInfo}">
 																<p>
 																	<i class="fa fa-calendar"> ${reviewInfo.reviewDate}</i>
@@ -503,21 +499,15 @@
 																<p>평점: ${reviewInfo.avgScore}</p>
 																<p>리뷰 번호: ${reviewInfo.reviewNo}</p>
 																<p>
-																<form action="storeDetail" method="post" />
+                             									<form action="/store/deleteReview" method="post" id="deleteForm">
 																<input type="button" value="수정"
 																	onclick="modifyReview(${reviewInfo.reviewNo})">
 																<input type="button" value="삭제"
 																	onclick="deleteReview(${reviewInfo.reviewNo})">
-																</form>
-																</p>
-
-																<%-- <p> ${reviewPic.reviewPic1}</p> --%>
-
+															</form>
 															</c:forEach>
 														</div>
-
 													</table>
-
 
 												</c:if>
 											</div>
@@ -638,27 +628,32 @@
 
 
 <script>
-	var storeNo = ${storeInfo.storeNo};
-	
+
 	function deleteReview(revReq) {
 		var chk = confirm("정말 삭제하시겠습니까?");
 		if (chk) {
-			location.href='deleteReview?seq=' + revReq;
-			
-		
+			location.href='deleteReview?seq='+ revReq;
 		}
-		window.location.reload();
+		
 	}	
 	
 	function rlogin(seq) {
 		var chk = confirm("로그인이 필요합니다.");
 		if (chk) {
-			location.href='login';
+			window.location.href='login';
 			
 		}
 	}	
 	
-	
+	$(function() {
+		$("#writeForm").submit(function() {
+			if ($("#reviewContents").val() == "") {
+				alert("리뷰 내용을 입력하세요!");
+				$("#reviewContents").focus();
+				return false;
+			}
+		});
+	});
 </script>
 
 
@@ -671,32 +666,5 @@
 	}	
 </script> -->
 
-
-<script type="text/javascript">
-
-
-	$(function() {
-		$("#writeForm").submit(function() {
-			if ($("#reviewContents").val() == "") {
-				alert("리뷰 내용을 입력하세요!");
-				$("#reviewContents").focus();
-				return false;
-			}
-		});
-		
-		
-		/* 
-		window.onload=function(){
-            var aaaa =document.getElementById('aaaaaaaa');
- 
-            aaaa.onclick=function(){
-            	alert("!!!!!");
-            };
-             
-        }; */
-		
-		
-	});
-</script>
 
 <%@ include file="../include/footer.jspf"%>
