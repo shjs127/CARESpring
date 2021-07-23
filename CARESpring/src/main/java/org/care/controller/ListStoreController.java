@@ -1,18 +1,24 @@
 package org.care.controller;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.util.List;
+import java.util.UUID;
 
+import javax.annotation.Resource;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.io.IOUtils;
 import org.care.domain.Criteria;
 import org.care.domain.DetailInfo;
-import org.care.domain.Favorite;
 import org.care.domain.MenuInfo;
 import org.care.domain.PageMaker;
 import org.care.domain.ReviewInfo;
+import org.care.domain.ReviewPic;
 import org.care.domain.SearchCriteria;
 import org.care.domain.StoreInfo;
 import org.care.domain.UserInfo;
@@ -20,15 +26,23 @@ import org.care.dto.ReviewDTO;
 import org.care.service.DeleteFoodService;
 import org.care.service.FoodService;
 import org.care.service.ListStoreService;
+import org.care.util.MediaUtils;
+import org.care.util.UploadFileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 @RequestMapping("/store")
@@ -39,6 +53,9 @@ public class ListStoreController {
 	@Inject
 	private ListStoreService service;
 
+	@Resource(name = "uploadPath")
+	private String uploadPath;
+	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String boardPage(HttpServletRequest request, Model model) throws Exception {
 
@@ -102,12 +119,24 @@ public class ListStoreController {
 	}
 
 	@RequestMapping(value = "/storeList/detail", method = { RequestMethod.POST })
-	public String Insert(@RequestParam("storeNo") int storeNo,ReviewDTO dto,
+	public String Insert(@RequestParam("storeNo") int storeNo, MultipartFile file, ReviewDTO dto,
 			HttpSession session, Model model) throws Exception {
 
 		UserInfo login = (UserInfo) session.getAttribute("login");
 		int userNo = login.getUserNo();
 		foodService.insertReview(storeNo, userNo, dto);
+	
+		ReviewPic pic = new ReviewPic();
+		// 파일을 선택한 경우에만 업로드 실행
+		if (file.getOriginalFilename() != "") {
+			System.out.println("/*** file.getOriginalFileName()=" + file.getOriginalFilename());
+			String save = uploadFile(file.getOriginalFilename(), file.getBytes());
+
+			pic.setReviewPic1(save);
+			pic.setStoreNo(storeNo);
+			pic.setUserNo(userNo);
+			foodService.reviewPic(pic);
+		}
 
 		return "redirect:/store/storeList/detail?storeNo=" + storeNo;
 	}
@@ -147,5 +176,118 @@ public class ListStoreController {
 	public void detailInfoChk(@RequestParam(value = "valueArrTest[]") List<String> valueArr) {
 
 	}
+	
+	/*
+	 * @RequestMapping(value = "/uploadForm", method = RequestMethod.GET) public
+	 * void uploadForm() { }
+	 * 
+	 * @RequestMapping(value = "/uploadForm", method = RequestMethod.POST) public
+	 * String uploadForm(MultipartFile file, Model model) throws Exception {
+	 * 
+	 * Logger.info("originalName: " + file.getOriginalFilename());
+	 * Logger.info("size: " + file.getSize()); Logger.info("contentType: " +
+	 * file.getContentType());
+	 * 
+	 * String savedName = uploadFile(file.getOriginalFilename(), file.getBytes());
+	 * 
+	 * model.addAttribute("savedName", savedName);
+	 * 
+	 * return "/detail/uploadResult"; }
+	 */
+	private String uploadFile(String originalName, byte[] fileData) throws Exception {
+
+		UUID uid = UUID.randomUUID();
+
+		String savedName = uid.toString() + "_" + originalName;
+
+		File target = new File(uploadPath, savedName);
+
+		FileCopyUtils.copy(fileData, target);
+
+		return savedName;
+
+	}
+
+	
+	  @ResponseBody
+	  
+	  @RequestMapping("/displayFile") public ResponseEntity<byte[]>
+	  displayFile(String fileName)throws Exception{
+	  
+	  InputStream in = null; ResponseEntity<byte[]> entity = null;
+	  
+	  Logger.info("FILE NAME: " + fileName);
+	  
+	  try{
+	  
+	  String formatName = fileName.substring(fileName.lastIndexOf(".")+1);
+	  
+	  MediaType mType = MediaUtils.getMediaType(formatName);
+	  
+	  HttpHeaders headers = new HttpHeaders();
+	  
+	  in = new FileInputStream(uploadPath+fileName);
+	  
+	  if(mType != null){ headers.setContentType(mType); }else{
+	  
+	  fileName = fileName.substring(fileName.indexOf("_")+1);
+	  headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+	  headers.add("Content-Disposition", "attachment; filename=\""+ new
+	  String(fileName.getBytes("UTF-8"), "ISO-8859-1")+"\""); }
+	  
+	  entity = new ResponseEntity<byte[]>(IOUtils.toByteArray(in), headers,
+	  HttpStatus.CREATED); }catch(Exception e){ e.printStackTrace(); entity = new
+	  ResponseEntity<byte[]>(HttpStatus.BAD_REQUEST); }finally{ in.close(); }
+	  return entity; }
+	  
+	  @ResponseBody
+	  
+	  @RequestMapping(value="/deleteFile", method=RequestMethod.POST) public
+	  ResponseEntity<String> deleteFile(String fileName){
+	  
+	  Logger.info("delete file: "+ fileName);
+	  
+	  String formatName = fileName.substring(fileName.lastIndexOf(".")+1);
+	  
+	  MediaType mType = MediaUtils.getMediaType(formatName);
+	  
+	  if(mType != null){
+	  
+	  String front = fileName.substring(0,12); String end = fileName.substring(14);
+	  new File(uploadPath + (front+end).replace('/', File.separatorChar)).delete();
+	  }
+	  
+	  new File(uploadPath + fileName.replace('/', File.separatorChar)).delete();
+	  
+	  
+	  return new ResponseEntity<String>("deleted", HttpStatus.OK); }
+	  
+	  @ResponseBody
+	  
+	  @RequestMapping(value="/deleteAllFiles", method=RequestMethod.POST) public
+	  ResponseEntity<String> deleteFile(@RequestParam("files[]") String[] files){
+	  
+	  Logger.info("delete all files: "+ files);
+	  
+	  if(files == null || files.length == 0) { return new
+	  ResponseEntity<String>("deleted", HttpStatus.OK); }
+	  
+	  for (String fileName : files) { String formatName =
+	  fileName.substring(fileName.lastIndexOf(".")+1);
+	  
+	  MediaType mType = MediaUtils.getMediaType(formatName);
+	  
+	  if(mType != null){
+	  
+	  String front = fileName.substring(0,12); String end = fileName.substring(14);
+	  new File(uploadPath + (front+end).replace('/', File.separatorChar)).delete();
+	  }
+	  
+	  new File(uploadPath + fileName.replace('/', File.separatorChar)).delete();
+	  
+	  } return new ResponseEntity<String>("deleted", HttpStatus.OK); }
+	 
+
+
 
 }

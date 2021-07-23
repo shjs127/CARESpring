@@ -23,7 +23,7 @@
 		resultType="org.care.domain.DetailInfo">
 		SELECT *
 		FROM DETAILINFO
-	    WHERE STORENO = #{storeNo}
+		WHERE STORENO = #{storeNo}
 	</select>
 
 
@@ -31,7 +31,8 @@
 		resultType="org.care.domain.ReviewInfo">
 		SELECT *
 		FROM REVIEWINFO
-		WHERE REVIEWINFO.STORENO = #{storeNo}
+		WHERE REVIEWINFO.STORENO =
+		#{storeNo}
 		ORDER BY REVIEWNO DESC
 	</select>
 
@@ -50,15 +51,22 @@
 		STORENO = #{storeNo}
 	</select>
 
-	<select id="insertReview">
+	<insert id="insertReview">
+<!-- 		<selectKey keyProperty="reviewNo" resultType="int" order="AFTER">
+	select REVIEWNUM.NEXTVAL from DUAL
+	</selectKey> -->
+
 		INSERT INTO REVIEWINFO (REVIEWNO, USERNO, STORENO,
-		AVGSCORE, REVIEWCONTENTS, REVIEWDATE)
-		VALUES(REVIEWNUM.NEXTVAL,#{arg1},#{arg0},#{arg2.avgScore},#{arg2.reviewContents}, SYSDATE)
-	</select>
+		AVGSCORE,
+		REVIEWCONTENTS, REVIEWDATE)
+		VALUES(REVIEWNUM.NEXTVAL,#{arg1},#{arg0},#{arg2.avgScore},#{arg2.reviewContents},
+		SYSDATE)
+	</insert>
 
 	<delete id="deleteReview" parameterType="string">
 		DELETE REVIEWINFO
-		WHERE REVIEWNO = #{param}
+		WHERE
+		REVIEWNO = #{param}
 	</delete>
 
 	<select id="selectFavorite"
@@ -71,6 +79,12 @@
 		AND FAVORITECHECK = 'y'
 
 	</select>
+
+	<insert id="insertPic">
+		INSERT INTO REVIEWPIC (reviewNo, userNo,storeNo,
+		reviewPic1) VALUES
+		(REVIEWNUM.CURRVAL,#{userNo},#{storeNo}, #{reviewPic1})
+	</insert>
 
 </mapper>
 

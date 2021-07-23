@@ -6,6 +6,7 @@ import org.care.domain.DetailInfo;
 import org.care.domain.Favorite;
 import org.care.domain.MenuInfo;
 import org.care.domain.ReviewInfo;
+import org.care.domain.ReviewPic;
 import org.care.domain.StoreInfo;
 import org.care.dto.ReviewDTO;
 import org.care.dto.StoreDTO;
@@ -55,7 +56,7 @@ public class FoodServiceImpl implements FoodService {
 	@Override
 	public void insertReview(int storeNo,int userNo,ReviewDTO dto) throws Exception {
 		
-		foodMapper.insertReview(storeNo,userNo,dto);
+		 foodMapper.insertReview(storeNo,userNo,dto);
 		
 	}
 	
@@ -71,6 +72,12 @@ public class FoodServiceImpl implements FoodService {
 			
 		return foodMapper.selectFavorite(favorite);
 		
+	}
+
+	@Override
+	public void reviewPic(ReviewPic pic) {
+		foodMapper.insertPic(pic);
+	
 	}
 
 

@@ -37,6 +37,11 @@
 	/* background: url('./pages/image/loading_n.png'); */
 	margin-top: 2%;
 }
+.inputArea {margin:10px 0;}
+select {width:100px;}
+label {display:inline-block; width:70; padding:5px;}
+input {width:150px;}
+.select_img img {margin:20px 0;}
 </style>
 
 <!-- Search Section Starts -->
@@ -127,12 +132,14 @@
 
 				</ul>
 				<br> <br>
-				
-				
+
+
 				<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-    			<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-    			<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-				
+				<script
+					src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+				<script
+					src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+
 
 				<!-- Menu Tabs List Ends -->
 				<!-- Menu Tabs Content Starts -->
@@ -416,27 +423,24 @@
 														// 현재 로그인된 아이디가 없다면 (= session에 저장된 id가 없다면)
 													if (session.getAttribute("login") == null && session.getAttribute("storein") == null) {
 													%>
-													<input type="submit" value="리뷰쓰기" class="btn btn-black animation text-uppercase float-right" 
-													onclick="rlogin()"/></a>
-													<br>
-													
+													<input type="submit" value="리뷰쓰기"
+														class="btn btn-black animation text-uppercase float-right"
+														onclick="rlogin()" /></a> <br>
+
 													<%
 														}
 													// 현재 로그인된 아이디가 있다면 (= session에 저장된 id가 있다면)
 													else if (session.getAttribute("login") != null) {
 													%>
-													
-													<!-- // form에 ID 지정 -->
-													<%-- <input type="hidden" name="storeNo"
-															value="${reviewInfo.storeNo }" /> 
-															
-														
-															--%>
 
-													<form action="/care/store/storeList/detail?storeNo=${storeInfo.storeNo}" method="post" id="writeForm">
-													
+
+													<form
+														action="/care/store/storeList/detail?storeNo=${storeInfo.storeNo}"
+														method="post" id="writeForm" enctype="multipart/form-data">
+
 														<p>
-															<textarea name="reviewContents" cols="60" rows="10" placeholder="리뷰를 작성하세요"></textarea>
+															<textarea name="reviewContents" cols="60" rows="10"
+																placeholder="리뷰를 작성하세요"></textarea>
 														</p>
 
 														<h9>별점을 선택하세요.</h9>
@@ -452,18 +456,20 @@
 															<input type="submit" value="리뷰쓰기"
 																class="btn btn-black animation text-uppercase float-right" />
 														</p>
-													</form>
 
-													<form action="file" method="post"
-														enctype="multipart/form-data">
-														<tr>
-															<td></td>
-															<td><input type="file" name="fileName1"></td>
-														</tr>
+
+														<div class="inputArea">
+															<label for="preView">이미지</label> <input type="file"
+																id="preView" name="file" />
+															<div class="select_img">
+																<img src="" />
+															</div>
+															<%=request.getRealPath("/") %>
+															</div>
 													</form>
 
 													<%
-														} 
+														}
 													%>
 
 												</div>
@@ -499,12 +505,13 @@
 																<p>평점: ${reviewInfo.avgScore}</p>
 																<p>리뷰 번호: ${reviewInfo.reviewNo}</p>
 																<p>
-                             									<form action="/store/deleteReview" method="post" id="deleteForm">
-																<input type="button" value="수정"
-																	onclick="modifyReview(${reviewInfo.reviewNo})">
-																<input type="button" value="삭제"
-																	onclick="deleteReview(${reviewInfo.reviewNo})">
-															</form>
+																<form action="/store/deleteReview" method="post"
+																	id="deleteForm">
+																	<input type="button" value="수정"
+																		onclick="modifyReview(${reviewInfo.reviewNo})">
+																	<input type="button" value="삭제"
+																		onclick="deleteReview(${reviewInfo.reviewNo})">
+																</form>
 															</c:forEach>
 														</div>
 													</table>
@@ -665,6 +672,18 @@
 		}
 	}	
 </script> -->
+
+<script>
+  $("#preView").change(function(){
+   if(this.files && this.files[0]) {
+    var reader = new FileReader;
+    reader.onload = function(data) {
+     $(".select_img img").attr("src", data.target.result).width(500);        
+    }
+    reader.readAsDataURL(this.files[0]);
+   }
+  });
+ </script>
 
 
 <%@ include file="../include/footer.jspf"%>
