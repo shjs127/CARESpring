@@ -30,8 +30,8 @@
 	<select id="selectReview"
 		resultType="org.care.domain.ReviewInfo">
 		SELECT *
-		FROM REVIEWINFO, USERINFO
-		WHERE REVIEWINFO.STORENO = #{storeNo} AND USERINFO.USERNO = 1 
+		FROM REVIEWINFO
+		WHERE REVIEWINFO.STORENO = #{storeNo}
 		ORDER BY REVIEWNO DESC
 	</select>
 
@@ -50,11 +50,10 @@
 		STORENO = #{storeNo}
 	</select>
 
-	<select id="insertReview"
-		resultType="org.care.domain.ReviewInfo">
+	<select id="insertReview">
 		INSERT INTO REVIEWINFO (REVIEWNO, USERNO, STORENO,
 		AVGSCORE, REVIEWCONTENTS, REVIEWDATE)
-		VALUES(REVIEWNUM.NEXTVAL,1,#{storeNo},#{avgScore},#{reviewContents}, SYSDATE)
+		VALUES(REVIEWNUM.NEXTVAL,#{arg1},#{arg0},#{arg2.avgScore},#{arg2.reviewContents}, SYSDATE)
 	</select>
 
 	<delete id="deleteReview" parameterType="string">

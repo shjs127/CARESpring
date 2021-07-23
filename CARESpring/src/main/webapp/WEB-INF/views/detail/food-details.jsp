@@ -433,7 +433,7 @@
 														
 															--%>
 
-													<form action="/care/store/storeList/writeReview?storeNo=${storeInfo.storeNo}" method="post" id="writeForm">
+													<form action="/care/store/storeList/detail?storeNo=${storeInfo.storeNo}" method="post" id="writeForm">
 													
 														<p>
 															<textarea name="reviewContents" cols="60" rows="10" placeholder="리뷰를 작성하세요"></textarea>

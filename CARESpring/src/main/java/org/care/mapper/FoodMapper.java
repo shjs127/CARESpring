@@ -11,15 +11,15 @@ import org.care.dto.ReviewDTO;
 import org.care.dto.StoreDTO;
 
 public interface FoodMapper {
-	StoreInfo selectStore(StoreInfo storeInfo) throws Exception;
-	DetailInfo selectDetail(DetailInfo detailInfo) throws Exception;
-	List<ReviewInfo> selectReview(ReviewInfo reviewInfo) throws Exception;
+	StoreInfo selectStore(int storeNo) throws Exception;
+	DetailInfo selectDetail(int storeNo) throws Exception;
+	List<ReviewInfo> selectReview(int storeNo) throws Exception;
 	List<ReviewInfo> selectReviewList(ReviewInfo reviewInfo) throws Exception;
-	List<ReviewInfo> insertReview(ReviewInfo reviewInfo) throws Exception;
-	List<MenuInfo> selectMenu(MenuInfo menuInfo) throws Exception;
+	List<MenuInfo> selectMenu(int storeNo) throws Exception;
 	List<Favorite> selectFavorite(Favorite favorite) throws Exception;
-	
+
 	void deleteReview(String param) throws Exception;
 	
 	StoreInfo storeLogin(StoreDTO dto) throws Exception;
+	void insertReview(int storeNo, int userNo, ReviewDTO dto);
 }
