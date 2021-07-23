@@ -9,9 +9,6 @@ public class ReviewPic {
 	private int userNo;
 	private int storeNo;
 	private String reviewPic1;
-	private String reviewPic2;
-	private String reviewPic3;
-	private String reviewPic4;
-	private String reviewPic5;
+
 	
 }
