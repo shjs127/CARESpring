@@ -95,7 +95,7 @@
 
 	.nav-menu-tabs {
 		margin-bottom: 30px;		
-		padding: 0 14px;
+		padding: 0 30px;
 	}
 		.nav-menu-tabs > li {
 			margin: 0 10px;
@@ -405,7 +405,7 @@
 /* Menu Tabs Styles */
 
 	.nav-menu-tabs {
-		padding: 0 14px;
+		padding: 2 30px;
 	}
 		.nav-menu-tabs > li {
 			margin: 0 10px;

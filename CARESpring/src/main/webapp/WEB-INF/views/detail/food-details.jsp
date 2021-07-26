@@ -659,21 +659,14 @@ input {
 		}
 		
 	}	 
-	/* 
-	function deleteReview(seq) {
-		var chk = confirm("정말 리뷰를 삭제하시겠습니까?");
-
-					if (chk) { 
-
-						document.removefrm.submit();
-
-					} else { 
-
-						return false;
-
-					}
-
-				} */
+	
+	function modifyReview(revReq) {
+		var chk = confirm("수정하시겠습니까?");
+		if (chk) {
+			location.href='modifyReview';
+		}
+		
+	}	 
 	
 	function rlogin(seq) {
 		var chk = confirm("로그인이 필요합니다.");
@@ -694,15 +687,6 @@ input {
 	});
 </script>
 
-
-<!-- <script>
-	function del(seq) {
-		var chk = confirm("정말 삭제하시겠습니까?");
-		if (chk) {
-			location.href='food-details'+seq;
-		}
-	}	
-</script> -->
 
 <script>
   $("#preView").change(function(){

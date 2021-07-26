@@ -40,6 +40,14 @@
 		FROM REVIEWINFO
 		WHERE REVIEWNO= #{reviewNo}
 	</select>
+	
+	
+	<select id="modifyReview">
+		UPDATE REVIEWINFO
+		SET REVIEWCONTENTS = #{reviewContents}, AVGSCORE = #{avgScore}
+    	WHERE REVIEWNO = #{reviewNo}
+    </select>
+
 
 	<select id="selectReviewList"
 		resultType="org.care.domain.ReviewInfo">

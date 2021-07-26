@@ -22,6 +22,7 @@ public interface FoodMapper {
 
 	void deleteReview(int reviewNo) throws Exception;
 	Integer read(@Param("reviewNo")int reviewNo)throws Exception;
+	void modifyReview(int reviewNo)throws Exception ;
 	
 	StoreInfo storeLogin(StoreDTO dto) throws Exception;
 	void insertReview(int storeNo, int userNo, ReviewDTO dto);

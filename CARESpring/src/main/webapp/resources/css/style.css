@@ -1370,11 +1370,11 @@ h6 { font-size: 18px; }
 /* Reviews Tab Pane Starts */
 
 .reviews-tab-pane {	
-	margin-top: 15px;
+	margin-top: 20px;
 }
 	.reviews-form-box {
-		margin-bottom: 30px;
-		padding: 20px;
+		margin-bottom: 100px;
+		padding: 100px;
 		background-color: #cf3d27;
 	}
 		.reviews-form-box h6 {

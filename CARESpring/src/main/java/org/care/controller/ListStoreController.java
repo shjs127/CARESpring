@@ -26,8 +26,8 @@ import org.care.dto.ReviewDTO;
 import org.care.service.DeleteFoodService;
 import org.care.service.FoodService;
 import org.care.service.ListStoreService;
+import org.care.service.ModifyFoodService;
 import org.care.util.MediaUtils;
-import org.care.util.UploadFileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
@@ -158,7 +158,39 @@ public class ListStoreController {
 		
 		return "redirect:/store/storeList/detail?storeNo=" + storeNo;
 	}
+	
+	@Inject
+	private ModifyFoodService modifyFoodService;
+	
+	
+	@RequestMapping(value = "/storeList/modifyReview", method = RequestMethod.GET)
+	public String modify1(ReviewDTO dto, HttpServletRequest req, Model model)throws Exception {
+		
 
+		
+		return "detail/modifyReview";
+	}
+	
+	
+	@RequestMapping(value = "/storeList/modifyReview", method = RequestMethod.POST)
+	public String modify(ReviewDTO dto, HttpServletRequest req, Model model)throws Exception {
+		System.out.println("modify()");
+		
+		
+		int reviewNo = Integer.parseInt(req.getParameter("seq"));
+		Integer storeNo= modifyFoodService.read(reviewNo);
+		System.out.println("storeNo="+storeNo);
+		
+		
+		modifyFoodService.modifyReview(reviewNo);
+
+		
+		return "redirect:/store/storeList/detail?storeNo=" + storeNo;
+	}
+
+		
+
+		
 
 //	@RequestMapping(value = "/storeList/orderby", method = )	
 
