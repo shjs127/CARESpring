@@ -37,11 +37,28 @@
 	/* background: url('./pages/image/loading_n.png'); */
 	margin-top: 2%;
 }
-.inputArea {margin:10px 0;}
-select {width:100px;}
-label {display:inline-block; width:70; padding:5px;}
-input {width:150px;}
-.select_img img {margin:20px 0;}
+
+.inputArea {
+	margin: 10px 0;
+}
+
+select {
+	width: 100px;
+}
+
+label {
+	display: inline-block;
+	width: 70;
+	padding: 5px;
+}
+
+input {
+	width: 150px;
+}
+
+.select_img img {
+	margin: 20px 0;
+}
 </style>
 
 <!-- Search Section Starts -->
@@ -464,8 +481,8 @@ input {width:150px;}
 															<div class="select_img">
 																<img src="" />
 															</div>
-															<%=request.getRealPath("/") %>
-															</div>
+															<%=request.getRealPath("/")%>
+														</div>
 													</form>
 
 													<%
@@ -505,12 +522,11 @@ input {width:150px;}
 																<p>평점: ${reviewInfo.avgScore}</p>
 																<p>리뷰 번호: ${reviewInfo.reviewNo}</p>
 																<p>
-																<form action="/store/deleteReview" method="post"
-																	id="deleteForm">
+																<form action="storeList/deleteReview" method="post"
+																	id="deleteForm" enctype="multipart/form-data">
 																	<input type="button" value="수정"
 																		onclick="modifyReview(${reviewInfo.reviewNo})">
-																	<input type="button" value="삭제"
-																		onclick="deleteReview(${reviewInfo.reviewNo})">
+																	<input type="button" value="삭제" onclick="deleteReview(${reviewInfo.reviewNo})">
 																</form>
 															</c:forEach>
 														</div>
@@ -642,7 +658,22 @@ input {width:150px;}
 			location.href='deleteReview?seq='+ revReq;
 		}
 		
-	}	
+	}	 
+	/* 
+	function deleteReview(seq) {
+		var chk = confirm("정말 리뷰를 삭제하시겠습니까?");
+
+					if (chk) { 
+
+						document.removefrm.submit();
+
+					} else { 
+
+						return false;
+
+					}
+
+				} */
 	
 	function rlogin(seq) {
 		var chk = confirm("로그인이 필요합니다.");

@@ -139,36 +139,27 @@ public class ListStoreController {
 		}
 
 		return "redirect:/store/storeList/detail?storeNo=" + storeNo;
+		
 	}
 
+	
+	
 	@RequestMapping(value = "/storeList/deleteReview", method = RequestMethod.GET)
 	public String delete(ReviewDTO dto, HttpServletRequest req, HttpServletResponse response, HttpSession session,
 			Model model) throws Exception {
 
-		String param = req.getParameter("seq");
-		deleteFoodService.deleteReview(param);
+		int reviewNo = Integer.parseInt(req.getParameter("seq"));
+		Integer storeNo= deleteFoodService.read(reviewNo);
+		System.out.println("storeNo="+storeNo);
+		
+		
+		deleteFoodService.deleteReview(reviewNo);
 
-		return "detail/food-details";
-
+		
+		return "redirect:/store/storeList/detail?storeNo=" + storeNo;
 	}
 
-	/*
-	 * @RequestMapping(value = "/storeList/writeReview", method =
-	 * RequestMethod.POST) public String deleter(StoreInfo sInfo, ReviewInfo
-	 * rInfo,ReviewDTO dto, ReviewInfo rin,HttpSession session, Model model) throws
-	 * Exception { System.out.println("session :: " + session.getAttributeNames());
-	 * //storeInfo부분 StoreInfo storeInfo = foodService.selectStore(sInfo);
-	 * model.addAttribute("storeInfo", storeInfo);
-	 * 
-	 * 
-	 * //reviewInfo부분 List<ReviewInfo> reviewInfo = foodService.selectReview(rInfo);
-	 * foodService.insertReview(rInfo); model.addAttribute("reviewInfo",
-	 * reviewInfo);
-	 * 
-	 * System.out.println("dto :: " + dto); return "detail/food-details";
-	 * 
-	 * }
-	 */
+
 //	@RequestMapping(value = "/storeList/orderby", method = )	
 
 	@RequestMapping(value = "/storeList/detailInfoChk", method = RequestMethod.POST)

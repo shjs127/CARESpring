@@ -2,6 +2,7 @@ package org.care.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.care.domain.DetailInfo;
 import org.care.domain.Favorite;
 import org.care.domain.MenuInfo;
@@ -19,7 +20,8 @@ public interface FoodMapper {
 	List<MenuInfo> selectMenu(int storeNo) throws Exception;
 	List<Favorite> selectFavorite(Favorite favorite) throws Exception;
 
-	void deleteReview(String param) throws Exception;
+	void deleteReview(int reviewNo) throws Exception;
+	Integer read(@Param("reviewNo")int reviewNo)throws Exception;
 	
 	StoreInfo storeLogin(StoreDTO dto) throws Exception;
 	void insertReview(int storeNo, int userNo, ReviewDTO dto);
