@@ -133,7 +133,7 @@
 					<button type="submit" class="btn btn-block btn-prime animation">
 						Login <i class="fa fa-caret-right"></i>
 					</button>
-					<br> <a href="<%=request.getContextPath()%>/main/storage.do"
+					<br> <a href="StoreRegister"
 						class="text-center">매장 등록</a>
 
 					<div class="form-group">

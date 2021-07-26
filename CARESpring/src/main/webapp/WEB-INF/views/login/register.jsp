@@ -69,7 +69,7 @@
 			});
 			
 			$(function() {
-				$("#registForm").submit(function() {
+				$("form").submit(function() {
 					var nameChk = /^[0-9]{4}-[0-9]{2}-[0-9]{2}$/;
 					if (!nameChk.test($("#birth").val())) {
 						alert("생년월일 8자리를 입력하여 주세요!");
@@ -78,6 +78,14 @@
 					}
 				});
 			});
+			
+			$(function() {
+				$("form").submit(function() {
+					alert("회원가입 되었습니다.");
+					return true;
+				});
+			});
+			
 
 		</script>
 <div class="register-box">

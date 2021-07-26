@@ -21,14 +21,6 @@ public class RegisterController {
 	@Inject
 	RegisterService registerService;
 
-	/*
-	 * private final RegisterService registerService;
-	 * 
-	 * @Inject public RegisterController(RegisterService registerService) {
-	 * this.registerService = registerService;
-	 * 
-	 * }
-	 */
 
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
 	public String getRegister() throws Exception {
