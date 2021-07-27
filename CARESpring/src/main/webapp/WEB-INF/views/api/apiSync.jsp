@@ -117,7 +117,7 @@
 												</div>
 												<div class="panel-body">
 													<div>
-														<form action="storesync.do" method="post">
+														<form action="${pageContext.request.contextPath }/api/apiSuccess" method="post">
 															<div>
 																<button>동기화</button>
 															</div>

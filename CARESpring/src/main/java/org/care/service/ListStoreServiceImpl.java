@@ -40,16 +40,6 @@ public class ListStoreServiceImpl implements ListStoreService {
 	}
 
 	@Override
-	public List<StoreInfo> listCriteria(Criteria cri) throws Exception {
-		return listStoreMapper.listCriteria(cri);
-	}
-
-	@Override
-	public int countPaging(Criteria cri) throws Exception {
-		return listStoreMapper.countPaging(cri);
-	}
-
-	@Override
 	public List<StoreInfo> listSearch(SearchCriteria cri) throws Exception {
 		return listStoreMapper.listSearch(cri);
 	}
@@ -59,6 +49,16 @@ public class ListStoreServiceImpl implements ListStoreService {
 		return listStoreMapper.listSearchCount(cri);
 	}
 
+	@Override
+	public List<StoreInfo> listSearchDetail(SearchCriteria cri, List<String> valueArr) throws Exception {
+		return listStoreMapper.listSearchDetail(cri, valueArr);
+	}
+
+	@Override
+	public int listSearchDetailCount(SearchCriteria cri, List<String> valueArr) throws Exception {
+		return listStoreMapper.listSearchDetailCount(cri, valueArr);
+	}
+	
 	@Override
 	public List<StoreInfo> readPage(Integer storeNo) throws Exception {
 		return (List<StoreInfo>) listStoreMapper.read(storeNo);

@@ -17,13 +17,13 @@ public interface ListStoreService {
 	
 	public List<StoreInfo> listPage(int page) throws Exception;
 	 
-	public List<StoreInfo> listCriteria(Criteria cri) throws Exception;
-	 
-	public int countPaging(Criteria cri) throws Exception;
-	 
 	public List<StoreInfo> listSearch(SearchCriteria cri) throws Exception;
 	  
 	public int listSearchCount(SearchCriteria cri) throws Exception;
+	
+	public List<StoreInfo> listSearchDetail(SearchCriteria cri, List<String> valueArr) throws Exception;
+	
+	public int listSearchDetailCount(SearchCriteria cri, List<String> valueArr) throws Exception;
 
 	public List<StoreDTO> listTop(StoreDTO dto)throws Exception;
 

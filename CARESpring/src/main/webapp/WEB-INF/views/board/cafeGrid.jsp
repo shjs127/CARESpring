@@ -13,13 +13,13 @@
 		</h3>
 		<form class="top-search"
 			action="${pageContext.request.contextPath }/store/storeList"
-			method="post" name="frm" id="frm">
+			method="get" name="frm" id="frm">
 			<div class="input-group">
 				<div class="input-group-prepend search-panel"></div>
 				<input type="text" class="form-control input-lg rounded-0"
 					name="keyword" id="keyword" placeholder="지역 또는 카페"
 					value="${scri.keyword}">
-				<button class="btn btn-lg btn-prime animation text-uppercase"
+				<button class="btn btn-lg btn-prime animation text-uppercase" id="searchBtn"
 					type="submit">검색</button>
 			</div>
 		</form>
@@ -60,9 +60,9 @@
 				<!-- Sort By Field Starts -->
 				<select class="form-control rounded-0 sidearea-filter-sort" id="orderBy" name="orderBy">
 					<option value="" disabled>정렬</option>
-					<option value="orderStoreNo" <c:if test="${param.orderBy == 'orderStoreNo'}" > selected </c:if>>번호순</option>
-					<option value="orderAvgScore" <c:if test="${param.orderBy == 'orderAvgScore'}" > selected </c:if>>평점순</option>
-					<option value="orderReviewCnt" <c:if test="${param.orderBy == 'orderReviewCnt'}" > selected </c:if>>리뷰순</option>
+					<option value="STORENO" <c:if test="${scri.orderBy == 'STORENO'}" > selected </c:if>>번호순</option>
+					<option value="AVGSCORE" <c:if test="${scri.orderBy == 'AVGSCORE'}" > selected </c:if>>평점순</option>
+					<option value="REVIEWCNT" <c:if test="${scri.orderBy == 'REVIEWCNT'}" > selected </c:if>>리뷰순</option>
 				</select>
 				<!-- Sort By Field Ends -->
 				<!-- Filter By Restaurants Starts -->
@@ -70,52 +70,52 @@
 				<div class="sidearea-filter-checkbox-list">
 					<div class="form-check">
 						<label class="form-check-label"> <input type="checkbox"
-							class="form-check-input" name="detailChk" value="totalSeat"> 총 테이블 수
+							class="form-check-input detailCheckBox" id="detailChk" name="totalSeat" value="totalSeat"> 총 테이블 수
 						</label>
 					</div>
 					<div class="form-check">
 						<label class="form-check-label"> <input type="checkbox"
-							class="form-check-input" name="detailChk" value="socketSeat"> 콘센트 테이블 수
+							class="form-check-input detailCheckBox" id="detailChk" name="socketSeat" value="socketSeat"> 콘센트 테이블 수
 						</label>
 					</div>
 					<div class="form-check">
 						<label class="form-check-label"> <input type="checkbox"
-							class="form-check-input" name="detailChk" value="dessertSales"> 디저트 판매
+							class="form-check-input detailCheckBox" id="detailChk" name="dessertSales" value="dessertSales"> 디저트 판매
 						</label>
 					</div>
 					<div class="form-check">
 						<label class="form-check-label"> <input type="checkbox"
-							class="form-check-input" name="detailChk" value="terrace"> 테라스
+							class="form-check-input detailCheckBox" id="detailChk" name="terrace" value="terrace"> 테라스
 						</label>
 					</div>
 					<div class="form-check">
 						<label class="form-check-label"> <input type="checkbox"
-							class="form-check-input" name="detailChk" value="rooftop"> 루프탑
+							class="form-check-input detailCheckBox" id="detailChk" name="rooftop" value="rooftop"> 루프탑
 						</label>
 					</div>
 					<div class="form-check">
 						<label class="form-check-label"> <input type="checkbox"
-							class="form-check-input" name="detailChk" value="wifi"> 와이파이
+							class="form-check-input detailCheckBox" id="detailChk" name="wifi" value="wifi"> 와이파이
 						</label>
 					</div>
 					<div class="form-check">
 						<label class="form-check-label"> <input type="checkbox"
-							class="form-check-input" name="detailChk" value="companionDog"> 애견 동반
+							class="form-check-input detailCheckBox" id="detailChk" name="companionDog" value="companionDog"> 애견 동반
 						</label>
 					</div>
 					<div class="form-check">
 						<label class="form-check-label"> <input type="checkbox"
-							class="form-check-input" name="detailChk" value="parkingSpace"> 주차 공간
+							class="form-check-input detailCheckBox" id="detailChk" name="parkingSpace" value="parkingSpace"> 주차 공간
 						</label>
 					</div>
 					<div class="form-check">
 						<label class="form-check-label"> <input type="checkbox"
-							class="form-check-input" name="detailChk" value="noKidsZone"> 노키즈존
+							class="form-check-input detailCheckBox" id="detailChk" name="noKidsZone" value="noKidsZone"> 노키즈존
 						</label>
 					</div>
 					<div class="form-check">
 						<label class="form-check-label"> <input type="checkbox"
-							class="form-check-input" name="detailChk" value="smokinigArea"> 흡연구역
+							class="form-check-input detailCheckBox" id="detailChk" name="smokingArea" value="smokingArea"> 흡연구역
 						</label>
 					</div>
 				</div>
@@ -134,11 +134,11 @@
 			<!-- Hotels Grid List Starts -->
 			<div class="hotels-list-grid">
 				<!-- Nested Row Starts -->
-				<div class="row">
+				<div class="row storeLi">
 					<!-- List Box #1 Starts -->
 					<!-- List 시작 -->
 
-					<c:if test="${storePage.hasNoStores()}">
+					<c:if test="${list == null}">
 						<div>매장이 없습니다.</div>
 					</c:if>
 
@@ -246,73 +246,6 @@
 					</c:if>
 				</ul>
 			</div>
-			<%-- <c:if test="${storePage.hasStores()}">
-				<div class="pagination-block clearfix">
-					<ul class="pagination animation float-lg-right">
-						<c:if test="${storePage.startPage > 5}">
-							<c:if test="${Keyword == null}">
-								<c:if test="${orderBy == null || orderBy != null}">
-									<li class="page-item">
-										<a href="storelist.do?pageNo=${storePage.startPage -5}&orderBy=${orderBy}"
-											class="page-link">&laquo;</a></li>
-								</c:if>
-							</c:if>
-							<c:if test="${Keyword != null}">
-								<c:if test="${orderBy == null || orderBy != null}">
-									<li class="page-item"><a
-									href="storelist?pageNo=${storePage.startPage -5}&searchKeyword=${Keyword}&orderBy=${orderBy}"
-									class="page-link">&laquo;</a></li>
-								</c:if>
-							</c:if>
-						</c:if>
-						<c:forEach var="pNo" begin="${storePage.startPage}"
-							end="${storePage.endPage}">
-							<c:if test="${Keyword == null}">
-								<c:if test="${orderBy == null || orderBy != null}">
-									<c:if test="${pNo == storePage.currentPage }">
-										<li class="page-item active"><a href="storelist.do?pageNo=${pNo}&orderBy=${orderBy}"
-									class="page-link">${pNo}</a></li>
-									</c:if>
-									<c:if test="${pNo != storePage.currentPage }">
-										<li class="page-item"><a href="storelist.do?pageNo=${pNo}&orderBy=${orderBy}"
-									class="page-link">${pNo}</a></li>
-									</c:if>
-								</c:if>
-							</c:if>
-							<c:if test="${Keyword != null}">
-								<c:if test="${orderBy == null || orderBy != null}">
-									<c:if test="${pNo == storePage.currentPage }">
-										<li class="page-item active"><a href="storelist.do?pageNo=${pNo}&searchKeyword=${Keyword}&orderBy=${orderBy}"
-									class="page-link">${pNo}</a></li>
-									</c:if>
-									<c:if test="${pNo != storePage.currentPage }">
-										<li class="page-item"><a href="storelist.do?pageNo=${pNo}&searchKeyword=${Keyword}&orderBy=${orderBy}"
-									class="page-link">${pNo}</a></li>
-									</c:if>
-								</c:if>
-							</c:if>
-							
-						</c:forEach>
-						<c:if test="${storePage.endPage < storePage.totalPages}">
-							<c:if test="${Keyword == null}">
-								<c:if test="${orderBy == null || orderBy != null}">
-									<li class="page-item"><a
-										href="storelist.do?pageNo=${storePage.startPage + 5}&orderBy=${orderBy}"
-										class="page-link">&raquo;</a></li>
-								</c:if>
-							</c:if>
-							<c:if test="${Keyword != null}">
-								<c:if test="${orderBy == null || orderBy != null}">
-									<li class="page-item"><a
-									href="storelist.do?pageNo=${storePage.startPage + 5}&searchKeyword=${Keyword}&orderBy=${orderBy}"
-									class="page-link">&raquo;</a></li>
-								</c:if>
-							</c:if>
-						</c:if>
-					</ul>
-				</div>
-			</c:if> --%>
-			<!-- 페이징 처리 End -->
 		</div>
 		<!-- Mainarea Ends -->
 	</div>
@@ -321,6 +254,7 @@
 <!-- Main Container Ends -->
 
 <script type="text/javascript">
+
 	$(function(){
 		$("#frm").submit(function(){
 			if($("#keyword").val() == ""){
@@ -328,24 +262,138 @@
 				$("#keyword").focus();
 				return false;
 			}else{
-				self.location = "cafeGrid"
+				alert("keyword="+$("#keyword").val());
+				
+				self.location = "${pageContext.request.contextPath}/store/storeList"
+						+ '${pageMaker.makeQuery(1)}'
+						+ '&keyword='+ $("#keyword").val();
+			}
+		});
+	}); 
+
+ 	$(function(){
+ 		$("#orderBy").change(function(){
+ 			var orderby = $(this).val();
+ 			var keyword = $('#keyword').val();
+
+ 			self.location = "${pageContext.request.contextPath}/store/storeList"
+						+ '${pageMaker.makeQuery(1)}'
+						+ '&keyword='+$("#keyword").val()
+						+ '&orderBy='+$("#orderBy").val();
+ 		});
+ 	});
+ 	
+	/* $(function(){
+		$("#detailChk").change(function(){
+			if($("#detailChk").is(":checked")){
+				self.location = "${pageContext.request.contextPath}/store/storeList"
+						+ '${pageMaker.makeQuery(1)}'
+						+ '&keyword='+$("#keyword").val()
+						+ '&orderBy='+$("#orderBy").val()
+						+ '&detailChk='+$("#detailChk").val();
+			}
+		});
+	}); */
+	
+	$(function(){
+		var chkArr = [];
+		$(".detailCheckBox").change(function(){
+			console.log($(this)[0].checked);
+			if($(this)[0].checked){
+				console.log($(this));
+				console.log("1");
+				chkArr.push($(this).val());
+			}else{
+				console.log("2");
+				console.log(chkArr.indexOf($(this).val()));
+				chkArr.splice(chkArr.indexOf($(this).val()), 1);
+			}
+			alert(chkArr);
+			$.ajax({
+				url: '${pageContext.request.contextPath}/store/storeList/detailChk'
+				, type: 'post'
+				, dataType: 'text'
+				, data: {
+					valueArr: chkArr
+				}, success: function(data){
+					console.log("data: "+data);
+				}
+			});
+		});
+		
+		 
+ 	}); 
+	
+	
+	/* $(function(){
+		
+		var locationUrl = "${pageContext.request.contextPath}/store/storeList"
 					+ '${pageMaker.makeQuery(1)}'
-					+ '&keyword='+ $('#keyword').val();
+					+ '&keyword='+$("#keyword").val()
+					+ '&orderBy='+$("#orderBy").val()
+			 
+		$("#detailChk").change(function(){
+			if($('input:checkbox[name=totalSeat]').is(":checked")){
+				alert($('input:checkbox[name="totalSeat"]').val());
+				locationUrl += '&detail1='+$('input:checkbox[name="totalSeat"]').val();
+				self.location = locationUrl
+			}else if($('input:checkbox[name=socketSeat]').is(":checked")){
+				locationUrl += '&detail2='+$('input:checkbox[name="socketSeat"]').val();
+				self.location = locationUrl
+			}else if($('input:checkbox[name=dessertSales]').is(":checked")){
+				locationUrl += '&detail3='+$('input:checkbox[name="dessertSales"]').val();
+				self.location = locationUrl
+			}else if($('input:checkbox[name=terrace]').is(":checked")){
+				locationUrl += '&detail4='+$('input:checkbox[name="terrace"]').val();
+				self.location = locationUrl
+			}else if($('input:checkbox[name=rooftop]').is(":checked")){
+				locationUrl += '&detail5='+$('input:checkbox[name="rooftop"]').val();
+				self.location = locationUrl
+			}else if($('input:checkbox[name=wifi]').is(":checked")){
+				locationUrl += '&detail6='+$('input:checkbox[name="wifi"]').val();
+				self.location = locationUrl
+			}else if($('input:checkbox[name=companionDog]').is(":checked")){
+				locationUrl += '&detail7='+$('input:checkbox[name="companionDog"]').val();
+				self.location = locationUrl
+			}else if($('input:checkbox[name=parkingSpace]').is(":checked")){
+				locationUrl += '&detail8='+$('input:checkbox[name="parkingSpace"]').val();
+				self.location = locationUrl
+			}else if($('input:checkbox[name=noKidsZone]').is(":checked")){
+				locationUrl += '&detail9='+$('input:checkbox[name="noKidsZone"]').val();
+				self.location = locationUrl
+			}else if($('input:checkbox[name=smokingArea]').is(":checked")){
+				locationUrl += '&detail10='+$('input:checkbox[name="smokingArea"]').val();
+				self.location = locationUrl
+			}
+		});
+	}); */
+ </script>
+
+<!-- <script>
+	$(function(){
+		$("#orderBy").change(function(){
+			var orderby = $(this.val());
+			
+			$.ajax({
+				type:'get',
+				url:'/storeList',
+				headers: {
+					"Content-Type": "application/json",
+					"X-HTTP-Metehod-Override": "GET" },
+				dataType: 'text',
+				data: JSON.stringify({storeno:storeno, storename:storename, address:address}),
+				success: function(result){  // 정상 처리
+					console.log("result:" + result);
+					if(result == 'SUCCESS'){
+						alert("리스트 변경");
+						getPage("/storeList?orderBy="+orderby);
+					}
+				}
 			}
 		});
 	});
-</script>
 
-<script>
-	$(function(){
-		$("#orderBy").change(function(){
-			var orderby = $(this).val();
-			var keyword = $('#keyword').val();
-			
-			$(location).attr('href', '${pageContext.request.contextPath}/store/storeList?orderBy='+orderby+'&keyword='+keyword);
-		});
-	});
-</script>
+</script> -->
 
 <script id="template" type="text/x-handlebars-template">
 {{#each .}}
@@ -354,7 +402,7 @@
 	<div class="grid-box">
 		<!-- Images Starts -->
 		<div class="image text-center">
-			<img
+			<imgW
 				src="<%=request.getContextPath()%>/resources/images/hotels/thumb/hotel-grid-thumb-img1.jpg"
 				alt="Eagle Boys Village Plaza" class="img-fluid img-center">
 			<span class="delivery-time">${storeinfo.storeNo}</span>
@@ -429,44 +477,73 @@
 {{/each}}
 </script>
 
-<script>
-	var source = $("#template").html();
-	var template = Handlebars.complie(source);
-	var data = [];
-	
-	$("#replies").html(template(data));
-</script>
+<!-- <script> 
 
-<script>
-	var printData = function(replyArr, target, templateObject){
+	var printData = function(storeArr, target, templateObject){
+	
 		var template = Handlebars.compile(templateObject.html());
-		
-		var html = template(replyArr);
-		$(".row").remove();
-		target.after(html);
+
+		var html = template(storeArr)
+		$("storeLi").remove();
+		tartget.after(html);
+	
 	}
 	
-	var storeNo = ${storeInfo.storeNo};
-	var PageNo = 1;
+	var storeno = ${storeinfo.storeNo}
+	
+	var storePage = 1;
 	
 	function getPage(pageInfo){
-		
+	
 		$.getJSON(pageInfo, function(data){
-			printData(data.list, $("#replisDiv"), $('#template'));
-			printPaging(data.pageMaker, $(".pagination"));
-			
-			$("#modifyModal").modal('hide');
-			$("#replycntSmall").html("[ " + data.pageMaker.totalCount + " ]");
-		});
-	}
-	
-	$("#repliesDiv").on("click", function(){
-		if($(".timeline li").size() > 1){
-			return;
+			printData(data.list, $())
 		}
-		getPage("/replies/"+storeNo+"/"+replyPage)
-	});
+	}
+ 
 	
-</script>
+ </script>  -->
+
+<!--  <script> 
+ 
+ var source = $("#template").html();
+ 	var template = Handlebars.complie(source);
+ 	var data = [];
+	
+ 	$("#replies").html(template(data));
+ 	var printData = function(replyArr, target, templateObject){
+ 		var template = Handlebars.compile(templateObject.html());
+		
+ 		var html = template(replyArr);
+ 		$(".row").remove();
+ 		target.after(html);
+ 	}
+	
+ 	var storeNo = ${storeInfo.storeNo};
+ 	var PageNo = 1;
+	
+ 	function getPage(pageInfo){
+		
+ 		$.getJSON(pageInfo, function(data){
+ 			printData(data.list, $("#replisDiv"), $('#template'));
+ 			printPaging(data.pageMaker, $(".pagination"));
+			
+ 			$("#modifyModal").modal('hide');
+ 			$("#replycntSmall").html("[ " + data.pageMaker.totalCount + " ]");
+ 		});
+ 	}
+	
+ 	$("#repliesDiv").on("click", function(){
+ 		if($(".timeline li").size() > 1){
+ 			return;
+ 		}
+ 		getPage("/replies/"+storeNo+"/"+replyPage)
+ 	});
+ 	
+ 	var orderBy = $("#orderBy").val();
+ 	$("#orderBy").change(function(){
+ 		getPage("/orderBy="+orderBy)
+ 	});
+	
+ </script> --> 
 
 <%@ include file="../include/footer.jspf"%>

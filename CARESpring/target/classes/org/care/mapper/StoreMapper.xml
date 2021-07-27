@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.care.mapper.StoreMapper">
+
+
+<select id="selectByStore" resultType="org.care.domain.StoreInfo">
+	SELECT * 
+	FROM STOREINFO
+	WHERE MANAGENO = #{manageNo}
+</select>
+
+<insert id="insert" parameterType="org.care.domain.StoreInfo">
+	<selectKey keyProperty="storeNo" resultType="int" order="BEFORE">
+		SELECT STORENUM.NEXTVAL FROM DUAL
+	</selectKey>
+	INSERT INTO STOREINFO (STORENO, STORENAME, ADDRESS, CALLNUMBER, MANAGENO)
+	VALUES(#{storeNo}, #{storeName}, #{address}, #{callNumber}, #{manageNo})
+</insert>
+
+<update id="update">
+	UPDATE STOREINFO 
+	SET STORENAME = #{storeName}, ADDRESS = #{address}, CALLNUMBER = #{callNumber} 
+	WHERE MANAGENO = #{manageNo}
+</update>
+
+</mapper>

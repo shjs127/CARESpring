@@ -65,16 +65,22 @@ public class ListStoreController {
 	}
 
 	@RequestMapping(value = "/storeList", method = RequestMethod.GET)
-	public String listPage(@ModelAttribute("cri") Criteria cri, Model model) throws Exception {
-		Logger.info(cri.toString());
+	public String listPage(@ModelAttribute("scri") SearchCriteria scri, Model model) throws Exception {
+		
+		
+		if(scri.getOrderBy() == null || "".equals(scri.getOrderBy()) ) {
+			scri.setOrderBy("STORENO");
+		}
+		
+		//Logger.info(scri.toString());
 
-		model.addAttribute("list", service.listCriteria(cri));
-
+		model.addAttribute("list", service.listSearch(scri));
+		
 		PageMaker pageMaker = new PageMaker();
-		pageMaker.setCri(cri);
+		pageMaker.setCri(scri);
 
-		pageMaker.setTotalCount((service.countPaging(cri)));
-
+		pageMaker.setTotalCount(service.listSearchCount(scri));
+		
 		model.addAttribute("pageMaker", pageMaker);
 
 		return "board/cafeGrid";
@@ -196,16 +202,37 @@ public class ListStoreController {
 		return "redirect:/store/storeList/detail?storeNo=" + storeNo;
 	}
 
-		
-
-		
-
-//	@RequestMapping(value = "/storeList/orderby", method = )	
-
-	@RequestMapping(value = "/storeList/detailInfoChk", method = RequestMethod.POST)
+	@RequestMapping(value = "/storeList/detailChk", method = RequestMethod.POST)
 	@ResponseBody
-	public void detailInfoChk(@RequestParam(value = "valueArrTest[]") List<String> valueArr) {
-
+	public String detailInfoChk(@RequestParam("valueArr[]") List<String> valueArr, @ModelAttribute("scri") SearchCriteria scri, Model model) throws Exception {
+		System.out.println("----------------------------");
+		System.out.println(valueArr);
+		
+		if(scri.getOrderBy() == null || "".equals(scri.getOrderBy()) ) {
+			scri.setOrderBy("STORENO");
+		}
+		
+//		ResponseEntity<String> entity = null;
+//		try {
+//			service.listSearchDetail(scri);
+//			Logger.info("---------------------------");
+//			System.out.println(service.listSearchDetail(scri));
+//			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+//		}catch(Exception e){
+//			e.printStackTrace();
+//			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+//		}
+		
+		model.addAttribute("list", service.listSearchDetail(scri, valueArr));
+//		
+//		PageMaker pageMaker = new PageMaker();
+//		pageMaker.setCri(scri);
+//
+//		pageMaker.setTotalCount(service.listSearchDetailCount(scri));
+//		
+//		model.addAttribute("pageMaker", pageMaker);
+		
+		return "board/cafeGrid";
 	}
 	
 	/*

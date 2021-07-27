@@ -4,6 +4,58 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.care.mapper.ListStoreMapper">
 
+<sql id="orderby">
+	<if test="orderBy == 'STORENO'">
+		STORENO
+	</if>
+	<if test="orderBy == 'AVGSCORE'">
+		AVGSCORE
+	</if>
+	<if test="orderBy == 'REVIEWCNT'">
+		REVIEWCNT
+	</if>
+</sql>
+
+<sql id="search">
+	<if test="keyword != null and keyword != ''">
+		and storeinfo.storename like '%'||#{keyword}||'%'
+		or storeinfo.address like '%'||#{keyword}||'%'
+	</if>
+</sql>
+
+<sql id="detailchk">
+	<if test="valueArr == 'totalSeat'">
+		and d.totalSeat > 0
+	</if>
+	<if test="valueArr == 'socketSeat'">
+		and d.socketSeat > 0
+	</if>
+	<if test="valueArr == 'dessertSales'">
+		and d.dessertsales = 'O'
+	</if>
+	<if test="valueArr == 'terrace'">
+		and d.terrace = 'O'
+	</if>
+	<if test="valueArr == 'rooftop'">
+		and d.rooftop = 'O'
+	</if>
+	<if test="valueArr == 'wifi'">
+		and d.wifi = 'O'
+	</if>
+	<if test="valueArr == 'companionDog'">
+		and d.companiondog = 'O'
+	</if>
+	<if test="valueArr == 'parkingSpace'">
+		and d.parkingspace = 'O'
+	</if>
+	<if test="valueArr == 'noKidsZone'">
+		and d.nokidszone = 'O'
+	</if>
+	<if test="valueArr == 'smokingArea'">
+		and d.smokingarea = 'O'
+	</if>
+</sql>
+
 <select id="read" resultType="org.care.domain.StoreInfo">
 	select *
 	from storeinfo
@@ -29,54 +81,161 @@ where rnum between #{page} and #{page+10}
 ]]>
 </select>
 
-<select id="listCriteria" resultType="org.care.domain.StoreInfo">
-<![CDATA[
-	select storeno, storename, storepic, address 
-	from (select rownum as rnum, storeinfo.*
-	from storeinfo
-	order by storeno desc) storeinfo 
-	where rnum between #{pageStart} and #{pageEnd} 
-]]>
-</select>
-
-<select id="countPaging" resultType="int">
-<![CDATA[
-	select count(storeno) 
-	from storeinfo 
-	where storeno > 0 
-]]>
-</select>
-
-<sql id="search">
-		and storeinfo.storename like '%'||#{keyword}||'%'
-		or storeinfo.address like '%'||#{keyword}||'%'
-</sql>
-
-<select id="listSearch" resultType="org.care.domain.StoreInfo">
-<![CDATA[
-	select storeinfo.* 
-	from (select rownum as rnum, storeinfo.* 
-		  from storeinfo 
-		  order by storeno desc) storeinfo
-	where storeno > 0  
-]]>
-	<include refid="search"></include>
-<![CDATA[
-	and rnum between #{pageStart} and #{pageEnd} 
-]]>
+<select id="listSearch" 
+parameterType="org.care.domain.SearchCriteria"
+resultType="org.care.domain.StoreInfo">
+	SELECT 
+	 	storeinfo.* 
+	FROM 
+		(
+		SELECT rownum as rnum, 
+			storeinfo.* 
+		FROM (
+			SELECT storeinfo.* 
+			FROM 
+				(
+					SELECT 
+						storeinfo.* ,
+						NVL((
+						    SELECT avg(avgscore)
+						    FROM reviewinfo x
+						    WHERE storeinfo.storeno = x.storeno
+						    GROUP BY x.storeno
+						) ,0) AS AVGSCORE ,
+						NVL((
+							SELECT count(reviewno)
+							FROM reviewinfo x
+							WHERE storeinfo.storeno = x.storeno
+							GROUP BY x.storeno
+						), 0) AS REVIEWCNT
+					FROM storeinfo storeinfo, detailinfo d
+					WHERE storeinfo.storeno = d.storeno
+					<include refid="search"></include>
+					<include refid="detailchk"></include>
+				) storeinfo
+			ORDER BY 
+			<include refid="orderby"></include>
+			DESC
+		) storeinfo 
+		
+		) storeinfo
+	WHERE rnum between #{pageStart} and #{pageEnd} 
 </select>
 
 <select id="listSearchCount" resultType="int">
-<![CDATA[
-	select count(storeno)
-	from (select rownum as rnum, storeinfo.* 
-		  from storeinfo 
-		  order by storeno desc) storeinfo 
-	where storeno > 0 
-]]>
-	<include refid="search"></include>
+	SELECT 
+		count(storeno)
+	FROM (
+		SELECT 
+			rownum as rnum, 
+			storeinfo.* 
+		FROM (
+		  	SELECT 
+		  		storeinfo.* 
+			FROM (
+				SELECT storeinfo.* ,
+					NVL((
+					    SELECT avg(avgscore)
+					    FROM reviewinfo x
+					    WHERE storeinfo.storeno = x.storeno
+					    GROUP BY x.storeno
+					) ,0) AS AVGSCORE ,
+					NVL((
+						SELECT count(reviewno)
+						FROM reviewinfo x
+						WHERE storeinfo.storeno = x.storeno
+						GROUP BY x.storeno
+					), 0) AS REVIEWCNT
+				FROM storeinfo storeinfo, detailinfo d
+					WHERE storeinfo.storeno = d.storeno
+				  	<include refid="search"></include>
+				  	<include refid="detailchk"></include>
+		  	) storeinfo
+		  	ORDER BY
+		  	<include refid="orderby"></include>
+		  	DESC
+		) storeinfo
+	) storeinfo 
 </select>
 
+<select id="listSearchDetail" 
+parameterType="org.care.domain.SearchCriteria"
+resultType="org.care.domain.StoreInfo">
+	SELECT 
+	 	storeinfo.* 
+	FROM 
+		(
+		SELECT rownum as rnum, 
+			storeinfo.* 
+		FROM (
+			SELECT storeinfo.* 
+			FROM 
+				(
+					SELECT 
+						storeinfo.* ,
+						NVL((
+						    SELECT avg(avgscore)
+						    FROM reviewinfo x
+						    WHERE storeinfo.storeno = x.storeno
+						    GROUP BY x.storeno
+						) ,0) AS AVGSCORE ,
+						NVL((
+							SELECT count(reviewno)
+							FROM reviewinfo x
+							WHERE storeinfo.storeno = x.storeno
+							GROUP BY x.storeno
+						), 0) AS REVIEWCNT
+					FROM storeinfo storeinfo, detailinfo d
+					WHERE storeinfo.storeno = d.storeno
+					<include refid="search"></include>
+					<foreach item="item" index="index" collection="list" open="()"></foreach>
+				) storeinfo
+			ORDER BY 
+			<include refid="orderby"></include>
+			DESC
+		) storeinfo 
+		
+		) storeinfo
+	WHERE rnum between #{pageStart} and #{pageEnd} 
+</select>
+
+<select id="listSearchDetailCount" resultType="int">
+	SELECT 
+	 	count(storeno)
+	FROM 
+		(
+		SELECT rownum as rnum, 
+			storeinfo.* 
+		FROM (
+			SELECT storeinfo.* 
+			FROM 
+				(
+					SELECT 
+						storeinfo.* ,
+						NVL((
+						    SELECT avg(avgscore)
+						    FROM reviewinfo x
+						    WHERE storeinfo.storeno = x.storeno
+						    GROUP BY x.storeno
+						) ,0) AS AVGSCORE ,
+						NVL((
+							SELECT count(reviewno)
+							FROM reviewinfo x
+							WHERE storeinfo.storeno = x.storeno
+							GROUP BY x.storeno
+						), 0) AS REVIEWCNT
+					FROM storeinfo storeinfo, detailinfo d
+					WHERE storeinfo.storeno = d.storeno
+					<include refid="search"></include>
+					d.#{}
+				) storeinfo
+			ORDER BY 
+			<include refid="orderby"></include>
+			DESC
+		) storeinfo 
+		
+		) storeinfo
+</select>
 
 <select resultType="org.care.dto.StoreDTO" id="topList">
 
