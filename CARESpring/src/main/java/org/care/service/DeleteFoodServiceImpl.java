@@ -1,6 +1,9 @@
 package org.care.service;
 
 
+import java.util.List;
+
+import org.care.domain.ReviewInfo;
 import org.care.mapper.FoodMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,10 +21,10 @@ public class DeleteFoodServiceImpl implements DeleteFoodService {
 	}
 	
 	@Override
-	public Integer read(int reviewNo) throws Exception {
+	public List<ReviewInfo> selectReviewDetail(int reviewNo) throws Exception {
 		
 		
-		return foodMapper.read(reviewNo);
+		return foodMapper.selectReviewDetail(reviewNo);
 		
 		
 	}

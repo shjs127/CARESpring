@@ -505,7 +505,6 @@ input {
 										<!-- Default box -->
 										<div class="box">
 
-
 											<div class="review-list">
 												<c:if test="${view.isEmpty()}">
 													<p>등록된 메시지가 없습니다.</p>
@@ -661,11 +660,7 @@ input {
 	}	 
 	
 	function modifyReview(revReq) {
-		var chk = confirm("수정하시겠습니까?");
-		if (chk) {
-			location.href='modifyReview';
-		}
-		
+			location.href='modifyReview?seq='+revReq;
 	}	 
 	
 	function rlogin(seq) {

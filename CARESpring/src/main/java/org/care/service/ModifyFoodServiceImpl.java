@@ -1,6 +1,9 @@
 package org.care.service;
 
 
+import java.util.List;
+
+import org.care.domain.ReviewInfo;
 import org.care.mapper.FoodMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,16 +15,15 @@ public class ModifyFoodServiceImpl implements ModifyFoodService {
 	private FoodMapper foodMapper;
 
 	@Override
-	public void modifyReview(int reviewNo) throws Exception {
-		foodMapper.modifyReview(reviewNo);
+	public void modifyReview(int reviewNo, String reviewContents,int avgScore) throws Exception {
+		foodMapper.modifyReview(reviewNo,reviewContents,avgScore);
+		
+		
 	}
+	
 	@Override
-	public Integer read(int reviewNo) throws Exception {
-		
-		
-		return foodMapper.read(reviewNo);
-		
-		
+	public List<ReviewInfo> selectReviewDetail(int reviewNo) throws Exception {
+		return foodMapper.selectReviewDetail(reviewNo);
 	}
 	
 }

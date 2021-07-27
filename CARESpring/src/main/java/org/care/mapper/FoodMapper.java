@@ -21,8 +21,8 @@ public interface FoodMapper {
 	List<Favorite> selectFavorite(Favorite favorite) throws Exception;
 
 	void deleteReview(int reviewNo) throws Exception;
-	Integer read(@Param("reviewNo")int reviewNo)throws Exception;
-	void modifyReview(int reviewNo)throws Exception ;
+	List<ReviewInfo> selectReviewDetail(@Param("reviewNo")int reviewNo)throws Exception;
+	void modifyReview(@Param("reviewNo")int reviewNo, @Param("reviewContents")String reviewContents, @Param("avgScore")int avgScore)throws Exception;
 	
 	StoreInfo storeLogin(StoreDTO dto) throws Exception;
 	void insertReview(int storeNo, int userNo, ReviewDTO dto);

@@ -144,29 +144,38 @@ public class ListStoreController {
 
 	
 	
+	
+	
+	
 	@RequestMapping(value = "/storeList/deleteReview", method = RequestMethod.GET)
-	public String delete(ReviewDTO dto, HttpServletRequest req, HttpServletResponse response, HttpSession session,
-			Model model) throws Exception {
+	public String delete(ReviewDTO dto, HttpServletRequest req, HttpServletResponse response, HttpSession session, Model model) throws Exception {
 
 		int reviewNo = Integer.parseInt(req.getParameter("seq"));
-		Integer storeNo= deleteFoodService.read(reviewNo);
-		System.out.println("storeNo="+storeNo);
+		List<ReviewInfo> reviewInfo = deleteFoodService.selectReviewDetail(reviewNo);
 		
+		System.out.println("storeNo=" + reviewInfo.get(0).getStoreNo());
 		
 		deleteFoodService.deleteReview(reviewNo);
 
 		
-		return "redirect:/store/storeList/detail?storeNo=" + storeNo;
+		return "redirect:/store/storeList/detail?storeNo=" + reviewInfo.get(0).getStoreNo();
 	}
+	
+	
+	
 	
 	@Inject
 	private ModifyFoodService modifyFoodService;
 	
 	
 	@RequestMapping(value = "/storeList/modifyReview", method = RequestMethod.GET)
-	public String modify1(ReviewDTO dto, HttpServletRequest req, Model model)throws Exception {
+	public String modify1(ReviewDTO dto, HttpServletRequest req, HttpServletResponse response, HttpSession session,Model model)throws Exception {
+		int reviewNo = Integer.parseInt(req.getParameter("seq"));
+		List<ReviewInfo> reviewInfo = modifyFoodService.selectReviewDetail(reviewNo);
 		
-
+		model.addAttribute("reviewInfo", reviewInfo); 
+		
+//		model.addAttribute("modReq", dto);
 		
 		return "detail/modifyReview";
 	}
@@ -174,17 +183,16 @@ public class ListStoreController {
 	
 	@RequestMapping(value = "/storeList/modifyReview", method = RequestMethod.POST)
 	public String modify(ReviewDTO dto, HttpServletRequest req, Model model)throws Exception {
-		System.out.println("modify()");
+		
+		int reviewNo = Integer.parseInt(req.getParameter("reviewNo"));
+		int storeNo = Integer.parseInt(req.getParameter("storeNo"));
+		String reviewContents = req.getParameter("reviewContents"); 
+		int avgScore = Integer.parseInt(req.getParameter("storeNo"));
+		
+		modifyFoodService.modifyReview(reviewNo, reviewContents, avgScore);
 		
 		
-		int reviewNo = Integer.parseInt(req.getParameter("seq"));
-		Integer storeNo= modifyFoodService.read(reviewNo);
-		System.out.println("storeNo="+storeNo);
-		
-		
-		modifyFoodService.modifyReview(reviewNo);
 
-		
 		return "redirect:/store/storeList/detail?storeNo=" + storeNo;
 	}
 

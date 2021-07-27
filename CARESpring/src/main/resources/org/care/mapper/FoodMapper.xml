@@ -29,22 +29,22 @@
 
 	<select id="selectReview"
 		resultType="org.care.domain.ReviewInfo">
-		SELECT *
-		FROM REVIEWINFO
-		WHERE REVIEWINFO.STORENO = #{storeNo}
+		SELECT REVIEWINFO.REVIEWNO,USERINFO.NICKNAME,  REVIEWINFO.REVIEWCONTENTS, REVIEWINFO.AVGSCORE, REVIEWINFO.REVIEWDATE
+		FROM REVIEWINFO, USERINFO
+		WHERE REVIEWINFO.STORENO = #{storeNo} AND REVIEWINFO.USERNO=USERINFO.USERNO
 		ORDER BY REVIEWNO DESC
 	</select>
 
-	<select id="read"  resultType="Integer">
-		SELECT STORENO
+	<select id="selectReviewDetail" resultType="org.care.domain.ReviewInfo">
+		SELECT *
 		FROM REVIEWINFO
 		WHERE REVIEWNO= #{reviewNo}
 	</select>
 	
 	
-	<select id="modifyReview">
+	<select id="modifyReview"> 
 		UPDATE REVIEWINFO
-		SET REVIEWCONTENTS = #{reviewContents}, AVGSCORE = #{avgScore}
+		SET REVIEWNO = #{reviewNo}, REVIEWCONTENTS = #{reviewContents}, AVGSCORE= #{avgScore}
     	WHERE REVIEWNO = #{reviewNo}
     </select>
 

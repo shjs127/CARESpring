@@ -50,6 +50,10 @@ textarea {
 }
 </style>
 
+<script>
+console.log("${reviewInfo[0].reviewNo}")
+</script>
+
 <!-- Search Section Starts -->
 <section class="search-area condensed parallax">
 	<!-- Nested Container Starts -->
@@ -104,67 +108,62 @@ textarea {
 				<!-- Menu Tabs List Starts -->
 				<ul
 					class="nav nav-tabs nav-menu-tabs text-xs-center text-sm-center text-md-left">
-					<li class="nav-item"><a href="#reviews" class="nav-link"
+					<li class="nav-item"><a href="#reviews" class="nav-link active"
 						data-toggle="tab">리뷰 수정</a></li>
 				</ul>
-				<div class="col-md-8 col-sm-12">
-					<!-- Information Tab Pane Starts -->
-					<div class="information-tab-pane">
-						<p class="text-center"></p>
-						<div class="reviews-form-box">
-							<h6>리뷰쓰기</h6>
+				<section class="content">
 
-							<section class="content">
-
-								<!-- Default box -->
-
-								<div class="box-body">
-
-
-									<div class="box-body">
-										<form
-											action="/care/store/storeList/detail?storeNo=${storeInfo.storeNo}"
-											method="post" id="writeForm" enctype="multipart/form-data">
-
-											<p>
-												<textarea name="reviewContents" cols="100" rows="20"
-													placeholder="리뷰를 작성하세요"></textarea>
-											</p>
-
-											<h9>별점을 선택하세요.</h9>
-											<select name="avgScore">
-
-												<option value="1">★☆☆☆☆</option>
-												<option value="2">★★☆☆☆</option>
-												<option value="3">★★★☆☆</option>
-												<option value="4">★★★★☆</option>
-												<option value="5" selected>★★★★★</option>
-											</select> <br> <br>
-											<p>
-												<input type="submit" value="리뷰쓰기"
-													class="btn btn-black animation text-uppercase float-right" />
-											</p>
-
-
-											<div class="inputArea">
-												<label for="preView">이미지</label> <input type="file"
-													id="preView" name="file" />
-												<div class="select_img">
-													<img src="" />
-												</div>
-											</div>
-										</form>
-									</div>
+					<!-- Default box -->
+					<div class="box-body">
+						<div class="box-body">
+							<form action="/care/store/storeList/modifyReview" method="post" id="writeForm" enctype="multipart/form-data">
+								<div>리뷰 내용: </div>
+								<p>
+									<textarea name="reviewContents" cols="100" rows="20" placeholder="리뷰를 작성하세요">${reviewInfo[0].reviewContents}</textarea>
+								</p>
+								<div> 
+								<h9>별점을 선택하세요</h9> 
+									<select name="avgScore" value="${reviewInfo[0].avgScore}">
+										<option value="1">★☆☆☆☆</option>
+										<option value="2">★★☆☆☆</option>
+										<option value="3">★★★☆☆</option>
+										<option value="4">★★★★☆</option>
+										<option value="5" selected>★★★★★</option>
+									</select>
 								</div>
-							</section>
+								<input type="hidden" name="reviewNo" value="${reviewInfo[0].reviewNo}">
+								<input type="hidden" name="storeNo" value="${reviewInfo[0].storeNo}">
+								<p>
+									<input id="submitBtn" type="button" value="리뷰수정" class="btn btn-black animation text-uppercase float-right" />
+								</p>
+								<div class="inputArea">
+									<label for="preView">이미지</label> <input type="file"
+										id="preView" name="file" />
+									<div class="select_img">
+										<img src="" />
+									</div>
+								</div> 
+							</form> 
 						</div>
 					</div>
-				</div>
+				</section>
 			</div>
 		</div>
 	</div>
 </div>
+			
+			
+<script src="//code.jquery.com/jquery.min.js"></script>
+<script>
+$("#submitBtn").click(function(e) {
+	e.preventDefault();
+	if(!confirm('수정하시겠습니까?')) return;
+	$('#writeForm').submit();
+});
+ 
 
+
+</script>
 <br>
 <br>
 
