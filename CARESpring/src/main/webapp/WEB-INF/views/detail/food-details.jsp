@@ -481,7 +481,7 @@ input {
 															<div class="select_img">
 																<img src="" />
 															</div>
-															<%=request.getRealPath("/")%>
+												
 														</div>
 													</form>
 
@@ -512,7 +512,7 @@ input {
 												<c:if test="${!view.isEmpty()}">
 													<table border="1">
 														<div class="review-list-content">
-															<c:forEach var="reviewInfo" items="${reviewInfo}">
+															<c:forEach var="reviewInfo" items="${reviewDTO}">
 																<p>
 																	<i class="fa fa-calendar"> ${reviewInfo.reviewDate}</i>
 																</p>
@@ -520,6 +520,16 @@ input {
 																<p>리뷰 내용: ${reviewInfo.reviewContents}</p>
 																<p>평점: ${reviewInfo.avgScore}</p>
 																<p>리뷰 번호: ${reviewInfo.reviewNo}</p>
+																<p>
+																	
+																	<c:if test="${!reviewInfo.pFile.isEmpty()}">
+
+																		<img
+																			src="${pageContext.request.contextPath}/resources/upLoad/${reviewInfo.pFile}"
+																			width="200" />
+
+																	</c:if>
+																</p>
 																<p>
 																<form action="storeList/deleteReview" method="post"
 																	id="deleteForm" enctype="multipart/form-data">

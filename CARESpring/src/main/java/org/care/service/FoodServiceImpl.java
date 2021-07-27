@@ -40,11 +40,12 @@ public class FoodServiceImpl implements FoodService {
 	}
 	
 	@Override
-	public List<ReviewInfo> selectReview(int storeNo) throws Exception {
+	public List<ReviewDTO> selectReview(int storeNo) throws Exception {
 			
 		return foodMapper.selectReview(storeNo);
 		
 	}
+	
 	
 	@Override
 	public List<ReviewInfo> selectReviewList(ReviewInfo reviewInfo) throws Exception {

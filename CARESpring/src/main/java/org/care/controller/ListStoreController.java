@@ -109,8 +109,8 @@ public class ListStoreController {
 		DetailInfo detailInfo = foodService.selectDetail(storeNo);
 		model.addAttribute("detailInfo", detailInfo);
 
-		List<ReviewInfo> reviewInfo = foodService.selectReview(storeNo);
-		model.addAttribute("reviewInfo", reviewInfo);
+		List<ReviewDTO> reviewDTO = foodService.selectReview(storeNo);
+		model.addAttribute("reviewDTO", reviewDTO);
 
 		List<MenuInfo> menuInfo = foodService.selectMenu(storeNo);
 		model.addAttribute("menuInfo", menuInfo);

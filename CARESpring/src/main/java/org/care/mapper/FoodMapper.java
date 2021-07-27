@@ -15,7 +15,7 @@ import org.care.dto.StoreDTO;
 public interface FoodMapper {
 	StoreInfo selectStore(int storeNo) throws Exception;
 	DetailInfo selectDetail(int storeNo) throws Exception;
-	List<ReviewInfo> selectReview(int storeNo) throws Exception;
+	List<ReviewDTO> selectReview(int storeNo) throws Exception;
 	List<ReviewInfo> selectReviewList(ReviewInfo reviewInfo) throws Exception;
 	List<MenuInfo> selectMenu(int storeNo) throws Exception;
 	List<Favorite> selectFavorite(Favorite favorite) throws Exception;
