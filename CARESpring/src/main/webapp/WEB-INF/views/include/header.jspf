@@ -97,7 +97,7 @@
 			<div class="row">
 				<div class="col-md-4 col-sm-12">
 					<!-- Logo Starts -->
-					<a href='index'> <img
+					<a href='${pageContext.request.contextPath}/index'> <img
 						src="${pageContext.request.contextPath}/resources/images/careitsir_logo.png"
 						alt="FoodBingo" class="logo img-fluid" width="200" height="200">
 					</a>
@@ -110,7 +110,7 @@
 						<li class="list-inline-item"><div style="margin-left: 11px;"
 								id="google_translate_element"></div></li>
 						<li class="list-inline-item"><a
-							href='login/profile'>마이페이지</a></li>
+							href='${pageContext.request.contextPath}/login/profile'>마이페이지</a></li>
 						<li class="list-inline-item"><a
 							href='${pageContext.request.contextPath}/board/listArticle'>게시판</a></li>
 						<%
@@ -165,12 +165,12 @@
 			<!-- Navbar Cat collapse Starts -->
 				<div class="collapse navbar-collapse navbar-cat-collapse">
 					<ul class="nav navbar-nav text-uppercase text-weight-bold">
-						<li class="nav-item active"><a href='index' class="nav-link">Home</a></li>
+						<li class="nav-item active"><a href='${pageContext.request.contextPath}/index' class="nav-link">Home</a></li>
 						<li class="nav-item"><a href="about.html" class="nav-link">About Us</a></li>
 						<li class="nav-item"><a href='${pageContext.request.contextPath}/board/listArticle' class="nav-link">board List</a></li>
-						<li class="nav-item"><a href='store/storeList' class="nav-link">Food Grid</a></li>
-						<li class="nav-item"><a href='storeDetail' class="nav-link">Food Detail</a></li>
-						<li class="nav-item"><a href="login.html" class="nav-link">Login &amp; Register</a></li>
+						<li class="nav-item"><a href='${pageContext.request.contextPath}/store/storeList' class="nav-link">Food Grid</a></li>
+						<li class="nav-item"><a href='${pageContext.request.contextPath}/storeDetail' class="nav-link">Food Detail</a></li>
+						<li class="nav-item"><a href="${pageContext.request.contextPath}/login.html" class="nav-link">Login &amp; Register</a></li>
 						<li class="nav-item"><a href="terms.html" class="nav-link">Terms</a></li>
 						<li class="nav-item"><a href="policy.html" class="nav-link">Policy</a></li>
 						<li class="nav-item"><a href="contact.html" class="nav-link">Contact Us</a></li>

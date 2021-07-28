@@ -15,39 +15,40 @@
 				<!-- Login Form Starts -->
 				<p class="login-box-msg">
 
-					<script type="text/javascript">
+					<!-- 		<script type="text/javascript">
 						<c:if test="${errors.idOrPwNotMatch}">
-						alert("아이디와 암호가 일치하지 않습니다.")
+						alert("아이디와 혹은 암호가 일치하지 않습니다.")
 						</c:if>
 						</script>
-						</p>
-						
-						<script>
-						$(function() {
-							$("#a").submit(function() {
-								var nameChk = /^[가-힣a-zA-Z0-9]{1,20}$/;
-								if (!nameChk.test($("#ID").val())) {
-									alert("아이디를 확인해주세요.");
-									$("#ID").focus();
-									return false;
-								}
-							});
-						});
+						</p> -->
 
-						$(function() {
-							$("#a").submit(function() {
-								var PwChk = /^[가-힣a-zA-Z0-9]{1,20}$/;
-								if (!PwChk.test($("#PW").val())) {
-									alert("비밀번호를 확인해주세요.");
-									$("#PW").focus();
-									return false;
-								}
+					<script type="text/javascript">
+						/* 	$(function() {
+								$("#a").submit(function() {
+									var nameChk = /^[가-힣a-zA-Z0-9]{1,20}$/;
+									if (!nameChk.test($("#ID").val())) {
+										alert("아이디를 확인해주세요.");
+										$("#ID").focus();
+										return false;
+									}
+								});
 							});
-						});
+
+							$(function() {
+								$("#a").submit(function() {
+									var PwChk = /^[가-힣a-zA-Z0-9]{1,20}$/;
+									if (!PwChk.test($("#PW").val())) {
+										alert("비밀번호를 확인해주세요.");
+										$("#PW").focus();
+										return false;
+									}
+								});
+							}); */
 					</script>
-				<form action="login/joinSuccess"
-					method="post" id="a">
-
+				<form action="login/joinSuccess" method="post" id="a">
+					<c:if test="${loginFalse == false}">
+						<p style="color: red;">로그인 실패! 아이디와 비밀번호 확인해주세요.</p>
+					</c:if>
 					<div class="form-group">
 
 						<input type="text" class="form-control" name="userId" id="ID"
@@ -59,7 +60,8 @@
 							id="PW" placeholder="Password">
 					</div>
 					<div class="checkbox">
-						<label> <input type="checkbox" name="useCookie"> Remember me
+						<label> <input type="checkbox" name="useCookie">
+							Remember me
 						</label>
 					</div>
 					<button type="submit" class="btn btn-block btn-prime animation">
@@ -72,6 +74,7 @@
 							비밀번호를 잃어버리셨습니까? <a href="#">Click here</a>
 						</p>
 					</div>
+
 				</form>
 				<!-- Login Form Ends -->
 			</div>
@@ -89,18 +92,7 @@
 				<!-- Login Form Starts -->
 				<p class="login-box-msg"></p>
 
-				<script>
-					/* $(function() {
-						$("#b").submit(function() {
-							var nameChk = /^[0-9]{1,20}$/;
-							if (!nameChk.test($("#Login-Id").val())) {
-								alert("기업회원 번호를 확인해주세요.");
-								$("#Login-Id").focus();
-								return false;
-							}
-						});
-					}); */
-
+				<script type="text/javascript">
 					$(function() {
 						$("#b").submit(function() {
 							var nameChk = /^[0-9]{1,20}$/;
@@ -113,8 +105,7 @@
 					});
 				</script>
 
-				<form action="login/storeinSuccess"
-					method="post" id="b">
+				<form action="login/storeinSuccess" method="post" id="b">
 
 					<div class="form-group">
 
@@ -133,14 +124,14 @@
 					<button type="submit" class="btn btn-block btn-prime animation">
 						Login <i class="fa fa-caret-right"></i>
 					</button>
-					<br> <a href="StoreRegister"
-						class="text-center">매장 등록</a>
+					<br> <a href="StoreRegister" class="text-center">매장 등록</a>
 
 					<div class="form-group">
 						<p class="help-block">
 							비밀번호를 잃어버리셨습니까? <a href="#">Click here</a>
 						</p>
 					</div>
+
 				</form>
 				<!-- Login Form Ends -->
 			</div>
@@ -150,9 +141,7 @@
 	</div>
 	<!-- Content Login Wrap Ends -->
 	<!-- Banners Starts -->
-	<div class="row">
-	
-	</div>
+	<div class="row"></div>
 	<!-- Banners Ends -->
 </div>
 <!-- Main Container Ends -->
@@ -224,21 +213,21 @@
 								to receive emails with deals and discount codes
 							</label>
 						</div>
-						
+
 					</div>
-				
+
 				</form>
 				<!-- Register Form Ends -->
 			</div>
-			<script> 
-	$(function () { 
-		$('input').iCheck({ 
-			checkboxClass: 'icheckbox_square-blue',
-			radioClass: 'iradio_square-blue', 
-			increaseArea: '20%' // optional 
-			}); 
-		}); 
-	</script>
+			<script>
+				$(function() {
+					$('input').iCheck({
+						checkboxClass : 'icheckbox_square-blue',
+						radioClass : 'iradio_square-blue',
+						increaseArea : '20%' // optional 
+					});
+				});
+			</script>
 		</div>
 	</div>
 </div>
