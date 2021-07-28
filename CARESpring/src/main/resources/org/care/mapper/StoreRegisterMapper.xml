@@ -5,6 +5,9 @@
 <mapper namespace="org.care.mapper.StoreRegisterMapper">
 	
 	<insert id="storeRegister">
+	<selectKey keyProperty="storeNo" resultType="int" order="BEFORE">
+	select STORENUM.NEXTVAL from dual
+	</selectKey>
 	    INSERT INTO STOREINFO(   STORENO
 	    					   , STORENAME 
 	   					       , STOREPIC 
@@ -13,7 +16,7 @@
 	   					       , CLOSEDDAYS
 	   					       , CALLNUMBER
 	   					       , MANAGENO )
-	                  VALUES(  STORENO.NEXTVAL
+	                  VALUES(  #{storeNo}
 	                			, #{storeName} 
 	                 		   , #{storePic}
 	                 		   , #{address}
@@ -21,6 +24,32 @@
 	                 		   , #{closedDays}
 	                 		   , #{callNumber}
 	                 		   , #{manageNo})
+    </insert>
+    
+    
+    <insert id="detailRegister">
+    INSERT INTO DETAILINFO( STORENO
+    , TOTALSEAT
+    , SOCKETSEAT
+    , DESSERTSALES
+    , TERRACE
+    , ROOFTOP
+    , WIFI
+    , COMPANIONDOG
+    , PARKINGSPACE
+    , NOKIDSZONE
+    , SMOKINGAREA)
+    VALUES(#{storeNo}
+    , #{totalSeat}
+    , #{socketSeat}
+    , #{dessertSales}
+    , #{terrace}
+    , #{roofTop}
+    , #{wifi}
+    , #{companionDog}
+    , #{parkingSpace}
+    , #{noKidsZone}
+    , #{smokingArea})
     </insert>
    
 </mapper>
