@@ -118,7 +118,7 @@
 							<div class="col-sm-9">
 								<input id="storePic" type="text" class="form-control" name="storePic"
 									placeholder="storePic">
-							</div>
+							</div>.
 						</div>
 						<div class="form-group row">
 							<label for="inputEmail"
