@@ -31,7 +31,7 @@
 		resultType="org.care.dto.ReviewDTO">
 	 SELECT A.*, B.REVIEWPIC1 AS pFile FROM 
 		 REVIEWINFO A LEFT JOIN REVIEWPIC B ON A.REVIEWNO = B.REVIEWNO 
-		 WHERE A.USERNO=#{userNo} ORDER BY A.REVIEWNo DESC
+		 WHERE A.STORENO=#{storeNo} ORDER BY A.REVIEWNo DESC
 	</select>
 
 	<select id="selectReviewDetail" resultType="org.care.domain.ReviewInfo">
