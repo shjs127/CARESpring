@@ -29,9 +29,9 @@
 
 	<select id="selectReview"
 		resultType="org.care.dto.ReviewDTO">
-		 SELECT A.*, B.REVIEWPIC1 AS pFile FROM 
+	 SELECT A.*, B.REVIEWPIC1 AS pFile FROM 
 		 REVIEWINFO A LEFT JOIN REVIEWPIC B ON A.REVIEWNO = B.REVIEWNO 
-		 WHERE A.STORENO=#{storeNo} ORDER BY A.REVIEWNo
+		 WHERE A.USERNO=#{userNo} ORDER BY A.REVIEWNo DESC
 	</select>
 
 	<select id="selectReviewDetail" resultType="org.care.domain.ReviewInfo">
@@ -48,13 +48,13 @@
     </select>
 
 
-	<select id="selectReviewList"
+	<!-- <select id="selectReviewList"
 		resultType="org.care.domain.ReviewInfo">
 		SELECT *
 		FROM REVIEWINFO
 		WHERE USERNO = 1
 
-	</select>
+	</select> -->
 
 	<select id="selectMenu" resultType="org.care.domain.MenuInfo">
 		SELECT *
@@ -86,7 +86,7 @@
 		FROM
 		STOREINFO, FAVORITE
 		WHERE STOREINFO.STORENO = FAVORITE.STORENO AND
-		FAVORITE.USERNO=1
+		FAVORITE.USERNO=#{userNo}
 		AND FAVORITECHECK = 'y'
 
 	</select>

@@ -1,11 +1,13 @@
 package org.care.service;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.inject.Inject;
 
 import org.care.domain.UserInfo;
 import org.care.dto.LoginDTO;
+import org.care.dto.ReviewDTO;
 import org.care.mapper.UserMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -40,6 +42,11 @@ public class UserServiceImpl implements UserService {
 	public void changeInfo(LoginDTO uInfo) {
 		userMapper.changeInfo(uInfo);
 		
+	}
+
+	@Override
+	public List<ReviewDTO> selectReviewUser(int userNo) {
+		return userMapper.selectReviewUser(userNo);
 	}
 	 
 	 

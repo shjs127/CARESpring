@@ -18,7 +18,7 @@ public interface FoodMapper {
 	List<ReviewDTO> selectReview(int storeNo) throws Exception;
 	List<ReviewInfo> selectReviewList(ReviewInfo reviewInfo) throws Exception;
 	List<MenuInfo> selectMenu(int storeNo) throws Exception;
-	List<Favorite> selectFavorite(Favorite favorite) throws Exception;
+	List<Favorite> selectFavorite(int userNo) throws Exception;
 
 	void deleteReview(int reviewNo) throws Exception;
 	List<ReviewInfo> selectReviewDetail(@Param("reviewNo")int reviewNo)throws Exception;

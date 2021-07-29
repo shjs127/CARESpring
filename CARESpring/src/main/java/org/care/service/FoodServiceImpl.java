@@ -47,12 +47,14 @@ public class FoodServiceImpl implements FoodService {
 	}
 	
 	
-	@Override
-	public List<ReviewInfo> selectReviewList(ReviewInfo reviewInfo) throws Exception {
-			
-		return foodMapper.selectReviewList(reviewInfo);
-		
-	}
+	/*
+	 * @Override public List<ReviewInfo> selectReviewList(ReviewInfo reviewInfo)
+	 * throws Exception {
+	 * 
+	 * return foodMapper.selectReviewList(reviewInfo);
+	 * 
+	 * }
+	 */
 	
 	@Override
 	public void insertReview(int storeNo,int userNo,ReviewDTO dto) throws Exception {
@@ -69,9 +71,9 @@ public class FoodServiceImpl implements FoodService {
 	}
 	
 	@Override
-	public List<Favorite> selectFavorite(Favorite favorite) throws Exception {
+	public List<Favorite> selectFavorite(int userNo) throws Exception {
 			
-		return foodMapper.selectFavorite(favorite);
+		return foodMapper.selectFavorite(userNo);
 		
 	}
 
@@ -81,6 +83,7 @@ public class FoodServiceImpl implements FoodService {
 	
 	}
 
+	
 
 
 	

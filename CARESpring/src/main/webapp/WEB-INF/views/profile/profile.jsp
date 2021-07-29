@@ -211,16 +211,14 @@
 								<table border="1">
 									<tr>
 
-										<th><p>가게 번호</p></th>
-										<th><p>리뷰 넘버</p></th>
+										<th><p>가게 이름</p></th>
 										<th><p>리뷰 내용</p></th>
 										<th><p>평점</p></th>
 
 									</tr>
 									<c:forEach var="reviewInfo" items="${reviewInfoList}">
 										<tr>
-											<td>${reviewInfo.storeNo}</td>
-											<td>${reviewInfo.reviewNo}</td>
+											<td>${reviewInfo.storeName}</td>
 											<td>${reviewInfo.reviewContents}</td>
 											<td>${reviewInfo.avgScore}</td>
 											
@@ -245,7 +243,7 @@
 									<c:forEach var="favorite" items="${favorite}">
 										<tr>
 											<td>${favorite.storeNo }</td>
-											<td>${storeInfo.storeName }</td>
+											<%-- <td>${storeInfo.storeName }</td> --%>
 										</tr>
 									</c:forEach>
 								</table>

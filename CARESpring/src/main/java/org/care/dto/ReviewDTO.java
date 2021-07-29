@@ -21,6 +21,7 @@ public class ReviewDTO {
 	private Date reviewDate;
 	private String nickName;
 	private String pFile;
+	private String storeName;
 
 	
 	

@@ -14,6 +14,7 @@ import org.care.domain.ReviewInfo;
 import org.care.domain.StoreInfo;
 import org.care.domain.UserInfo;
 import org.care.dto.LoginDTO;
+import org.care.dto.ReviewDTO;
 import org.care.service.FoodService;
 import org.care.service.UserService;
 import org.springframework.stereotype.Controller;
@@ -73,21 +74,25 @@ public class UserController {
 	  fr,HttpServletRequest request, HttpSession session, Model model) throws
 	  Exception {
 	  
-	  StoreInfo storeInfo = foodService.selectStore(sInfo);
-	  model.addAttribute("storeInfo", storeInfo);
+		UserInfo userInfo= (UserInfo)session.getAttribute("login"); 
+		int userNo=userInfo.getUserNo();
+		/*
+		 * StoreInfo storeInfo = foodService.selectStore(sInfo);
+		 * model.addAttribute("storeInfo", storeInfo);
+		 */
 	  
 	  
-	  List<ReviewInfo> reviewInfo = foodService.selectReview(rInfo);
-	  model.addAttribute("reviewInfo", reviewInfo);
-	  
-	  List<ReviewInfo> reviewInfoList = foodService.selectReviewList(rInfo);
+	  List<ReviewDTO> reviewInfoList = userService.selectReviewUser(userNo);
 	  model.addAttribute("reviewInfoList", reviewInfoList);
 	  
 	  
-	  List<Favorite> favorite = foodService.selectFavorite(fr);
-	  model.addAttribute("favorite", favorite);
 	  
-	  session.getAttribute("login"); return "profile/profile"; 
+		
+		  List<Favorite> favorite = foodService.selectFavorite(userNo);
+		  model.addAttribute("favorite", favorite);
+		 
+	  
+	  return "profile/profile"; 
 	  }
 	 
 

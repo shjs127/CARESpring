@@ -26,4 +26,10 @@
 		update USERINFO set PASSWORD = #{newPassword}, NICKNAME = #{nickName},
 		 BIRTH = #{birth} ,EMAIL = #{email}, GENDER = #{gender} where USERNO = #{userNo}
 	</update>
+	
+	<select id="selectReviewUser" resultType="org.care.dto.ReviewDTO">
+		 SELECT A.*, B.STORENAME FROM 
+		 REVIEWINFO A LEFT JOIN STOREINFO B ON A.STORENO = B.STORENO 
+		 WHERE A.USERNO=#{userNo} ORDER BY A.REVIEWNo DESC
+	</select>
 </mapper>
