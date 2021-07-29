@@ -193,7 +193,7 @@ public class ListStoreController {
 		int reviewNo = Integer.parseInt(req.getParameter("reviewNo"));
 		int storeNo = Integer.parseInt(req.getParameter("storeNo"));
 		String reviewContents = req.getParameter("reviewContents"); 
-		int avgScore = Integer.parseInt(req.getParameter("storeNo"));
+		int avgScore = Integer.parseInt(req.getParameter("avgScore"));
 		
 		modifyFoodService.modifyReview(reviewNo, reviewContents, avgScore);
 		

@@ -44,8 +44,7 @@
 
 	<select id="modifyReview">
 		UPDATE REVIEWINFO
-		SET REVIEWCONTENTS = #{reviewContents}, AVGSCORE=
-		#{avgScore}
+		SET REVIEWCONTENTS = #{reviewContents}, AVGSCORE=#{avgScore}
 		WHERE REVIEWNO = #{reviewNo}
 	</select>
 
