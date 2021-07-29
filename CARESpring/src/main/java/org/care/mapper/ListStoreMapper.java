@@ -19,9 +19,9 @@ public interface ListStoreMapper {
 	
 	public int listSearchCount(SearchCriteria cri) throws Exception;
 
-	public List<StoreInfo> listSearchDetail(SearchCriteria cri) throws Exception;
+	public List<StoreInfo> listSearchDetail(@Param("cri") SearchCriteria cri, @Param("valueArr") List<String> valueArr) throws Exception;
 	
-	public int listSearchDetailCount(SearchCriteria cri) throws Exception;
+	public int listSearchDetailCount(@Param("cri") SearchCriteria cri, @Param("valueArr") List<String> valueArr) throws Exception;
 	
 	public List<StoreDTO> topList(StoreDTO dto);
 

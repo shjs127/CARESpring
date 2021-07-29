@@ -204,13 +204,17 @@ public class ListStoreController {
 
 	@RequestMapping(value = "/storeList/detailChk", method = RequestMethod.POST)
 	@ResponseBody
-	public String detailInfoChk(@RequestParam("valueArr[]") List<String> valueArr, @ModelAttribute("scri") SearchCriteria scri, Model model) throws Exception {
+	public String detailInfoChk(@RequestParam(value = "valueArr", required = false) List<String> valueArr, @ModelAttribute("scri") SearchCriteria scri, Model model) throws Exception {
 		System.out.println("----------------------------");
 		System.out.println(valueArr);
 		
 		if(scri.getOrderBy() == null || "".equals(scri.getOrderBy()) ) {
 			scri.setOrderBy("STORENO");
 		}
+		if(scri.getKeyword() == null || "".equals(scri.getKeyword())) {
+			scri.setKeyword("null");
+		}
+		System.out.println("keyword="+scri.getKeyword());
 		
 //		ResponseEntity<String> entity = null;
 //		try {

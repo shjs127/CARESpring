@@ -23,36 +23,45 @@
 	</if>
 </sql>
 
-<sql id="detailchk">
-	<if test="valueArr == 'totalSeat'">
-		and d.totalSeat > 0
+<sql id="search2">
+	<if test="#{cri.keyword} != 'null'">
+		and storeinfo.storename like '%'||#{keyword}||'%'
+		or storeinfo.address like '%'||#{keyword}||'%'
 	</if>
-	<if test="valueArr == 'socketSeat'">
-		and d.socketSeat > 0
-	</if>
-	<if test="valueArr == 'dessertSales'">
-		and d.dessertsales = 'O'
-	</if>
-	<if test="valueArr == 'terrace'">
-		and d.terrace = 'O'
-	</if>
-	<if test="valueArr == 'rooftop'">
-		and d.rooftop = 'O'
-	</if>
-	<if test="valueArr == 'wifi'">
-		and d.wifi = 'O'
-	</if>
-	<if test="valueArr == 'companionDog'">
-		and d.companiondog = 'O'
-	</if>
-	<if test="valueArr == 'parkingSpace'">
-		and d.parkingspace = 'O'
-	</if>
-	<if test="valueArr == 'noKidsZone'">
-		and d.nokidszone = 'O'
-	</if>
-	<if test="valueArr == 'smokingArea'">
-		and d.smokingarea = 'O'
+</sql>
+
+<sql id="valueArr">
+	<if test= "#{valueArr} != null and #{valueArr} != ''">
+		<if test= "#{valueArr} == 'totalSeat'">
+			and d.totalSeat <![CDATA[>]]> 0
+		</if>
+		<if test="#{valueArr} == 'socketSeat'">
+			and d.socketSeat <![CDATA[>]]> 0
+		</if>
+		<if test="#{valueArr} == 'dessertSales'">
+			and d.dessertsales = 'O'
+		</if>
+		<if test="#{valueArr} == 'terrace'">
+			and d.terrace = 'O'
+		</if>
+		<if test="#{valueArr} == 'rooftop'">
+			and d.rooftop = 'O'
+		</if>
+		<if test="#{valueArr} == 'wifi'">
+			and d.wifi = 'O'
+		</if>
+		<if test="#{valueArr} == 'companionDog'">
+			and d.companiondog = 'O'
+		</if>
+		<if test="#{valueArr} == 'parkingSpace'">
+			and d.parkingspace = 'O'
+		</if>
+		<if test="#{valueArr} == 'noKidsZone'">
+			and d.nokidszone = 'O'
+		</if>
+		<if test="#{valueArr} == 'smokingArea'">
+			and d.smokingarea = 'O'
+		</if>
 	</if>
 </sql>
 
@@ -108,10 +117,9 @@ resultType="org.care.domain.StoreInfo">
 							WHERE storeinfo.storeno = x.storeno
 							GROUP BY x.storeno
 						), 0) AS REVIEWCNT
-					FROM storeinfo storeinfo, detailinfo d
-					WHERE storeinfo.storeno = d.storeno
+					FROM storeinfo storeinfo
+					WHERE 1=1
 					<include refid="search"></include>
-					<include refid="detailchk"></include>
 				) storeinfo
 			ORDER BY 
 			<include refid="orderby"></include>
@@ -146,10 +154,9 @@ resultType="org.care.domain.StoreInfo">
 						WHERE storeinfo.storeno = x.storeno
 						GROUP BY x.storeno
 					), 0) AS REVIEWCNT
-				FROM storeinfo storeinfo, detailinfo d
-					WHERE storeinfo.storeno = d.storeno
+				FROM storeinfo storeinfo
+				WHERE 1=1
 				  	<include refid="search"></include>
-				  	<include refid="detailchk"></include>
 		  	) storeinfo
 		  	ORDER BY
 		  	<include refid="orderby"></include>
@@ -187,8 +194,11 @@ resultType="org.care.domain.StoreInfo">
 						), 0) AS REVIEWCNT
 					FROM storeinfo storeinfo, detailinfo d
 					WHERE storeinfo.storeno = d.storeno
-					<include refid="search"></include>
-					<foreach item="item" index="index" collection="list" open="()"></foreach>
+					<include refid="search2"></include>
+					<foreach collection="valueArr" index="index" item="item" open="and " separator="= 'O' ">
+					
+					</foreach>
+<!-- 					<include refid="valueArr"></include> -->
 				) storeinfo
 			ORDER BY 
 			<include refid="orderby"></include>
@@ -226,8 +236,9 @@ resultType="org.care.domain.StoreInfo">
 						), 0) AS REVIEWCNT
 					FROM storeinfo storeinfo, detailinfo d
 					WHERE storeinfo.storeno = d.storeno
-					<include refid="search"></include>
-					d.#{}
+					<include refid="search2"></include>
+					<foreach collection="valueArr" index="index" item="item" open="and " separator="= 'O' ">
+					</foreach>
 				) storeinfo
 			ORDER BY 
 			<include refid="orderby"></include>

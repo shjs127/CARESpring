@@ -70,52 +70,52 @@
 				<div class="sidearea-filter-checkbox-list">
 					<div class="form-check">
 						<label class="form-check-label"> <input type="checkbox"
-							class="form-check-input detailCheckBox" id="detailChk" name="totalSeat" value="totalSeat"> 총 테이블 수
+							class="form-check-input detailCheckBox" id="detailChk" name="detailChk" value="totalSeat"> 총 테이블 수
 						</label>
 					</div>
 					<div class="form-check">
 						<label class="form-check-label"> <input type="checkbox"
-							class="form-check-input detailCheckBox" id="detailChk" name="socketSeat" value="socketSeat"> 콘센트 테이블 수
+							class="form-check-input detailCheckBox" id="detailChk" name="detailChk" value="socketSeat"> 콘센트 테이블 수
 						</label>
 					</div>
 					<div class="form-check">
 						<label class="form-check-label"> <input type="checkbox"
-							class="form-check-input detailCheckBox" id="detailChk" name="dessertSales" value="dessertSales"> 디저트 판매
+							class="form-check-input detailCheckBox" id="detailChk" name="detailChk" value="dessertSales"> 디저트 판매
 						</label>
 					</div>
 					<div class="form-check">
 						<label class="form-check-label"> <input type="checkbox"
-							class="form-check-input detailCheckBox" id="detailChk" name="terrace" value="terrace"> 테라스
+							class="form-check-input detailCheckBox" id="detailChk" name="detailChk" value="terrace"> 테라스
 						</label>
 					</div>
 					<div class="form-check">
 						<label class="form-check-label"> <input type="checkbox"
-							class="form-check-input detailCheckBox" id="detailChk" name="rooftop" value="rooftop"> 루프탑
+							class="form-check-input detailCheckBox" id="detailChk" name="detailChk" value="rooftop"> 루프탑
 						</label>
 					</div>
 					<div class="form-check">
 						<label class="form-check-label"> <input type="checkbox"
-							class="form-check-input detailCheckBox" id="detailChk" name="wifi" value="wifi"> 와이파이
+							class="form-check-input detailCheckBox" id="detailChk" name="detailChk" value="wifi"> 와이파이
 						</label>
 					</div>
 					<div class="form-check">
 						<label class="form-check-label"> <input type="checkbox"
-							class="form-check-input detailCheckBox" id="detailChk" name="companionDog" value="companionDog"> 애견 동반
+							class="form-check-input detailCheckBox" id="detailChk" name="detailChk" value="companionDog"> 애견 동반
 						</label>
 					</div>
 					<div class="form-check">
 						<label class="form-check-label"> <input type="checkbox"
-							class="form-check-input detailCheckBox" id="detailChk" name="parkingSpace" value="parkingSpace"> 주차 공간
+							class="form-check-input detailCheckBox" id="detailChk" name="detailChk" value="parkingSpace"> 주차 공간
 						</label>
 					</div>
 					<div class="form-check">
 						<label class="form-check-label"> <input type="checkbox"
-							class="form-check-input detailCheckBox" id="detailChk" name="noKidsZone" value="noKidsZone"> 노키즈존
+							class="form-check-input detailCheckBox" id="detailChk" name="detailChk" value="noKidsZone"> 노키즈존
 						</label>
 					</div>
 					<div class="form-check">
 						<label class="form-check-label"> <input type="checkbox"
-							class="form-check-input detailCheckBox" id="detailChk" name="smokingArea" value="smokingArea"> 흡연구역
+							class="form-check-input detailCheckBox" id="detailChk" name="detailChk" value="smokingArea"> 흡연구역
 						</label>
 					</div>
 				</div>
@@ -300,15 +300,16 @@
 		$(".detailCheckBox").change(function(){
 			console.log($(this)[0].checked);
 			if($(this)[0].checked){
-				console.log($(this));
 				console.log("1");
+// 				console.log($(this));
 				chkArr.push($(this).val());
 			}else{
 				console.log("2");
-				console.log(chkArr.indexOf($(this).val()));
+// 				console.log(chkArr.indexOf($(this).val()));
 				chkArr.splice(chkArr.indexOf($(this).val()), 1);
 			}
 			alert(chkArr);
+			$.ajaxSettings.traditional = true;
 			$.ajax({
 				url: '${pageContext.request.contextPath}/store/storeList/detailChk'
 				, type: 'post'
@@ -316,7 +317,10 @@
 				, data: {
 					valueArr: chkArr
 				}, success: function(data){
+					alert("3");
 					console.log("data: "+data);
+				}, error: function(request, status, error){
+					alert("code="+request.status + " message = " + request.responseText + " error = " + error);
 				}
 			});
 		});
