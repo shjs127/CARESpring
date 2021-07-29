@@ -27,34 +27,27 @@
 	</select>
 
 
-	<select id="selectReview"
-		resultType="org.care.dto.ReviewDTO">
-	 SELECT A.*, B.REVIEWPIC1 AS pFile FROM 
-		 REVIEWINFO A LEFT JOIN REVIEWPIC B ON A.REVIEWNO = B.REVIEWNO 
-		 WHERE A.STORENO=#{storeNo} ORDER BY A.REVIEWNo DESC
+	<select id="selectReview" resultType="org.care.dto.ReviewDTO">
+		 SELECT A.*, B.REVIEWPIC1 AS pFile , USERINFO.NICKNAME
+ 		 FROM  REVIEWINFO A LEFT JOIN REVIEWPIC B ON A.REVIEWNO = B.REVIEWNO , USERINFO
+         WHERE A.STORENO= #{storNo} AND A.USERNO=USERINFO.USERNO
+         ORDER BY A.REVIEWNo DESC
 	</select>
 
-	<select id="selectReviewDetail" resultType="org.care.domain.ReviewInfo">
+	<select id="selectReviewDetail"
+		resultType="org.care.domain.ReviewInfo">
 		SELECT *
 		FROM REVIEWINFO
 		WHERE REVIEWNO= #{reviewNo}
 	</select>
-	
-	
-	<select id="modifyReview"> 
+
+
+	<select id="modifyReview">
 		UPDATE REVIEWINFO
-		SET REVIEWNO = #{reviewNo}, REVIEWCONTENTS = #{reviewContents}, AVGSCORE= #{avgScore}
-    	WHERE REVIEWNO = #{reviewNo}
-    </select>
-
-
-	<!-- <select id="selectReviewList"
-		resultType="org.care.domain.ReviewInfo">
-		SELECT *
-		FROM REVIEWINFO
-		WHERE USERNO = 1
-
-	</select> -->
+		SET REVIEWCONTENTS = #{reviewContents}, AVGSCORE=
+		#{avgScore}
+		WHERE REVIEWNO = #{reviewNo}
+	</select>
 
 	<select id="selectMenu" resultType="org.care.domain.MenuInfo">
 		SELECT *
@@ -64,8 +57,6 @@
 	</select>
 
 	<insert id="insertReview">
-		<!-- <selectKey keyProperty="reviewNo" resultType="int" order="AFTER"> 
-			select REVIEWNUM.NEXTVAL from DUAL </selectKey> -->
 
 		INSERT INTO REVIEWINFO (REVIEWNO, USERNO, STORENO,
 		AVGSCORE,
@@ -74,10 +65,10 @@
 		SYSDATE)
 	</insert>
 
-	<delete id="deleteReview" >
+	<delete id="deleteReview">
 		DELETE REVIEWINFO
-		WHERE
-		REVIEWNO = #{reviewNo}
+		WHERE REVIEWNO =
+		#{reviewNo}
 	</delete>
 
 	<select id="selectFavorite"
