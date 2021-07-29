@@ -481,7 +481,7 @@ input {
 															<div class="select_img">
 																<img src="" />
 															</div>
-												
+
 														</div>
 													</form>
 
@@ -521,7 +521,7 @@ input {
 																<p>평점: ${reviewInfo.avgScore}</p>
 																<p>리뷰 번호: ${reviewInfo.reviewNo}</p>
 																<p>
-																	
+
 																	<c:if test="${!reviewInfo.pFile.isEmpty()}">
 
 																		<img
@@ -535,9 +535,39 @@ input {
 																	id="deleteForm" enctype="multipart/form-data">
 																	<input type="button" value="수정"
 																		onclick="modifyReview(${reviewInfo.reviewNo})">
-																	<input type="button" value="삭제" onclick="deleteReview(${reviewInfo.reviewNo})">
+																	<input type="button" value="삭제"
+																		onclick="deleteReview(${reviewInfo.reviewNo})">
 																</form>
 															</c:forEach>
+															
+															
+															
+															<!-- 페이징 관련 코드 -->
+															<div style="display: block; text-align: center;">
+																<c:if test="${paging.startPage != 1 }">
+																	<a href="/care/store/storeList/nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">&lt;</a>
+																</c:if>
+																<c:forEach begin="${paging.startPage }"
+																	end="${paging.endPage }" var="p">
+																	<c:choose>
+																		<c:when test="${p == paging.nowPage }">
+																			<b>${p }</b>
+																		</c:when>
+																		<c:when test="${p != paging.nowPage }">
+																			<a href="/care/store/storeList/nowPage=${p }&cntPerPage=${paging.cntPerPage}">${p }</a>
+																		</c:when>
+																	</c:choose>
+																</c:forEach>
+																<c:if test="${paging.endPage != paging.lastPage}">
+																	<a 	href="/care/store/storeList/nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">&gt;</a>
+																</c:if>
+															</div>
+
+															<!-- 페이징 관련 코드 끝 -->
+															
+															
+															
+															
 														</div>
 													</table>
 

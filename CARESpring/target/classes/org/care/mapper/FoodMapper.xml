@@ -4,7 +4,20 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.care.mapper.FoodMapper">
 
+	<!-- 페이징 관련 시작-->
+	<select id="countReview" resultType="int">
+	SELECT COUNT(*) FROM REVIEWINFO
+	</select>
 
+	
+	<select id="selectReviewP" resultType="org.care.domain.ReviewInfo">
+	SELECT * 
+	FROM (SELECT ROWNUM RN, A.* FROM (SELECT * FROM REVIEWINFO ORDER BY REVIEWNO DESC) A )
+	WHERE RN BETWEEN #{start} AND #{end}
+	</select>
+	<!-- 페이징 관련 끝-->
+	
+	
 	<select id="selectStore" resultType="org.care.domain.StoreInfo">
 		SELECT *
 		FROM STOREINFO

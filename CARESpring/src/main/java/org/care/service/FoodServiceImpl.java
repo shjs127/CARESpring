@@ -6,6 +6,7 @@ import org.care.domain.DetailInfo;
 import org.care.domain.Favorite;
 import org.care.domain.MenuInfo;
 import org.care.domain.ReviewInfo;
+import org.care.domain.ReviewPaging;
 import org.care.domain.ReviewPic;
 import org.care.domain.StoreInfo;
 import org.care.dto.ReviewDTO;
@@ -16,6 +17,20 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class FoodServiceImpl implements FoodService {
+	
+	//페이징 관련
+	@Override
+	public int countReview() {
+		return foodMapper.countReview();
+	}
+
+	@Override
+	public List<ReviewInfo> selectReviewP(ReviewPaging reviewPaging) {
+		return foodMapper.selectReviewP(reviewPaging);
+	}
+	
+	
+	
 	
 	@Autowired
 	public FoodMapper foodMapper;

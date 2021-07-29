@@ -7,6 +7,7 @@ import org.care.domain.DetailInfo;
 import org.care.domain.Favorite;
 import org.care.domain.MenuInfo;
 import org.care.domain.ReviewInfo;
+import org.care.domain.ReviewPaging;
 import org.care.domain.ReviewPic;
 import org.care.domain.StoreInfo;
 import org.care.dto.ReviewDTO;
@@ -27,4 +28,10 @@ public interface FoodMapper {
 	StoreInfo storeLogin(StoreDTO dto) throws Exception;
 	void insertReview(int storeNo, int userNo, ReviewDTO dto);
 	void insertPic(ReviewPic pic);
+	
+	
+	//페이징 관련 코드
+	public int countReview();
+	public List<ReviewInfo> selectReviewP(ReviewPaging reviewPaging);
+	
 }

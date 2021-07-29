@@ -13,11 +13,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.IOUtils;
-import org.care.domain.Criteria;
 import org.care.domain.DetailInfo;
 import org.care.domain.MenuInfo;
 import org.care.domain.PageMaker;
 import org.care.domain.ReviewInfo;
+import org.care.domain.ReviewPaging;
 import org.care.domain.ReviewPic;
 import org.care.domain.SearchCriteria;
 import org.care.domain.StoreInfo;
@@ -107,7 +107,9 @@ public class ListStoreController {
 	private DeleteFoodService deleteFoodService;
 
 	@RequestMapping(value = "/storeList/detail", method = RequestMethod.GET)
-	public String StoreDetailPage(@RequestParam("storeNo") int storeNo, Model model) throws Exception {
+	public String StoreDetailPage(@RequestParam("storeNo") int storeNo, Model model, ReviewPaging reviewPaging
+								, @RequestParam(value="nowPage", required=false)String nowPage
+								, @RequestParam(value="cntPerPage", required=false)String cntPerPage) throws Exception {
 
 		StoreInfo storeInfo = foodService.selectStore(storeNo);
 		model.addAttribute("storeInfo", storeInfo);
@@ -120,6 +122,23 @@ public class ListStoreController {
 
 		List<MenuInfo> menuInfo = foodService.selectMenu(storeNo);
 		model.addAttribute("menuInfo", menuInfo);
+		
+		
+		//페이징
+		int total = foodService.countReview();
+		if (nowPage == null && cntPerPage == null) {
+			nowPage = "1";
+			cntPerPage = "5";
+		} else if (nowPage == null) {
+			nowPage = "1";
+		} else if (cntPerPage == null) { 
+			cntPerPage = "5";
+		}
+		reviewPaging = new ReviewPaging(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
+		model.addAttribute("paging", reviewPaging);
+		model.addAttribute("viewAll", foodService.selectReviewP(reviewPaging));
+		
+		
 
 		return "detail/food-details";
 	}
