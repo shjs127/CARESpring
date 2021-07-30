@@ -134,7 +134,7 @@
 			<!-- Hotels Grid List Starts -->
 			<div class="hotels-list-grid">
 				<!-- Nested Row Starts -->
-				<div class="row storeLi">
+				<div class="row" id="cafeStoreList">
 					<!-- List Box #1 Starts -->
 					<!-- List 시작 -->
 
@@ -283,18 +283,6 @@
  		});
  	});
  	
-	/* $(function(){
-		$("#detailChk").change(function(){
-			if($("#detailChk").is(":checked")){
-				self.location = "${pageContext.request.contextPath}/store/storeList"
-						+ '${pageMaker.makeQuery(1)}'
-						+ '&keyword='+$("#keyword").val()
-						+ '&orderBy='+$("#orderBy").val()
-						+ '&detailChk='+$("#detailChk").val();
-			}
-		});
-	}); */
-	
 	$(function(){
 		var chkArr = [];
 		$(".detailCheckBox").change(function(){
@@ -325,54 +313,10 @@
 			});
 		});
 		
-		 
  	}); 
+</script>
 	
 	
-	/* $(function(){
-		
-		var locationUrl = "${pageContext.request.contextPath}/store/storeList"
-					+ '${pageMaker.makeQuery(1)}'
-					+ '&keyword='+$("#keyword").val()
-					+ '&orderBy='+$("#orderBy").val()
-			 
-		$("#detailChk").change(function(){
-			if($('input:checkbox[name=totalSeat]').is(":checked")){
-				alert($('input:checkbox[name="totalSeat"]').val());
-				locationUrl += '&detail1='+$('input:checkbox[name="totalSeat"]').val();
-				self.location = locationUrl
-			}else if($('input:checkbox[name=socketSeat]').is(":checked")){
-				locationUrl += '&detail2='+$('input:checkbox[name="socketSeat"]').val();
-				self.location = locationUrl
-			}else if($('input:checkbox[name=dessertSales]').is(":checked")){
-				locationUrl += '&detail3='+$('input:checkbox[name="dessertSales"]').val();
-				self.location = locationUrl
-			}else if($('input:checkbox[name=terrace]').is(":checked")){
-				locationUrl += '&detail4='+$('input:checkbox[name="terrace"]').val();
-				self.location = locationUrl
-			}else if($('input:checkbox[name=rooftop]').is(":checked")){
-				locationUrl += '&detail5='+$('input:checkbox[name="rooftop"]').val();
-				self.location = locationUrl
-			}else if($('input:checkbox[name=wifi]').is(":checked")){
-				locationUrl += '&detail6='+$('input:checkbox[name="wifi"]').val();
-				self.location = locationUrl
-			}else if($('input:checkbox[name=companionDog]').is(":checked")){
-				locationUrl += '&detail7='+$('input:checkbox[name="companionDog"]').val();
-				self.location = locationUrl
-			}else if($('input:checkbox[name=parkingSpace]').is(":checked")){
-				locationUrl += '&detail8='+$('input:checkbox[name="parkingSpace"]').val();
-				self.location = locationUrl
-			}else if($('input:checkbox[name=noKidsZone]').is(":checked")){
-				locationUrl += '&detail9='+$('input:checkbox[name="noKidsZone"]').val();
-				self.location = locationUrl
-			}else if($('input:checkbox[name=smokingArea]').is(":checked")){
-				locationUrl += '&detail10='+$('input:checkbox[name="smokingArea"]').val();
-				self.location = locationUrl
-			}
-		});
-	}); */
- </script>
-
 <!-- <script>
 	$(function(){
 		$("#orderBy").change(function(){
@@ -401,83 +345,95 @@
 
 <script id="template" type="text/x-handlebars-template">
 {{#each .}}
-<div class="col-lg-4 col-md-6 col-sm-12">
-	<!-- Grid Box Starts -->
-	<div class="grid-box">
-		<!-- Images Starts -->
-		<div class="image text-center">
-			<imgW
-				src="<%=request.getContextPath()%>/resources/images/hotels/thumb/hotel-grid-thumb-img1.jpg"
-				alt="Eagle Boys Village Plaza" class="img-fluid img-center">
-			<span class="delivery-time">${storeinfo.storeNo}</span>
-		</div>
+<div class="row storeLi">
+					<!-- List Box #1 Starts -->
+					<!-- List 시작 -->
 
-		<!-- Images Ends -->
-		<!-- Content Starts -->
-		<div class="content text-center text-lg-left">
-			<!-- Title Starts -->
-			<h6 class="grid-box-title">
-				<a href="storeList/detail?storeNo=${storeinfo.storeNo}">${storeinfo.storeName}</a>
-			</h6>
-			<!-- Title Ends -->
-			<!-- Tags Starts -->
-			<ul class="list-unstyled list-inline grid-box-tags">
-				<li class="list-inline-item">
-		 			<c:choose>
-					<c:when test = "${fn:length(storeinfo.address) gt 22}">
-					<c:out value = "${fn:substring(storeinfo.address,0,21)}..."></c:out>
-					</c:when>
-					<c:otherwise>
-					<c:out value="${storeinfo.address}"></c:out>
-					</c:otherwise>
-					</c:choose>
-				</li>
-			</ul>
-			<!-- Tags Ends -->
-			<!-- Offer Details Starts -->
-			<ul class="list-unstyled grid-box-info clearfix">
-				<li class="float-lg-right text-lg-right"><a href="/storeList/detail?storeNo=${storeinfo.storeNo}"
-					class="btn btn-prime animation"> 자세히 보기 <i
-						class="fa fa-chevron-right"></i>
-				</a></li>
-			</ul>
-			<!-- Offer Details Ends -->
-			<!-- Links Starts -->
-			<div class="clearfix">
-				<!-- Info Links Starts -->
-				<ul
-					class="list-unstyled list-inline grid-box-info-links float-lg-left">
-					<li class="list-inline-item"><a href="#"
-						data-toggle="tooltip" data-placement="top" title="Coupons"><i
-							class="fa fa-tag"></i></a></li>
-					<li class="list-inline-item"><a href="#"
-						data-toggle="tooltip" data-placement="top"
-						title="Information"><i class="fa fa-info-circle"></i></a></li>
-					<li class="list-inline-item"><a href="#"
-						data-toggle="tooltip" data-placement="top" title="Reviews"><i
-							class="fa fa-star-half-full"></i></a></li>
-					<li class="list-inline-item"><a href="#"
-						data-toggle="tooltip" data-placement="top" title="Specials"><i
-							class="fa fa-asterisk"></i></a></li>
-				</ul>
-				<!-- Info Links Ends -->
-				<!-- Ratings Starts -->
-				<ul
-					class="list-unstyled list-inline grid-box-ratings float-lg-right text-lg-right">
-					<li class="list-inline-item star-rating"><i
-						class="fa fa-star"></i> 45</li>
-					<li class="list-inline-item"><a href="#"
-						class="badge animation"><i class="fa fa-heart"></i> 10</a></li>
-				</ul>
-				<!-- Ratings Ends -->
-			</div>
-			<!-- Links Ends -->
-		</div>
-		<!-- Content Ends -->
-	</div>
-	<!-- Grid Box Ends -->
-</div>
-<!-- List Box #1 Ends -->
+					<c:if test="${list == null}">
+						<div>매장이 없습니다.</div>
+					</c:if>
+
+					<c:forEach var="storeinfo" items="${list}">
+						<div class="col-lg-4 col-md-6 col-sm-12">
+							<!-- Grid Box Starts -->
+							<div class="grid-box">
+								<!-- Images Starts -->
+								<div class="image text-center">
+									<img
+										src="<%=request.getContextPath()%>/resources/images/hotels/thumb/hotel-grid-thumb-img1.jpg"
+										alt="Eagle Boys Village Plaza" class="img-fluid img-center">
+									<span class="delivery-time">${storeinfo.storeNo}</span>
+								</div>
+
+								<!-- Images Ends -->
+								<!-- Content Starts -->
+								<div class="content text-center text-lg-left">
+									<!-- Title Starts -->
+									<h6 class="grid-box-title">
+										<a href="${pageContext.request.contextPath}/store/storeList/detail?storeNo=${storeinfo.storeNo}">${storeinfo.storeName}</a>
+									</h6>
+									<!-- Title Ends -->
+									<!-- Tags Starts -->
+									<ul class="list-unstyled list-inline grid-box-tags">
+										<li class="list-inline-item">
+								 			<c:choose>
+											<c:when test = "${fn:length(storeinfo.address) gt 20}">
+											<c:out value = "${fn:substring(storeinfo.address,0,19)}..."></c:out>
+											</c:when>
+											<c:otherwise>
+											<c:out value="${storeinfo.address}"></c:out>
+											</c:otherwise>
+											</c:choose>
+										</li>
+									</ul>
+									<!-- Tags Ends -->
+									<!-- Offer Details Starts -->
+									<ul class="list-unstyled grid-box-info clearfix">
+										<li class="float-lg-right text-lg-right"><a href="${pageContext.request.contextPath}/store/storeList/detail?storeNo=${storeinfo.storeNo}"
+											class="btn btn-prime animation"> 자세히 보기 <i
+												class="fa fa-chevron-right"></i>
+										</a></li>
+									</ul>
+									<!-- Offer Details Ends -->
+									<!-- Links Starts -->
+									<div class="clearfix">
+										<!-- Info Links Starts -->
+										<ul
+											class="list-unstyled list-inline grid-box-info-links float-lg-left">
+											<li class="list-inline-item"><a href="#"
+												data-toggle="tooltip" data-placement="top" title="Coupons"><i
+													class="fa fa-tag"></i></a></li>
+											<li class="list-inline-item"><a href="#"
+												data-toggle="tooltip" data-placement="top"
+												title="Information"><i class="fa fa-info-circle"></i></a></li>
+											<li class="list-inline-item"><a href="#"
+												data-toggle="tooltip" data-placement="top" title="Reviews"><i
+													class="fa fa-star-half-full"></i></a></li>
+											<li class="list-inline-item"><a href="#"
+												data-toggle="tooltip" data-placement="top" title="Specials"><i
+													class="fa fa-asterisk"></i></a></li>
+										</ul>
+										<!-- Info Links Ends -->
+										<!-- Ratings Starts -->
+										<ul
+											class="list-unstyled list-inline grid-box-ratings float-lg-right text-lg-right">
+											<li class="list-inline-item star-rating"><i
+												class="fa fa-star"></i> 45</li>
+											<li class="list-inline-item"><a href="#"
+												class="badge animation"><i class="fa fa-heart"></i> 10</a></li>
+										</ul>
+										<!-- Ratings Ends -->
+									</div>
+									<!-- Links Ends -->
+								</div>
+								<!-- Content Ends -->
+							</div>
+							<!-- Grid Box Ends -->
+						</div>
+						<!-- List Box #1 Ends -->
+					</c:forEach>
+
+				</div>
 {{/each}}
 </script>
 
@@ -488,8 +444,8 @@
 		var template = Handlebars.compile(templateObject.html());
 
 		var html = template(storeArr)
-		$("storeLi").remove();
-		tartget.after(html);
+		$(".storeLi").remove();
+		target.after(html);
 	
 	}
 	
@@ -500,7 +456,8 @@
 	function getPage(pageInfo){
 	
 		$.getJSON(pageInfo, function(data){
-			printData(data.list, $())
+			printData(data.list, $(#cafeStoreList), $('#template'));
+			printPaging(data.pageMaker, $(".pagination"));
 		}
 	}
  

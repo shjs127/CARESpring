@@ -67,35 +67,17 @@ public class ListStoreController {
 	@RequestMapping(value = "/storeList", method = RequestMethod.GET)
 	public String listPage(@ModelAttribute("scri") SearchCriteria scri, Model model) throws Exception {
 		
-		
 		if(scri.getOrderBy() == null || "".equals(scri.getOrderBy()) ) {
 			scri.setOrderBy("STORENO");
 		}
 		
-		//Logger.info(scri.toString());
-
 		model.addAttribute("list", service.listSearch(scri));
 		
 		PageMaker pageMaker = new PageMaker();
-		pageMaker.setCri(scri);
 
+		pageMaker.setCri(scri);
 		pageMaker.setTotalCount(service.listSearchCount(scri));
 		
-		model.addAttribute("pageMaker", pageMaker);
-
-		return "board/cafeGrid";
-	}
-
-	@RequestMapping(value = "/storeList", method = RequestMethod.POST)
-	public String SearchListPage(@ModelAttribute("scri") SearchCriteria scri, Model model) throws Exception {
-
-		model.addAttribute("list", service.listSearch(scri));
-
-		PageMaker pageMaker = new PageMaker();
-		pageMaker.setCri(scri);
-
-		pageMaker.setTotalCount(service.listSearchCount(scri));
-
 		model.addAttribute("pageMaker", pageMaker);
 
 		return "board/cafeGrid";
@@ -226,14 +208,14 @@ public class ListStoreController {
 	public String detailInfoChk(@RequestParam(value = "valueArr", required = false) List<String> valueArr, @ModelAttribute("scri") SearchCriteria scri, Model model) throws Exception {
 		System.out.println("----------------------------");
 		System.out.println(valueArr);
+		scri.setValChk(valueArr);
+		System.out.println(scri.getValChk());
 		
 		if(scri.getOrderBy() == null || "".equals(scri.getOrderBy()) ) {
 			scri.setOrderBy("STORENO");
 		}
-		if(scri.getKeyword() == null || "".equals(scri.getKeyword())) {
-			scri.setKeyword("null");
-		}
-		System.out.println("keyword="+scri.getKeyword());
+
+		model.addAttribute("list", service.listSearchDetail(scri));
 		
 //		ResponseEntity<String> entity = null;
 //		try {
@@ -246,14 +228,12 @@ public class ListStoreController {
 //			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
 //		}
 		
-		model.addAttribute("list", service.listSearchDetail(scri, valueArr));
-//		
-//		PageMaker pageMaker = new PageMaker();
-//		pageMaker.setCri(scri);
-//
-//		pageMaker.setTotalCount(service.listSearchDetailCount(scri));
-//		
-//		model.addAttribute("pageMaker", pageMaker);
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(scri);
+
+		pageMaker.setTotalCount(service.listSearchDetailCount(scri));
+		
+		model.addAttribute("pageMaker", pageMaker);
 		
 		return "board/cafeGrid";
 	}

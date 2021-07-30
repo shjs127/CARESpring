@@ -50,14 +50,13 @@ public class ListStoreServiceImpl implements ListStoreService {
 	}
 
 	@Override
-	public List<StoreInfo> listSearchDetail(SearchCriteria cri, List<String> valueArr) throws Exception {
-		System.out.println(valueArr);
-		return listStoreMapper.listSearchDetail(cri, valueArr);
+	public List<StoreInfo> listSearchDetail(SearchCriteria cri) throws Exception {
+		return listStoreMapper.listSearchDetail(cri);
 	}
 
 	@Override
-	public int listSearchDetailCount(SearchCriteria cri, List<String> valueArr) throws Exception {
-		return listStoreMapper.listSearchDetailCount(cri, valueArr);
+	public int listSearchDetailCount(SearchCriteria cri) throws Exception {
+		return listStoreMapper.listSearchDetailCount(cri);
 	}
 	
 	@Override
