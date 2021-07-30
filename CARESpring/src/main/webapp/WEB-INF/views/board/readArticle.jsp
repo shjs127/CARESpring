@@ -17,39 +17,50 @@
 		</tr>
 		<tr>
 			<th>작성일</th>
-			<td class="text-align-left text-indent" colspan="3">
-			<fmt:formatDate pattern="yyyy/MM/dd HH:mm"
-									value="${boardInfo.boardDate}" /></td>
+			<td class="text-align-left text-indent" colspan="3"><fmt:formatDate
+					pattern="yyyy/MM/dd HH:mm" value="${boardInfo.boardDate}" /></td>
 		</tr>
 		<tr>
 			<th>작성자</th>
- 			<td>${nickName.nickName}</td> 
+			<td>${nickName.nickName}</td>
 			<th>조회수</th>
 			<td>${boardInfo.viewCount}</td>
 		</tr>
 		<tr class="content">
 			<td colspan="4"
 				style="word-break: break-all; padding-left: 30px; padding-right: 100px;">
-			<c:forEach var="file" items="${boardInfoList.files}">
+				<c:forEach var="file" items="${boardInfoList.files}">
 					<c:set var="fname" value="${file.boardPic1}" />
 					<c:choose>
 						<c:when test="${fn:endsWith(fname, '.jpg')==true}">
-							<img src="${pageContext.request.contextPath}/resources/upload/${file.boardPic1}" width="200" />
+							<img
+								src="${pageContext.request.contextPath}/resources/upload/${file.boardPic1}"
+								width="200" />
 						</c:when>
 						<c:when test="${fn:endsWith(fname, '.JPG')==true}">
-							<img src="${pageContext.request.contextPath}/resources/upload/${file.boardPic1}" width="200" />
+							<img
+								src="${pageContext.request.contextPath}/resources/upload/${file.boardPic1}"
+								width="200" />
 						</c:when>
 						<c:when test="${fn:endsWith(fname, '.png')==true}">
-							<img src="${pageContext.request.contextPath}/resources/upload/${file.boardPic1}" width="200" />
+							<img
+								src="${pageContext.request.contextPath}/resources/upload/${file.boardPic1}"
+								width="200" />
 						</c:when>
 						<c:when test="${fn:endsWith(fname, '.PNG')==true}">
-							<img src="${pageContext.request.contextPath}/resources/upload/${file.boardPic1}" width="200" />
+							<img
+								src="${pageContext.request.contextPath}/resources/upload/${file.boardPic1}"
+								width="200" />
 						</c:when>
 						<c:when test="${fn:endsWith(fname, '.gif')==true}">
-							<img src="${pageContext.request.contextPath}/resources/upload/${file.boardPic1}" width="200" />
+							<img
+								src="${pageContext.request.contextPath}/resources/upload/${file.boardPic1}"
+								width="200" />
 						</c:when>
 						<c:when test="${fn:endsWith(fname, '.GIF')==true}">
-							<img src="${pageContext.request.contextPath}/resources/upload/${file.boardPic1}" width="200" />
+							<img
+								src="${pageContext.request.contextPath}/resources/upload/${file.boardPic1}"
+								width="200" />
 						</c:when>
 						<c:otherwise>
 						</c:otherwise>
@@ -99,19 +110,17 @@
 	</table>
 </div>
 <!-- <form action="modify.do" method="post"> -->
-<input type="hidden" name="boardNo">
 <div style="text-align: right;">
 
 	<c:if test="${boardInfo.userNo == login.userNo}">
 		<form name="removefrm" action="delete.do" method="post">
 			<!-- <td> -->
-			<input type="button" onclick="removeCheck()" value="삭제" class="btn btn-prime text-weight-bold text-uppercase animation"> <input
-				type="hidden" name="boardContents"
-				value="${boardInfo.boardContents}"> <input
-				type="hidden" name="boardTitle"
-				value="${boardInfo.boardTitle}"> <input
-				type="hidden" name="boardNo"
-				value="${boardInfo.boardNo}">
+			<input type="button" onclick="removeCheck()" value="삭제"
+				class="btn btn-prime text-weight-bold text-uppercase animation">
+			<input type="hidden" name="boardContents"
+				value="${boardInfo.boardContents}"> <input type="hidden"
+				name="boardTitle" value="${boardInfo.boardTitle}"> <input
+				type="hidden" name="boardNo" value="${boardInfo.boardNo}">
 
 			<script>
 				function removeCheck() {
@@ -131,13 +140,70 @@
 		</form>
 
 		<a href="modify?boardNo=${boardInfo.boardNo}"> <input
-			type="button" value="수정" class="btn btn-prime text-weight-bold text-uppercase animation">
+			type="button" value="수정"
+			class="btn btn-prime text-weight-bold text-uppercase animation">
 		</a>
 		<!-- </td> -->
 	</c:if>
 </div>
 <!-- 	</form> -->
+<div class="col-md-6">
+	<!-- Reviews Tab Pane Starts -->
 
+	<!-- Reviews Form Box Starts -->
+	<div class="reviews-form-box"
+		style="padding-top: 10px; padding-left: 20px; padding-bottom: 40px;">
+
+		<h6>댓글</h6>
+
+		<form>
+<div>
+			<p>
+				<textarea id="commentContents" cols="100" rows="4"
+					placeholder="답글을 작성하세요"></textarea>
+			</p>
+			<p>
+				<button id="btn" type="button" style="float: right;">댓글쓰기</button>
+			</p>
+			</div>
+		</form>
+	</div>
+</div>
+<div id="commentList">
+	<c:forEach var="comment" items="${comment}">
+
+		<b>${comment.userNo}</b>
+		<a>${comment.commentContents}</a>
+		<a>${comment.commentDate}</a>
+		<br>
+	</c:forEach>
+
+</div>
+<script type="text/javascript">
+	$("#btn").click(
+			function() {
+				var comment= $("#commentContents").val();
+				var boardNo = ${boardInfo.boardNo};
+				$.ajax({
+					url : '${pageContext.request.contextPath}/board/comment',
+					type : 'post',
+					dataType : 'text',
+					data : {
+						comment : comment,
+						boardNo : boardNo
+					},
+					success : function(data) {
+						alert("성공");
+						location.reload();
+						
+					},
+					error : function(request, status, error) {
+						alert("code=" + request.status + " message = "
+								+ request.responseText + " error = " + error);
+					}
+				});
+			});
+</script>
 
 
 <%@ include file="../include/footer.jspf"%>

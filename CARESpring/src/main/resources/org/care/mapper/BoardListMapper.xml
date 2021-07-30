@@ -5,10 +5,11 @@
 <mapper namespace="org.care.mapper.BoardListMapper">
 
 	<insert id="insert" parameterType="org.care.domain.BoardInfo">
-		<selectKey keyProperty="boardNo" resultType="int" order="BEFORE">
-	select BOARDNUM.NEXTVAL from dual
-	</selectKey>
-	
+		<selectKey keyProperty="boardNo" resultType="int"
+			order="BEFORE">
+			select BOARDNUM.NEXTVAL from dual
+		</selectKey>
+
 		INSERT INTO BOARDINFO
 		VALUES(#{boardNo},
 		#{userNo},
@@ -23,9 +24,11 @@
 	</select>
 
 	<select id="searchCount" resultType="int">
-		SELECT COUNT(*) FROM BOARDINFO WHERE BOARDTITLE LIKE
+		SELECT COUNT(*) FROM
+		BOARDINFO WHERE BOARDTITLE LIKE
 		'%'||#{searching}||'%' OR
-		BOARDCONTENTS LIKE '%'||#{searching}||'%'
+		BOARDCONTENTS
+		LIKE '%'||#{searching}||'%'
 	</select>
 
 	<select id="search" resultType="org.care.domain.BoardInfo">
@@ -33,12 +36,15 @@
 		ROWNUM AS RNUM, BOARDINFO.* FROM BOARDINFO
 		WHERE BOARDINFO.BOARDTITLE
 		LIKE '%'||#{searching}||'%' OR
-		BOARDINFO.BOARDCONTENTS LIKE '%'||#{searching}||'%'
-		ORDER BY BOARDNO DESC) BOARDINFO WHERE RNUM BETWEEN
+		BOARDINFO.BOARDCONTENTS LIKE
+		'%'||#{searching}||'%'
+		ORDER BY BOARDNO DESC) BOARDINFO WHERE RNUM
+		BETWEEN
 		#{page} AND #{endSize}
 	</select>
 
-	<select id="selectBoardList" resultType="org.care.domain.BoardInfo">
+	<select id="selectBoardList"
+		resultType="org.care.domain.BoardInfo">
 		SELECT * FROM BOARDINFO
 
 	</select>
@@ -54,11 +60,12 @@
 	</update>
 
 	<update id="update">
-		  UPDATE BOARDINFO SET BOARDTITLE = #{boardTitle}, BOARDCONTENTS = #{boardContents} where
+		UPDATE BOARDINFO SET BOARDTITLE = #{boardTitle}, BOARDCONTENTS =
+		#{boardContents} where
 		BOARDNO = #{boardNo}
 	</update>
 
-	<delete id = "deletePic">
+	<delete id="deletePic">
 		DELETE FROM BOARDPIC WHERE BOARDNO = #{boardNo}
 	</delete>
 	<delete id="delete">
@@ -77,7 +84,8 @@
 
 	<select id="picView" resultType="org.care.domain.BoardPicInfo">
 		SELECT * FROM BOARDPIC
-		WHERE BOARDNO = #{boardNo}
+		WHERE
+		BOARDNO = #{boardNo}
 	</select>
 
 
@@ -97,31 +105,49 @@
 		FROM(
 		SELECT BOARDNO,
 		LAG(BOARDNO) OVER (ORDER BY BOARDNO) PREVNO
-		FROM BOARDINFO ORDER BY BOARDNO
+		FROM BOARDINFO ORDER BY
+		BOARDNO
 		)
 		WHERE BOARDNO = #{boardNo}
 	</select>
-	
+
 	<select id="getName" resultType="org.care.domain.UserInfo">
 		SELECT NICKNAME FROM USERINFO
 		WHERE USERNO = #{userNo}
 	</select>
-	
+
 	<select id="getUserNo" resultType="int">
 		SELECT USERNO FROM BOARDINFO
 		WHERE BOARDNO = #{boardNo}
 	</select>
-	
-	<select id="getBoardPic" resultType="org.care.domain.BoardPicInfo">
+
+	<select id="getBoardPic"
+		resultType="org.care.domain.BoardPicInfo">
 		SELECT BOARDPIC1 FROM BOARDPIC
 		WHERE BOARDNO = #{boardNo}
 	</select>
-<select id="boardTop" resultType="org.care.dto.BoardDTO">
+	<select id="boardTop" resultType="org.care.dto.BoardDTO">
 <![CDATA[
     select b.BOARDNO boardNo, b.BOARDTITLE boardTitle, b.VIEWCOUNT viewCount from ( 
 	select BOARDNO, BOARDTITLE, VIEWCOUNT from BOARDINFO 
 	order by VIEWCOUNT DESC ) b 
 	where ROWNUM <6
 ]]>
-</select>
+	</select>
+
+	<select id="getComment" resultType="org.care.domain.CommentInfo">
+		SELECT * FROM COMMENTINFO
+		WHERE BOARDNO = #{boardNo}
+	</select>
+	
+	<insert id="insertComment">
+	INSERT INTO COMMENTINFO VALUES(
+	COMMENTNUM.NEXTVAL,
+	#{arg0.boardNo},
+	#{arg0.userNo},
+	#{arg1},
+	SYSDATE
+	)
+	</insert>
+	
 </mapper>

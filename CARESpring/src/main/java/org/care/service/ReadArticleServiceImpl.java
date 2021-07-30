@@ -5,6 +5,7 @@ import java.util.List;
 import org.care.domain.BoardInfo;
 import org.care.domain.BoardInfoList;
 import org.care.domain.BoardPicInfo;
+import org.care.domain.CommentInfo;
 import org.care.domain.NextNo;
 import org.care.domain.PrevNo;
 import org.care.domain.UserInfo;
@@ -49,6 +50,13 @@ public class ReadArticleServiceImpl implements ReadArticleService {
 		int userNo = boardListMapper.getUserNo(dto);
 		return boardListMapper.getName(userNo);
 	}
+	
+	@Override
+	public List<CommentInfo> getComment(BoardDTO dto) throws Exception {
+		
+		return boardListMapper.getComment(dto);
+	}
+	
 
 	
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.care.domain.BoardInfo;
 import org.care.domain.BoardPicInfo;
+import org.care.domain.CommentInfo;
 import org.care.domain.NextNo;
 import org.care.domain.PrevNo;
 import org.care.domain.UserInfo;
@@ -48,4 +49,8 @@ public interface BoardListMapper {
 	void delete(BoardDTO dto) throws Exception;
 	
 	BoardPicInfo getBoardPic(BoardDTO dto) throws Exception;
+	
+	List<CommentInfo> getComment(BoardDTO dto) throws Exception;
+	
+	void insertComment(BoardDTO dto, String comment) throws Exception;
 }
