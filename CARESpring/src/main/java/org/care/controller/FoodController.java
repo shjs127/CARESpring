@@ -2,12 +2,19 @@
 package org.care.controller;
 
 
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.care.domain.Favorite;
+import org.care.domain.ReviewInfo;
 import org.care.domain.StoreInfo;
+import org.care.domain.UserInfo;
+import org.care.dto.LoginDTO;
+import org.care.dto.ReviewDTO;
 import org.care.dto.StoreDTO;
 import org.care.service.FoodService;
 import org.springframework.stereotype.Controller;
@@ -50,5 +57,24 @@ public class FoodController {
 
 		return "login/storeLogout";
 	}
+	
+	 @RequestMapping(value = "/store/profile", method = RequestMethod.GET) public
+	  String profilePage(HttpServletRequest request, HttpSession session, Model model) throws
+	  Exception {
+	  
+		StoreInfo storeInfo= (StoreInfo)session.getAttribute("storein");
+		int storeNo=storeInfo.getStoreNo();
+	  
+		/*
+		 * List<ReviewDTO> reviewInfoList = userService.selectReviewUser(storeNo);
+		 * model.addAttribute("reviewInfoList", reviewInfoList);
+		 * 
+		 * List<Favorite> favorite = foodService.selectFavorite(userNo);
+		 * model.addAttribute("favorite", favorite);
+		 */
+		 
+	  
+	  return "profile/storeProfile"; 
+	  }
 
 }

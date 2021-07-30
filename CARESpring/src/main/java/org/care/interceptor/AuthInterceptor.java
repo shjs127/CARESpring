@@ -47,7 +47,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 
 			}
 
-			response.sendRedirect("/login");
+			response.sendRedirect(request.getContextPath()+"/login");
 			return false;
 		}
 		return true;
@@ -71,28 +71,6 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 		}
 	}
 
-	// @Override
-	// public boolean preHandle(HttpServletRequest request, HttpServletResponse
-	// response, Object handler) throws Exception {
-	//
-	// HttpSession session = request.getSession();
-	//
-	// if (session.getAttribute("login") == null) {
-	//
-	// logger.info("current user is not logined");
-	//
-	// saveDest(request);
-	//
-	// response.sendRedirect("/user/login");
-	// return false;
-	// }
-	// return true;
-	// }
+
 }
 
-// if(session.getAttribute("login") == null){
-//
-// logger.info("current user is not logined");
-// response.sendRedirect("/user/login");
-// return false;
-// }

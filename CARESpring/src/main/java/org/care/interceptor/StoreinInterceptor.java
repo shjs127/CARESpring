@@ -30,17 +30,7 @@ public class StoreinInterceptor extends HandlerInterceptorAdapter {
 			logger.info("new login success");
 			session.setAttribute(STOREIN, storeVO);
 
-			
-			/*
-			 * if (request.getParameter("useCookie") != null) {
-			 * 
-			 * logger.info("remember me................"); Cookie loginCookie = new
-			 * Cookie("loginCookie", session.getId()); loginCookie.setPath("/");
-			 * loginCookie.setMaxAge(60 * 60 * 24 * 7); response.addCookie(loginCookie);
-			 * 
-			 * }
-			 */
-			  // response.sendRedirect("/"); 
+	
 			  Object dest = session.getAttribute("dest");
 			  
 			  

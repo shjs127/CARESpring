@@ -109,8 +109,18 @@
 						class="list-unstyled list-inline top-links text-md-right text-weight-bold">
 						<li class="list-inline-item"><div style="margin-left: 11px;"
 								id="google_translate_element"></div></li>
-						<li class="list-inline-item"><a
-							href='${pageContext.request.contextPath}/login/profile'>마이페이지</a></li>
+						<li class="list-inline-item">
+						<% 
+						if (session.getAttribute("storein") == null) {
+						%>
+						<a href='${pageContext.request.contextPath}/login/profile'>마이페이지</a></li>
+						<%
+							} else {
+						%>
+						<a href='${pageContext.request.contextPath}/store/profile'>매장페이지</a></li>
+						<%
+							}
+						%>
 						<li class="list-inline-item"><a
 							href='${pageContext.request.contextPath}/board/listArticle'>게시판</a></li>
 						<%
