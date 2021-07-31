@@ -499,9 +499,30 @@ input {
 									<div class="content-wrapper">
 										<!-- Content Header (Page header) -->
 										<section class="content-header"></section>
-
+										<script>
+										function selChange() {
+											var sel = document.getElementById('cntPerPage').value;
+											location.href="/care/store/storeList/detail?storeNo=${storeInfo.storeNo}&nowPage=${paging.nowPage}&cntPerPage="+sel;
+											}
+										</script>
 										<!-- Main content -->
-
+										<div style="float: right;">
+											<select id="cntPerPage" name="sel" onchange="selChange()">
+												<option value="5"
+													<c:if test="${paging.cntPerPage == 5}">selected</c:if>>5개씩
+													보기</option>
+												<option value="10"
+													<c:if test="${paging.cntPerPage == 10}">selected</c:if>>10개씩
+													보기</option>
+												<option value="15"
+													<c:if test="${paging.cntPerPage == 15}">selected</c:if>>15개씩
+													보기</option>
+												<option value="20"
+													<c:if test="${paging.cntPerPage == 20}">selected</c:if>>20개씩
+													보기</option>
+											</select>
+										</div>
+										<!-- 옵션선택 끝 -->
 										<!-- Default box -->
 										<div class="box">
 
@@ -539,13 +560,13 @@ input {
 																		onclick="deleteReview(${reviewInfo.reviewNo})">
 																</form>
 															</c:forEach>
-															
-															
-															
+
+
+
 															<!-- 페이징 관련 코드 -->
 															<div style="display: block; text-align: center;">
 																<c:if test="${paging.startPage != 1 }">
-																	<a href="/care/store/storeList/nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">&lt;</a>
+																	<a href="/care/store/storeList/detail?storeNo=${storeInfo.storeNo}&nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">&lt;</a>
 																</c:if>
 																<c:forEach begin="${paging.startPage }"
 																	end="${paging.endPage }" var="p">
@@ -554,20 +575,20 @@ input {
 																			<b>${p }</b>
 																		</c:when>
 																		<c:when test="${p != paging.nowPage }">
-																			<a href="/care/store/storeList/nowPage=${p }&cntPerPage=${paging.cntPerPage}">${p }</a>
+																			<a href="/care/store/storeList/detail?storeNo=${storeInfo.storeNo}&nowPage=${p }&cntPerPage=${paging.cntPerPage}">${p }</a>
 																		</c:when>
 																	</c:choose>
 																</c:forEach>
 																<c:if test="${paging.endPage != paging.lastPage}">
-																	<a 	href="/care/store/storeList/nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">&gt;</a>
+																	<a href="/care/store/storeList/detail?storeNo=${storeInfo.storeNo}&nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">&gt;</a>
 																</c:if>
 															</div>
 
 															<!-- 페이징 관련 코드 끝 -->
-															
-															
-															
-															
+
+
+
+
 														</div>
 													</table>
 

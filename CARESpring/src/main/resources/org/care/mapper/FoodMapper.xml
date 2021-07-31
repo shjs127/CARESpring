@@ -12,8 +12,14 @@
 	
 	<select id="selectReviewP" resultType="org.care.domain.ReviewInfo">
 	SELECT * 
-	FROM (SELECT ROWNUM RN, A.* FROM (SELECT * FROM REVIEWINFO ORDER BY REVIEWNO DESC) A )
-	WHERE RN BETWEEN #{start} AND #{end}
+	FROM (SELECT ROWNUM R, A.* 
+	      FROM (
+	            SELECT * 
+	            FROM REVIEWINFO 
+	            ORDER BY REVIEWNO DESC
+	            ) A 
+	      )
+	WHERE R BETWEEN #{start} AND #{end}
 	</select>
 	<!-- 페이징 관련 끝-->
 	

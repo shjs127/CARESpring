@@ -83,125 +83,117 @@ public class ListStoreController {
 		return "board/cafeGrid";
 	}
 
-	@Inject
-	public FoodService foodService;
-	@Inject
-	private DeleteFoodService deleteFoodService;
-
-	@RequestMapping(value = "/storeList/detail", method = RequestMethod.GET)
-	public String StoreDetailPage(@RequestParam("storeNo") int storeNo, Model model, ReviewPaging reviewPaging
-								, @RequestParam(value="nowPage", required=false)String nowPage
-								, @RequestParam(value="cntPerPage", required=false)String cntPerPage) throws Exception {
-
-		StoreInfo storeInfo = foodService.selectStore(storeNo);
-		model.addAttribute("storeInfo", storeInfo);
-
-		DetailInfo detailInfo = foodService.selectDetail(storeNo);
-		model.addAttribute("detailInfo", detailInfo);
-
-		List<ReviewDTO> reviewDTO = foodService.selectReview(storeNo);
-		model.addAttribute("reviewDTO", reviewDTO);
-
-		List<MenuInfo> menuInfo = foodService.selectMenu(storeNo);
-		model.addAttribute("menuInfo", menuInfo);
-		
-		
-		//페이징
-		int total = foodService.countReview();
-		if (nowPage == null && cntPerPage == null) {
-			nowPage = "1";
-			cntPerPage = "5";
-		} else if (nowPage == null) {
-			nowPage = "1";
-		} else if (cntPerPage == null) { 
-			cntPerPage = "5";
-		}
-		reviewPaging = new ReviewPaging(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
-		model.addAttribute("paging", reviewPaging);
-		model.addAttribute("viewAll", foodService.selectReviewP(reviewPaging));
-		
-		
-
-		return "detail/food-details";
-	}
-
-	@RequestMapping(value = "/storeList/detail", method = { RequestMethod.POST })
-	public String Insert(@RequestParam("storeNo") int storeNo, MultipartFile file, ReviewDTO dto,
-			HttpSession session, Model model) throws Exception {
-
-		UserInfo login = (UserInfo) session.getAttribute("login");
-		int userNo = login.getUserNo();
-		foodService.insertReview(storeNo, userNo, dto);
-	
-		ReviewPic pic = new ReviewPic();
-		// 파일을 선택한 경우에만 업로드 실행
-		if (file.getOriginalFilename() != "") {
-			System.out.println("/*** file.getOriginalFileName()=" + file.getOriginalFilename());
-			String save = uploadFile(file.getOriginalFilename(), file.getBytes());
-
-			pic.setReviewPic1(save);
-			pic.setStoreNo(storeNo);
-			pic.setUserNo(userNo);
-			foodService.reviewPic(pic);
-		}
-
-		return "redirect:/store/storeList/detail?storeNo=" + storeNo;
-		
-	}
-
-	
-	
-	
-	
-	
-	@RequestMapping(value = "/storeList/deleteReview", method = RequestMethod.GET)
-	public String delete(ReviewDTO dto, HttpServletRequest req, HttpServletResponse response, HttpSession session, Model model) throws Exception {
-
-		int reviewNo = Integer.parseInt(req.getParameter("seq"));
-		List<ReviewInfo> reviewInfo = deleteFoodService.selectReviewDetail(reviewNo);
-		
-		System.out.println("storeNo=" + reviewInfo.get(0).getStoreNo());
-		
-		deleteFoodService.deleteReview(reviewNo);
-
-		
-		return "redirect:/store/storeList/detail?storeNo=" + reviewInfo.get(0).getStoreNo();
-	}
-	
-	
-	
-	
-	@Inject
-	private ModifyFoodService modifyFoodService;
-	
-	
-	@RequestMapping(value = "/storeList/modifyReview", method = RequestMethod.GET)
-	public String modify1(ReviewDTO dto, HttpServletRequest req, HttpServletResponse response, HttpSession session,Model model)throws Exception {
-		int reviewNo = Integer.parseInt(req.getParameter("seq"));
-		List<ReviewInfo> reviewInfo = modifyFoodService.selectReviewDetail(reviewNo);
-		
-		model.addAttribute("reviewInfo", reviewInfo); 
-		
-//		model.addAttribute("modReq", dto);
-		
-		return "detail/modifyReview";
-	}
-	
-	
-	@RequestMapping(value = "/storeList/modifyReview", method = RequestMethod.POST)
-	public String modify(ReviewDTO dto, HttpServletRequest req, Model model)throws Exception {
-		
-		int reviewNo = Integer.parseInt(req.getParameter("reviewNo"));
-		int storeNo = Integer.parseInt(req.getParameter("storeNo"));
-		String reviewContents = req.getParameter("reviewContents"); 
-		int avgScore = Integer.parseInt(req.getParameter("avgScore"));
-		
-		modifyFoodService.modifyReview(reviewNo, reviewContents, avgScore);
-		
-		
-
-		return "redirect:/store/storeList/detail?storeNo=" + storeNo;
-	}
+	/*
+	 * @Inject public FoodService foodService;
+	 * 
+	 * @Inject private DeleteFoodService deleteFoodService;
+	 * 
+	 * @RequestMapping(value = "/storeList/detail", method = RequestMethod.GET)
+	 * public String StoreDetailPage(@RequestParam("storeNo") int storeNo, Model
+	 * model, ReviewPaging reviewPaging , @RequestParam(value="nowPage",
+	 * required=false)String nowPage , @RequestParam(value="cntPerPage",
+	 * required=false)String cntPerPage) throws Exception {
+	 * 
+	 * StoreInfo storeInfo = foodService.selectStore(storeNo);
+	 * model.addAttribute("storeInfo", storeInfo);
+	 * 
+	 * DetailInfo detailInfo = foodService.selectDetail(storeNo);
+	 * model.addAttribute("detailInfo", detailInfo);
+	 * 
+	 * List<ReviewDTO> reviewDTO = foodService.selectReview(storeNo);
+	 * model.addAttribute("reviewDTO", reviewDTO);
+	 * 
+	 * List<MenuInfo> menuInfo = foodService.selectMenu(storeNo);
+	 * model.addAttribute("menuInfo", menuInfo);
+	 * 
+	 * 
+	 * //페이징 int total = foodService.countReview(); if (nowPage == null &&
+	 * cntPerPage == null) { nowPage = "1"; cntPerPage = "5"; } else if (nowPage ==
+	 * null) { nowPage = "1"; } else if (cntPerPage == null) { cntPerPage = "5"; }
+	 * reviewPaging = new ReviewPaging(total, Integer.parseInt(nowPage),
+	 * Integer.parseInt(cntPerPage)); model.addAttribute("paging", reviewPaging);
+	 * model.addAttribute("viewAll", foodService.selectReviewP(reviewPaging));
+	 * 
+	 * 
+	 * 
+	 * return "detail/food-details"; }
+	 * 
+	 * @RequestMapping(value = "/storeList/detail", method = { RequestMethod.POST })
+	 * public String Insert(@RequestParam("storeNo") int storeNo, MultipartFile
+	 * file, ReviewDTO dto, HttpSession session, Model model) throws Exception {
+	 * 
+	 * UserInfo login = (UserInfo) session.getAttribute("login"); int userNo =
+	 * login.getUserNo(); foodService.insertReview(storeNo, userNo, dto);
+	 * 
+	 * ReviewPic pic = new ReviewPic(); // 파일을 선택한 경우에만 업로드 실행 if
+	 * (file.getOriginalFilename() != "") {
+	 * System.out.println("/*** file.getOriginalFileName()=" +
+	 * file.getOriginalFilename()); String save =
+	 * uploadFile(file.getOriginalFilename(), file.getBytes());
+	 * 
+	 * pic.setReviewPic1(save); pic.setStoreNo(storeNo); pic.setUserNo(userNo);
+	 * foodService.reviewPic(pic); }
+	 * 
+	 * return "redirect:/store/storeList/detail?storeNo=" + storeNo;
+	 * 
+	 * }
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * @RequestMapping(value = "/storeList/deleteReview", method =
+	 * RequestMethod.GET) public String delete(ReviewDTO dto, HttpServletRequest
+	 * req, HttpServletResponse response, HttpSession session, Model model) throws
+	 * Exception {
+	 * 
+	 * int reviewNo = Integer.parseInt(req.getParameter("seq")); List<ReviewInfo>
+	 * reviewInfo = deleteFoodService.selectReviewDetail(reviewNo);
+	 * 
+	 * System.out.println("storeNo=" + reviewInfo.get(0).getStoreNo());
+	 * 
+	 * deleteFoodService.deleteReview(reviewNo);
+	 * 
+	 * 
+	 * return "redirect:/store/storeList/detail?storeNo=" +
+	 * reviewInfo.get(0).getStoreNo(); }
+	 * 
+	 * 
+	 * 
+	 * 
+	 * @Inject private ModifyFoodService modifyFoodService;
+	 * 
+	 * 
+	 * @RequestMapping(value = "/storeList/modifyReview", method =
+	 * RequestMethod.GET) public String modify1(ReviewDTO dto, HttpServletRequest
+	 * req, HttpServletResponse response, HttpSession session,Model model)throws
+	 * Exception { int reviewNo = Integer.parseInt(req.getParameter("seq"));
+	 * List<ReviewInfo> reviewInfo = modifyFoodService.selectReviewDetail(reviewNo);
+	 * 
+	 * model.addAttribute("reviewInfo", reviewInfo);
+	 * 
+	 * // model.addAttribute("modReq", dto);
+	 * 
+	 * return "detail/modifyReview"; }
+	 * 
+	 * 
+	 * @RequestMapping(value = "/storeList/modifyReview", method =
+	 * RequestMethod.POST) public String modify(ReviewDTO dto, HttpServletRequest
+	 * req, Model model)throws Exception {
+	 * 
+	 * int reviewNo = Integer.parseInt(req.getParameter("reviewNo")); int storeNo =
+	 * Integer.parseInt(req.getParameter("storeNo")); String reviewContents =
+	 * req.getParameter("reviewContents"); int avgScore =
+	 * Integer.parseInt(req.getParameter("avgScore"));
+	 * 
+	 * modifyFoodService.modifyReview(reviewNo, reviewContents, avgScore);
+	 * 
+	 * 
+	 * 
+	 * return "redirect:/store/storeList/detail?storeNo=" + storeNo; }
+	 */
+	 
 
 	@RequestMapping(value = "/storeList/detailChk", method = RequestMethod.POST)
 	@ResponseBody
@@ -255,100 +247,102 @@ public class ListStoreController {
 	 * 
 	 * return "/detail/uploadResult"; }
 	 */
-	private String uploadFile(String originalName, byte[] fileData) throws Exception {
-
-		UUID uid = UUID.randomUUID();
-
-		String savedName = uid.toString() + "_" + originalName;
-
-		File target = new File(uploadPath, savedName);
-
-		FileCopyUtils.copy(fileData, target);
-
-		return savedName;
-
-	}
-
-	
-	  @ResponseBody
-	  
-	  @RequestMapping("/displayFile") public ResponseEntity<byte[]>
-	  displayFile(String fileName)throws Exception{
-	  
-	  InputStream in = null; ResponseEntity<byte[]> entity = null;
-	  
-	  Logger.info("FILE NAME: " + fileName);
-	  
-	  try{
-	  
-	  String formatName = fileName.substring(fileName.lastIndexOf(".")+1);
-	  
-	  MediaType mType = MediaUtils.getMediaType(formatName);
-	  
-	  HttpHeaders headers = new HttpHeaders();
-	  
-	  in = new FileInputStream(uploadPath+fileName);
-	  
-	  if(mType != null){ headers.setContentType(mType); }else{
-	  
-	  fileName = fileName.substring(fileName.indexOf("_")+1);
-	  headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
-	  headers.add("Content-Disposition", "attachment; filename=\""+ new
-	  String(fileName.getBytes("UTF-8"), "ISO-8859-1")+"\""); }
-	  
-	  entity = new ResponseEntity<byte[]>(IOUtils.toByteArray(in), headers,
-	  HttpStatus.CREATED); }catch(Exception e){ e.printStackTrace(); entity = new
-	  ResponseEntity<byte[]>(HttpStatus.BAD_REQUEST); }finally{ in.close(); }
-	  return entity; }
-	  
-	  @ResponseBody
-	  
-	  @RequestMapping(value="/deleteFile", method=RequestMethod.POST) public
-	  ResponseEntity<String> deleteFile(String fileName){
-	  
-	  Logger.info("delete file: "+ fileName);
-	  
-	  String formatName = fileName.substring(fileName.lastIndexOf(".")+1);
-	  
-	  MediaType mType = MediaUtils.getMediaType(formatName);
-	  
-	  if(mType != null){
-	  
-	  String front = fileName.substring(0,12); String end = fileName.substring(14);
-	  new File(uploadPath + (front+end).replace('/', File.separatorChar)).delete();
-	  }
-	  
-	  new File(uploadPath + fileName.replace('/', File.separatorChar)).delete();
-	  
-	  
-	  return new ResponseEntity<String>("deleted", HttpStatus.OK); }
-	  
-	  @ResponseBody
-	  
-	  @RequestMapping(value="/deleteAllFiles", method=RequestMethod.POST) public
-	  ResponseEntity<String> deleteFile(@RequestParam("files[]") String[] files){
-	  
-	  Logger.info("delete all files: "+ files);
-	  
-	  if(files == null || files.length == 0) { return new
-	  ResponseEntity<String>("deleted", HttpStatus.OK); }
-	  
-	  for (String fileName : files) { String formatName =
-	  fileName.substring(fileName.lastIndexOf(".")+1);
-	  
-	  MediaType mType = MediaUtils.getMediaType(formatName);
-	  
-	  if(mType != null){
-	  
-	  String front = fileName.substring(0,12); String end = fileName.substring(14);
-	  new File(uploadPath + (front+end).replace('/', File.separatorChar)).delete();
-	  }
-	  
-	  new File(uploadPath + fileName.replace('/', File.separatorChar)).delete();
-	  
-	  } return new ResponseEntity<String>("deleted", HttpStatus.OK); }
-	 
-
+	/*
+	 * private String uploadFile(String originalName, byte[] fileData) throws
+	 * Exception {
+	 * 
+	 * UUID uid = UUID.randomUUID();
+	 * 
+	 * String savedName = uid.toString() + "_" + originalName;
+	 * 
+	 * File target = new File(uploadPath, savedName);
+	 * 
+	 * FileCopyUtils.copy(fileData, target);
+	 * 
+	 * return savedName;
+	 * 
+	 * }
+	 * 
+	 * 
+	 * @ResponseBody
+	 * 
+	 * @RequestMapping("/displayFile") public ResponseEntity<byte[]>
+	 * displayFile(String fileName)throws Exception{
+	 * 
+	 * InputStream in = null; ResponseEntity<byte[]> entity = null;
+	 * 
+	 * Logger.info("FILE NAME: " + fileName);
+	 * 
+	 * try{
+	 * 
+	 * String formatName = fileName.substring(fileName.lastIndexOf(".")+1);
+	 * 
+	 * MediaType mType = MediaUtils.getMediaType(formatName);
+	 * 
+	 * HttpHeaders headers = new HttpHeaders();
+	 * 
+	 * in = new FileInputStream(uploadPath+fileName);
+	 * 
+	 * if(mType != null){ headers.setContentType(mType); }else{
+	 * 
+	 * fileName = fileName.substring(fileName.indexOf("_")+1);
+	 * headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+	 * headers.add("Content-Disposition", "attachment; filename=\""+ new
+	 * String(fileName.getBytes("UTF-8"), "ISO-8859-1")+"\""); }
+	 * 
+	 * entity = new ResponseEntity<byte[]>(IOUtils.toByteArray(in), headers,
+	 * HttpStatus.CREATED); }catch(Exception e){ e.printStackTrace(); entity = new
+	 * ResponseEntity<byte[]>(HttpStatus.BAD_REQUEST); }finally{ in.close(); }
+	 * return entity; }
+	 * 
+	 * @ResponseBody
+	 * 
+	 * @RequestMapping(value="/deleteFile", method=RequestMethod.POST) public
+	 * ResponseEntity<String> deleteFile(String fileName){
+	 * 
+	 * Logger.info("delete file: "+ fileName);
+	 * 
+	 * String formatName = fileName.substring(fileName.lastIndexOf(".")+1);
+	 * 
+	 * MediaType mType = MediaUtils.getMediaType(formatName);
+	 * 
+	 * if(mType != null){
+	 * 
+	 * String front = fileName.substring(0,12); String end = fileName.substring(14);
+	 * new File(uploadPath + (front+end).replace('/', File.separatorChar)).delete();
+	 * }
+	 * 
+	 * new File(uploadPath + fileName.replace('/', File.separatorChar)).delete();
+	 * 
+	 * 
+	 * return new ResponseEntity<String>("deleted", HttpStatus.OK); }
+	 * 
+	 * @ResponseBody
+	 * 
+	 * @RequestMapping(value="/deleteAllFiles", method=RequestMethod.POST) public
+	 * ResponseEntity<String> deleteFile(@RequestParam("files[]") String[] files){
+	 * 
+	 * Logger.info("delete all files: "+ files);
+	 * 
+	 * if(files == null || files.length == 0) { return new
+	 * ResponseEntity<String>("deleted", HttpStatus.OK); }
+	 * 
+	 * for (String fileName : files) { String formatName =
+	 * fileName.substring(fileName.lastIndexOf(".")+1);
+	 * 
+	 * MediaType mType = MediaUtils.getMediaType(formatName);
+	 * 
+	 * if(mType != null){
+	 * 
+	 * String front = fileName.substring(0,12); String end = fileName.substring(14);
+	 * new File(uploadPath + (front+end).replace('/', File.separatorChar)).delete();
+	 * }
+	 * 
+	 * new File(uploadPath + fileName.replace('/', File.separatorChar)).delete();
+	 * 
+	 * } return new ResponseEntity<String>("deleted", HttpStatus.OK); }
+	 * 
+	 */
 
 
 }
