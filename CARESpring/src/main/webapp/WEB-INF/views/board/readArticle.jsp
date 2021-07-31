@@ -4,6 +4,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
+
 <%@ include file="../include/header.jspf"%>
 
 
@@ -162,30 +163,34 @@
 				<textarea id="commentContents" cols="100" rows="4"
 					placeholder="답글을 작성하세요"></textarea>
 			</p>
+			
+			
+			<%
+					if (session.getAttribute("login") != null) {
+				%>
 			<p>
 				<button id="btn" type="button" style="float: right;">댓글쓰기</button>
 			</p>
+				<%
+					}else{
+						%>
+						<button type="button" onclick = "location.href='${pageContext.request.contextPath}/login'" style="float: right;">로그인이 필요합니다</button>
+						<%
+					}
+				%>
+				
 			</div>
 		</form>
 	</div>
 </div>
-<div id="commentList">
-	<c:forEach var="comment" items="${comment}">
-
-		<b>${comment.userNo}</b>
-		<a>${comment.commentContents}</a>
-		<a>${comment.commentDate}</a>
-		<br>
-	</c:forEach>
-
-</div>
+<div id="commentList"></div>
 <script type="text/javascript">
 	$("#btn").click(
 			function() {
 				var comment= $("#commentContents").val();
 				var boardNo = ${boardInfo.boardNo};
 				$.ajax({
-					url : '${pageContext.request.contextPath}/board/comment',
+					url : '${pageContext.request.contextPath}/board/insertComment',
 					type : 'post',
 					dataType : 'text',
 					data : {
@@ -194,7 +199,7 @@
 					},
 					success : function(data) {
 						alert("성공");
-						location.reload();
+						getreplylist()
 						
 					},
 					error : function(request, status, error) {
@@ -203,6 +208,52 @@
 					}
 				});
 			});
+</script>
+
+
+<script>
+	$(document).ready(function() {
+		getreplylist();
+	});
+
+	function getreplylist() {
+		var bno = ${boardInfo.boardNo};
+		$.ajax({
+			url : '${pageContext.request.contextPath}/board/comment',
+			type : 'get',
+			datatype : 'json',
+			data : {
+				boardNo : bno
+			},
+			success : function(result) {
+				var comment = "";
+				console.log("resultno: " + result);
+				console.log("commentContents:" + this.commentContents)
+				if (result.length < 1) {
+					comment = "등록된 댓글이 없습니다";
+				} else {
+					$(result).each(function() {
+						comment += "<br/>";
+						comment += '<strong>';
+						comment += '작성자 : ' + this.userNo;
+						comment += '</strong>&nbsp;&nbsp;&nbsp;';
+						comment += '작성날짜: ' + this.commentDate;
+						comment += '<br/> <p>';
+						comment += '댓글내용 : &nbsp;&nbsp;&nbsp;';
+						comment += this.commentContents;
+						comment += '</p>';
+						comment += '<br/>';
+					});
+				};
+				$("#commentList").html(comment);
+			},
+			error : function(request, status, error) {
+				alert("code=" + request.status + " message = "
+						+ request.responseText + " error = " + error);
+			}
+		});
+	};
+	
 </script>
 
 

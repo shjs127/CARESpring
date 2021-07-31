@@ -52,9 +52,9 @@ public class ReadArticleServiceImpl implements ReadArticleService {
 	}
 	
 	@Override
-	public List<CommentInfo> getComment(BoardDTO dto) throws Exception {
+	public List<CommentInfo> getComment(BoardDTO bno) throws Exception {
 		
-		return boardListMapper.getComment(dto);
+		return boardListMapper.getComment(bno);
 	}
 	
 

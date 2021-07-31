@@ -115,7 +115,6 @@ public class ListArticleController {
 		model.addAttribute("prevBoardNo", readService.prevView(dto));
 		model.addAttribute("boardInfo", readService.getArticle(dto));
 		model.addAttribute("nickName", readService.getName(dto));
-		model.addAttribute("comment",  readService.getComment(dto));
 		
 	}
 
@@ -192,7 +191,7 @@ public class ListArticleController {
 	}
 	
 	
-	@RequestMapping(value = "/comment", method = RequestMethod.POST)
+	@RequestMapping(value = "/insertComment", method = RequestMethod.POST)
 	@ResponseBody
 	public void Comment(HttpSession session,BoardDTO dto,@RequestParam("comment") String comment) throws Exception {
 		
@@ -205,11 +204,12 @@ public class ListArticleController {
 		
 	}
 	
-	@RequestMapping(value = "/commentReload", method = RequestMethod.GET)
+	@RequestMapping(value = "/comment", method = RequestMethod.GET)
 	@ResponseBody
 	public List<CommentInfo> commentReload(BoardDTO dto, Model model, HttpServletRequest req) throws Exception {
 		logger.info("boardNo ="+ req.getParameter("boardNo"));
-//		model.addAttribute("comment",readService.getComment(dto));
+		int boardNo = Integer.parseInt(req.getParameter("boardNo"));
+		dto.setBoardNo(boardNo);
 		return readService.getComment(dto);
 	}
 	
