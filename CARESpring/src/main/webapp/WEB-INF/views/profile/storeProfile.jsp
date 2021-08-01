@@ -47,7 +47,7 @@
 												<div class="panel-body">
 
 														<!-- Registration Form Starts -->
-													<form class="form-horizontal" action="/store/profile"
+													<form class="form-horizontal" action="${pageContext.request.contextPath}/store/profile"
 														method="post" id="registForm">
 														<!-- Personal Information Starts -->
 														<input type="hidden" name="storeNo" value="${storein.storeNo}" />
@@ -103,7 +103,7 @@
 																:</label>
 															<div class="col-sm-9">
 																<input type="text" class="form-control" name="manageNo"
-																	placeholder="${storein.manageNo}" required readonly>
+																	placeholder="등록번호">
 															</div>
 														</div>
 														<div class="form-group row">
@@ -215,7 +215,7 @@
 	var result = '${msg}';
 
 	if (result == 'fail') {
-		alert("비밀번호가 틀렸습니다.");
+		alert("매장번호가 틀렸습니다.");
 	}
 </script>
 

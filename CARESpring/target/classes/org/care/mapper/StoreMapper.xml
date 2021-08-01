@@ -24,5 +24,9 @@
 	SET STORENAME = #{storeName}, ADDRESS = #{address}, CALLNUMBER = #{callNumber} 
 	WHERE MANAGENO = #{manageNo}
 </update>
+<update id="changeInfo">
+		update StoreINFO set ADDRESS = #{address},
+		 HOURS = #{hours} ,ClosedDays = #{closedDays}, CALLNUMBER = #{callNumber} where STORENO = #{storeNo}
+	</update>
 
 </mapper>

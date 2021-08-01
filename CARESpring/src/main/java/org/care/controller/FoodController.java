@@ -40,6 +40,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 
@@ -53,15 +54,18 @@ public class FoodController {
 	private String uploadPath;
 	
 	@RequestMapping(value = "/login/storeinSuccess", method = RequestMethod.POST)
-	public void storeinPOST(StoreDTO dto, HttpSession session, Model model) throws Exception {
+	public String storeinPOST(StoreDTO dto, HttpSession session, Model model, RedirectAttributes rttr) throws Exception {
 
 		StoreInfo sInfo = foodService.login(dto);
 
 		if (sInfo == null) {
-			return;
+			model.addAttribute("storeInfo", null);
+			rttr.addFlashAttribute("storeLoginFalse", false);
+			return "redirect:/login";
 		}
-
 		model.addAttribute("storeVo", sInfo);
+		
+		return "/login/storeinSuccess";
 
 	}
 

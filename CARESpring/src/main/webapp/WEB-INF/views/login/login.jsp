@@ -91,22 +91,10 @@
 				<h4 class="text-spl-color">기업 회원 로그인</h4>
 				<!-- Login Form Starts -->
 				<p class="login-box-msg"></p>
-
-				<script type="text/javascript">
-					$(function() {
-						$("#b").submit(function() {
-							var nameChk = /^[0-9]{1,20}$/;
-							if (!nameChk.test($("#Login-password").val())) {
-								alert("매장 번호를 확인해주세요.");
-								$("#Login-password").focus();
-								return false;
-							}
-						});
-					});
-				</script>
-
 				<form action="login/storeinSuccess" method="post" id="b">
-
+					<c:if test="${storeLoginFalse == false}">
+						<p style="color: red;">로그인 실패! 매장번호와 비밀번호 확인해주세요.</p>
+					</c:if>
 					<div class="form-group">
 
 						<input type="text" class="form-control" name="manageNo"

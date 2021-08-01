@@ -1,9 +1,12 @@
 package org.care.service;
 
+import org.care.domain.StoreInfo;
 import org.care.dto.StoreDTO;
 import org.care.mapper.StoreMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class StoreServiceImpl implements StoreService{
 	
 	@Autowired
@@ -20,6 +23,12 @@ public class StoreServiceImpl implements StoreService{
 		}else {
 			storeMapper.update(storeDTO);
 		}
+		
+	}
+
+	@Override
+	public void changeInfo(StoreInfo sInfo) {
+		storeMapper.changeInfo(sInfo);
 		
 	}
 }
