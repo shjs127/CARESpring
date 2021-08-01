@@ -155,7 +155,7 @@ public class FoodController {
 			foodService.reviewPic(pic);
 		}
 
-		return "redirect:/store/storeList/detail?storeNo=" + storeNo;
+		return "redirect:/store/storeList/detailreviews?storeNo=" + storeNo;
 
 	}
 	

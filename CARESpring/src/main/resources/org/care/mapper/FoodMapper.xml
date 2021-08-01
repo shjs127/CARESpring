@@ -18,7 +18,7 @@
 	            FROM REVIEWINFO 
 	            ORDER BY REVIEWNO DESC
 	            ) A 
-	      )
+	      ),USERINFO
 	WHERE R BETWEEN #{start} AND #{end}
 	</select>
 	<!-- 페이징 관련 끝-->
