@@ -1373,8 +1373,8 @@ h6 { font-size: 18px; }
 	margin-top: 20px;
 }
 	.reviews-form-box {
-		margin-bottom: 100px;
-		padding: 100px;
+		margin-bottom: 10px;
+		padding: 40px;
 		background-color: #cf3d27;
 	}
 		.reviews-form-box h6 {

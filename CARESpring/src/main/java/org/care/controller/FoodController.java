@@ -158,6 +158,68 @@ public class FoodController {
 		return "redirect:/store/storeList/detail?storeNo=" + storeNo;
 
 	}
+	
+	//새로 만든거 시작 - 리뷰
+	@RequestMapping(value = "/store/storeList/detailreviews", method = RequestMethod.GET)
+	public String detailreviews(@RequestParam("storeNo") int storeNo, Model model, ReviewPaging reviewPaging,
+			@RequestParam(value = "nowPage", required = false) String nowPage,
+			@RequestParam(value = "cntPerPage", required = false) String cntPerPage) throws Exception {
+		System.out.println("storeNo:::::::::::::::" + storeNo);
+		StoreInfo storeInfo = foodService.selectStore(storeNo);
+		model.addAttribute("storeInfo", storeInfo);
+
+		DetailInfo detailInfo = foodService.selectDetail(storeNo);
+		model.addAttribute("detailInfo", detailInfo);
+
+		List<ReviewDTO> reviewDTO = foodService.selectReview(storeNo);
+		model.addAttribute("reviewDTO", reviewDTO);
+
+		List<MenuInfo> menuInfo = foodService.selectMenu(storeNo);
+		model.addAttribute("menuInfo", menuInfo);
+
+		// 페이징
+		int total = foodService.countReview();
+		if (nowPage == null && cntPerPage == null) {
+			nowPage = "1";
+			cntPerPage = "5";
+		} else if (nowPage == null) {
+			nowPage = "1";
+		} else if (cntPerPage == null) {
+			cntPerPage = "5";
+		}
+		reviewPaging = new ReviewPaging(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
+		model.addAttribute("paging", reviewPaging);
+		model.addAttribute("viewAll", foodService.selectReviewP(reviewPaging));
+
+		return "detail/revfood-details";
+	}
+	
+	@RequestMapping(value = "/store/storeList/detailreviews", method = { RequestMethod.POST })
+	public String reviewsd(@RequestParam("storeNo") int storeNo, MultipartFile file, ReviewDTO dto, HttpSession session,
+			Model model) throws Exception {
+
+		UserInfo login = (UserInfo) session.getAttribute("login");
+		int userNo = login.getUserNo();
+		foodService.insertReview(storeNo, userNo, dto);
+
+		ReviewPic pic = new ReviewPic();
+		// 파일을 선택한 경우에만 업로드 실행
+		if (file.getOriginalFilename() != "") {
+			System.out.println("/*** file.getOriginalFileName()=" + file.getOriginalFilename());
+			String save = uploadFile(file.getOriginalFilename(), file.getBytes());
+
+			pic.setReviewPic1(save);
+			pic.setStoreNo(storeNo);
+			pic.setUserNo(userNo);
+			foodService.reviewPic(pic);
+		}
+
+		return "redirect:/store/storeList/detailreviews?storeNo=" + storeNo;
+
+	}
+	//새로 만든거 끝
+	
+	
 
 	@RequestMapping(value = "/store/storeList/deleteReview", method = RequestMethod.GET)
 	public String delete(ReviewDTO dto, HttpServletRequest req, HttpServletResponse response, HttpSession session,
@@ -170,7 +232,7 @@ public class FoodController {
 
 		deleteFoodService.deleteReview(reviewNo);
 
-		return "redirect:/store/storeList/detail?storeNo=" + reviewInfo.get(0).getStoreNo();
+		return "redirect:/store/storeList/detailreviews?storeNo=" + reviewInfo.get(0).getStoreNo();
 	}
 
 	@Inject
@@ -199,9 +261,13 @@ public class FoodController {
 
 		modifyFoodService.modifyReview(reviewNo, reviewContents, avgScore);
 
-		return "redirect:/store/storeList/detail?storeNo=" + storeNo;
+		return "redirect:/store/storeList/detailreviews?storeNo=" + storeNo;
 
 	}
+	
+	
+	
+	
 	private String uploadFile(String originalName, byte[] fileData) throws Exception {
 
 		UUID uid = UUID.randomUUID();
