@@ -116,7 +116,7 @@ function selChange() {
 	<h4 class="main-heading-1 text-xs-center text-sm-center text-md-left">
 		${storeInfo.storeName}
 		<ul class="list-unstyled float-lg-right text-lg-right">
-			<li class="list-inline-item">${storeAvg}</li>
+			<li class="list-inline-item">${ravg}</li>
 		</ul>
 		<c:if test="${isExisFavoriteData}">
 			<button id="starCheck">
@@ -147,7 +147,7 @@ function selChange() {
 				<!-- Menu Tabs List Starts -->
 				<ul
 					class="nav nav-tabs nav-menu-tabs text-xs-center text-sm-center text-md-left">
-					<li class="nav-item"><a href="#information" class="nav-link" data-toggle="tab">매장 정보</a></li>
+					<li class="nav-item"><a href="#information" class="nav-link" data-toggle="tab" onclick="inff();">매장 정보</a></li>
 					<li class="nav-item"><a href="#reviews" class="nav-link active" data-toggle="tab">리뷰</a></li>
 				</ul><br><br>
 				<div id="reviews" class="tab-pane">
@@ -302,7 +302,7 @@ function selChange() {
 														<div style="display: block; text-align: center;">
 															<c:if test="${paging.startPage != 1 }">
 																<a
-																	href="/care/store/storeList/detail?storeNo=${storeInfo.storeNo}&nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">&lt;</a>
+																	href="/care/store/storeList/detailreviews?storeNo=${storeInfo.storeNo}&nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">&lt;</a>
 															</c:if>
 															<c:forEach begin="${paging.startPage }"
 																end="${paging.endPage }" var="p">
@@ -312,13 +312,13 @@ function selChange() {
 																	</c:when>
 																	<c:when test="${p != paging.nowPage }">
 																		<a
-																			href="/care/store/storeList/detail?storeNo=${storeInfo.storeNo}&nowPage=${p }&cntPerPage=${paging.cntPerPage}">${p }</a>
+																			href="/care/store/storeList/detailreviews?storeNo=${storeInfo.storeNo}&nowPage=${p }&cntPerPage=${paging.cntPerPage}">${p }</a>
 																	</c:when>
 																</c:choose>
 															</c:forEach>
 															<c:if test="${paging.endPage != paging.lastPage}">
 																<a
-																	href="/care/store/storeList/detail?storeNo=${storeInfo.storeNo}&nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">&gt;</a>
+																	href="/care/store/storeList/detailreviews?storeNo=${storeInfo.storeNo}&nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">&gt;</a>
 															</c:if>
 														</div>
 														<!-- 페이징 관련 코드 끝 -->
@@ -374,7 +374,7 @@ function selChange() {
 function selChange() {
 	var sel = document.getElementById('cntPerPage').value;
 	console.log("sel="+sel);
-	location.href="/care/store/storeList/detail?storeNo=${storeInfo.storeNo}&nowPage=${paging.nowPage}&cntPerPage="+sel;
+	location.href="/care/store/storeList/detailreviews?storeNo=${storeInfo.storeNo}&nowPage=${paging.nowPage}&cntPerPage="+sel;
 	}
 	
 	
@@ -389,6 +389,12 @@ function selChange() {
 	function modifyReview(revReq) {
 			location.href='modifyReview?seq='+revReq;
 	}	 
+	
+	
+
+	function inff(){
+		location.href="/care/store/storeList/detail?storeNo=${storeInfo.storeNo}";
+	}
 	
 	function rlogin(seq) {
 		var chk = confirm("로그인이 필요합니다.");

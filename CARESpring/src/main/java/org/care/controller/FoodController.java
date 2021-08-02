@@ -121,20 +121,10 @@ public class FoodController {
 
 		List<MenuInfo> menuInfo = foodService.selectMenu(storeNo);
 		model.addAttribute("menuInfo", menuInfo);
+		
+		double ravg = foodService.selectAvg(storeNo);
+		model.addAttribute("ravg", ravg);
 
-		// 페이징
-		int total = foodService.countReview();
-		if (nowPage == null && cntPerPage == null) {
-			nowPage = "1";
-			cntPerPage = "5";
-		} else if (nowPage == null) {
-			nowPage = "1";
-		} else if (cntPerPage == null) {
-			cntPerPage = "5";
-		}
-		reviewPaging = new ReviewPaging(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
-		model.addAttribute("paging", reviewPaging);
-		model.addAttribute("viewAll", foodService.selectReviewP(reviewPaging));
 
 		return "detail/food-details";
 	}
@@ -168,7 +158,6 @@ public class FoodController {
 	public String detailreviews(@RequestParam("storeNo") int storeNo, Model model, ReviewPaging reviewPaging,
 			@RequestParam(value = "nowPage", required = false) String nowPage,
 			@RequestParam(value = "cntPerPage", required = false) String cntPerPage) throws Exception {
-		System.out.println("storeNo:::::::::::::::" + storeNo);
 		StoreInfo storeInfo = foodService.selectStore(storeNo);
 		model.addAttribute("storeInfo", storeInfo);
 
@@ -181,6 +170,10 @@ public class FoodController {
 		List<MenuInfo> menuInfo = foodService.selectMenu(storeNo);
 		model.addAttribute("menuInfo", menuInfo);
 
+		double ravg = foodService.selectAvg(storeNo);
+		model.addAttribute("ravg", ravg);
+		
+		
 		// 페이징
 		int total = foodService.countReview();
 		if (nowPage == null && cntPerPage == null) {

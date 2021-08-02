@@ -18,11 +18,16 @@
 	            FROM REVIEWINFO 
 	            ORDER BY REVIEWNO DESC
 	            ) A 
-	      ),USERINFO
+	      )
 	WHERE R BETWEEN #{start} AND #{end}
 	</select>
 	<!-- 페이징 관련 끝-->
 	
+	<select id = "selectAvg" resultType="double">
+	SELECT AVG(AVGSCORE) 
+	FROM REVIEWINFO  
+	WHERE STORENO= #{storeNo}
+	</select>
 	
 	<select id="selectStore" resultType="org.care.domain.StoreInfo">
 		SELECT *

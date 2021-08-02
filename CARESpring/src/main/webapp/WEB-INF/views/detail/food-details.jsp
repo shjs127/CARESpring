@@ -109,7 +109,8 @@ input {
 	<h4 class="main-heading-1 text-xs-center text-sm-center text-md-left">
 		${storeInfo.storeName}
 		<ul class="list-unstyled float-lg-right text-lg-right">
-			<li class="list-inline-item">${storeAvg}</li>
+			
+			<li class="list-inline-item">${ravg}</li>
 		</ul>
 		<c:if test="${isExisFavoriteData}">
 			<button id="starCheck">
@@ -388,23 +389,10 @@ function selChange() {
 	}
 	
 	
-	function deleteReview(revReq) {
-		var chk = confirm("정말 삭제하시겠습니까?");
-		if (chk) {
-			location.href='deleteReview?seq='+ revReq;
-		}
-		
-	}	 
-	
 	function revf(){
 		location.href="/care/store/storeList/detailreviews?storeNo=${storeInfo.storeNo}";
 	}
 	 
-	
-	
-	function modifyReview(revReq) {
-			location.href='modifyReview?seq='+revReq;
-	}	 
 	
 	function rlogin(seq) {
 		var chk = confirm("로그인이 필요합니다.");

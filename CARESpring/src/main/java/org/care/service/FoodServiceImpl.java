@@ -29,9 +29,6 @@ public class FoodServiceImpl implements FoodService {
 		return foodMapper.selectReviewP(reviewPaging);
 	}
 	
-	
-	
-	
 	@Autowired
 	public FoodMapper foodMapper;
 
@@ -39,6 +36,8 @@ public class FoodServiceImpl implements FoodService {
 	public StoreInfo selectStore(int storeNo) throws Exception {
 		return foodMapper.selectStore(storeNo);
 	}
+	
+	
 
 	@Override
 	public StoreInfo login(StoreDTO dto) throws Exception {
@@ -61,6 +60,12 @@ public class FoodServiceImpl implements FoodService {
 		
 	}
 	
+	@Override
+	public double selectAvg(int storeNo) throws Exception {
+			
+		return foodMapper.selectAvg(storeNo);
+		
+	}
 	
 	/*
 	 * @Override public List<ReviewInfo> selectReviewList(ReviewInfo reviewInfo)

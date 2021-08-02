@@ -17,6 +17,8 @@ public interface FoodMapper {
 	StoreInfo selectStore(int storeNo) throws Exception;
 	DetailInfo selectDetail(int storeNo) throws Exception;
 	List<ReviewDTO> selectReview(int storeNo) throws Exception;
+	double selectAvg(int storeNo) throws Exception;
+	
 	List<ReviewInfo> selectReviewList(ReviewInfo reviewInfo) throws Exception;
 	List<MenuInfo> selectMenu(int storeNo) throws Exception;
 	List<Favorite> selectFavorite(int userNo) throws Exception;

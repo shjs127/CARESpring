@@ -16,6 +16,7 @@ public interface FoodService {
 	  public StoreInfo selectStore(int storeNo) throws Exception;
 	  public DetailInfo selectDetail(int storeNo) throws Exception;
 	  public List<ReviewDTO> selectReview(int storeNo) throws Exception;
+	  public double selectAvg(int storeNo) throws Exception;
 
 		/*
 		 * public List<ReviewInfo> selectReviewList(ReviewInfo reviewInfo) throws
