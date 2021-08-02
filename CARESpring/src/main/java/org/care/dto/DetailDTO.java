@@ -7,8 +7,8 @@ import lombok.Data;
 public class DetailDTO {
 
 	private int storeNo;
-	private int totalSeat;
-	private int socketSeat;
+	private Integer totalSeat;
+	private Integer socketSeat;
 	private String dessertSales;
 	private String terrace;
 	private String roofTop;

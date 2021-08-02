@@ -24,7 +24,7 @@
 		});
 	});
 	
-	$(function() {
+	/* $(function() {
 		$("form").submit(function() {
 			var nameChk = /^[가-힣a-zA-Z0-9]{1,100}$/;
 			if (!nameChk.test($("#storePic").val())) {
@@ -33,7 +33,7 @@
 				return false;
 			}
 		});
-	});
+	}); */
 	
 	$(function() {
 		$("form").submit(function() {
@@ -102,7 +102,9 @@
 					<!-- Registration Form Starts -->
 					<form class="form-horizontal"
 						action="StoreRegister"
-						method="post">
+						method="post" 
+						enctype="multipart/form-data">
+						
 						<!-- Personal Information Starts -->
 						<div class="form-group row">
 							<label for="inputFname"
@@ -116,8 +118,8 @@
 							<label for="inputLname"
 								class="col-sm-3 col-form-label text-right">매장 사진 :</label>
 							<div class="col-sm-9">
-								<input id="storePic" type="text" class="form-control" name="storePic"
-									placeholder="storePic">
+								<input  type="file" name="file"
+									>
 							</div>.
 						</div>
 						<div class="form-group row">
