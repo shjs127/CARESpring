@@ -7,9 +7,9 @@ public interface StoreMapper {
 
 	public StoreDTO selectByStore(StoreDTO storeDTO);
 	
-	public StoreDTO insert(StoreDTO storeDTO);
+	public void insert(StoreDTO storeDTO);
 	
-	public StoreDTO update(StoreDTO storeDTO);
+	public void update(StoreDTO storeDTO);
 
 	public void changeInfo(StoreInfo sInfo);
 }

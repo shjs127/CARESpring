@@ -15,14 +15,13 @@ public class StoreServiceImpl implements StoreService{
 	@Override
 	public void store(StoreDTO storeDTO) throws Exception {
 		
-		storeDTO = storeMapper.selectByStore(storeDTO);
-		String str = storeDTO.getManageNo();
-	
-		if(str == null) {
+		StoreDTO sDTO = storeMapper.selectByStore(storeDTO);
+		
+		if(sDTO == null) {
 			storeMapper.insert(storeDTO);
 		}else {
 			storeMapper.update(storeDTO);
-		}
+		}	
 		
 	}
 

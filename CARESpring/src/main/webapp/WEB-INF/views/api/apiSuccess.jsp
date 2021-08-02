@@ -7,5 +7,5 @@
 
 <script>
 	alert("동기화 성공하였습니다!");
-	location.href = "storesync.do";
+	location.href = "${pageContext.request.contextPath }/api/apiSync";
 </script>
