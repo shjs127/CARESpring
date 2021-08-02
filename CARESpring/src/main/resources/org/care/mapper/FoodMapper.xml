@@ -11,22 +11,19 @@
 
 	
 	<select id="selectReviewP" resultType="org.care.domain.ReviewInfo">
-	SELECT * 
-	FROM (SELECT ROWNUM R, A.* 
-	      FROM (
-	            SELECT * 
-	            FROM REVIEWINFO 
-	            ORDER BY REVIEWNO DESC
-	            ) A 
-	      )
-	WHERE R BETWEEN #{start} AND #{end}
+	 SELECT A.*  
+    FROM (   
+          SELECT ROWNUM RNUM, RINFO.*,  UINFO.USERNO as UUSER, UINFO.NICKNAME
+    	  FROM REVIEWINFO RINFO, USERINFO UINFO
+          WHERE RINFO.USERNO = UINFO.USERNO
+                ) A 
+    WHERE A.RNUM BETWEEN #{start} AND #{end} 
 	</select>
 	<!-- 페이징 관련 끝-->
-	
 	<select id = "selectAvg" resultType="double">
-	SELECT AVG(AVGSCORE) 
-	FROM REVIEWINFO  
-	WHERE STORENO= #{storeNo}
+	    SELECT ROUND(AVG(AVGSCORE),2) 
+		FROM REVIEWINFO  
+		WHERE STORENO = #{storeNo}
 	</select>
 	
 	<select id="selectStore" resultType="org.care.domain.StoreInfo">
