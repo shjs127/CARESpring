@@ -44,7 +44,7 @@ public class StoreRegisterController {
 		return "login/StoreRegister";
 	}
 
-	// 매장등록 처리
+	// 留ㅼ옣�벑濡� 泥섎━
 	@RequestMapping(value = "/StoreRegister", method = RequestMethod.POST)
 	public String postRegister(MultipartFile file, StoreDTO dto , DetailDTO ddto) throws Exception {
 		logger.info("post register");
@@ -80,7 +80,7 @@ public class StoreRegisterController {
 			
 		storeRegisterService.storeRegister(dto,ddto);
 		
-		return "login/login";
+		return "login/success";
 	
 	
 	
@@ -88,7 +88,7 @@ public class StoreRegisterController {
 	
 	private String uploadFile(String originalName, byte[] fileData) throws Exception {
 
-		//�씠由꾩씠 以묐났�릺吏� �븡�룄濡� �옖�뜡�븯寃� �씠由꾩쓣 異붽�
+		//占쎌뵠�뵳袁⑹뵠 餓λ쵎�궗占쎈┷筌욑옙 占쎈륫占쎈즲嚥∽옙 占쎌삏占쎈쑁占쎈릭野껓옙 占쎌뵠�뵳袁⑹뱽 �빊遺쏙옙
 		UUID uid = UUID.randomUUID();
 
 		String savedName = uid.toString() + "_" + originalName;

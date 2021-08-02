@@ -79,12 +79,6 @@
 				});
 			});
 			
-			$(function() {
-				$("form").submit(function() {
-					alert("회원가입 되었습니다.");
-					return true;
-				});
-			});
 			
 
 		</script>

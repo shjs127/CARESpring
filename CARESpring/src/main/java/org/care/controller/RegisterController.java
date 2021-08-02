@@ -37,7 +37,7 @@ public class RegisterController {
 		logger.info("userName=" + dto.getUserName());
 
 		registerService.register(dto);
-		return "login/login";
+		return "login/success";
 	}
 
 }
