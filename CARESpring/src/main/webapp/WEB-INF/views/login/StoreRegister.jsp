@@ -15,7 +15,7 @@
 	<script>
 	$(function() {
 		$("form").submit(function() {
-			var nameChk = /^[가-힣a-zA-Z0-9]{1,100}$/;
+			var nameChk = /^{1,100}$/;
 			if (!nameChk.test($("#storeName").val())) {
 				alert("매장 이름을 입력하여 주십시오!");
 				$("#storeName").focus();
@@ -37,7 +37,7 @@
 	
 	$(function() {
 		$("form").submit(function() {
-			var nameChk = /^[가-힣a-zA-Z0-9]{1,100}$/;
+			var nameChk = /^{1,100}$/;
 			if (!nameChk.test($("#address").val())) {
 				alert("매장 주소를 입력하여 주십시오!");
 				$("#address").focus();
@@ -114,14 +114,36 @@
 									placeholder="storeName">
 							</div>
 						</div>
-						<div class="form-group row">
+						<!-- <div class="form-group row">
 							<label for="inputLname"
 								class="col-sm-3 col-form-label text-right">매장 사진 :</label>
+								<input  type="file" id="storeImg" name="file">
+								<img src="" /></div>
 							<div class="col-sm-9">
-								<input  type="file" name="file"
-									>
-							</div>.
-						</div>
+							</div>
+						</div> -->
+						
+						
+						<div class="form-group row">
+ 						<label for="inputFname" class="col-sm-3 col-form-label text-right">매장 사진</label>
+ 						
+ 						<input type="file" id="storeImg" name="file" />
+ 						<div class="select_img"><img src="" /></div>
+ 
+ 						<script>
+ 						 $("#storeImg").change(function(){
+  							 if(this.files && this.files[0]) {
+   								 var reader = new FileReader;
+   								 reader.onload = function(data) {
+   									  $(".select_img img").attr("src", data.target.result).width(500);        
+   										 }
+   										 reader.readAsDataURL(this.files[0]);
+  									 }
+ 								 });
+ 								</script>
+								</div>
+					
+						
 						<div class="form-group row">
 							<label for="inputEmail"
 								class="col-sm-3 col-form-label text-right">매장 주소:</label>
@@ -143,7 +165,7 @@
 								:</label>
 							<div class="col-sm-9">
 								<input id="closedDays" type="text" class="form-control" name="closedDays"
-									placeholder="closeDays">
+									placeholder="closedDays">
 							</div>
 						</div>
 						<div class="form-group row">
