@@ -22,6 +22,4 @@ public interface ReadArticleService {
 	
 	public UserInfo getName(BoardDTO dto) throws Exception;
 	
-	public List<CommentInfo> getComment(BoardDTO dto) throws Exception;
-	
 }

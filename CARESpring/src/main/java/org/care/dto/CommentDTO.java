@@ -1,19 +1,16 @@
-package org.care.domain;
+package org.care.dto;
 
 import java.util.Date;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.Data;
 
 @Data
-public class CommentInfo {
+public class CommentDTO {
 
 	private int boardNo;
 	private int commentNo;
 	private int userNo;
 	private String commentContents;
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "YYYY-MM-dd HH:mm:ss" )
 	private Date commentDate;
 	private String nickName;
 }

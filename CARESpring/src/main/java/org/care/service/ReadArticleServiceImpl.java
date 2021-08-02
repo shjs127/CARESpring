@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 public class ReadArticleServiceImpl implements ReadArticleService {
 
 
+
 	@Autowired
 	private BoardListMapper boardListMapper;
 
@@ -50,13 +51,5 @@ public class ReadArticleServiceImpl implements ReadArticleService {
 		int userNo = boardListMapper.getUserNo(dto);
 		return boardListMapper.getName(userNo);
 	}
-	
-	@Override
-	public List<CommentInfo> getComment(BoardDTO bno) throws Exception {
-		
-		return boardListMapper.getComment(bno);
-	}
-	
-
 	
 }

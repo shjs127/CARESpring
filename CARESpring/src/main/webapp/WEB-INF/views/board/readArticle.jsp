@@ -91,7 +91,7 @@
 				</c:choose>
 
 				<td class=" text-align-center text-indent"><a
-					class="btn btn-list" href="list.do">목록</a></td>
+					class="btn btn-list" href="listArticle">목록</a></td>
 
 
 				<c:choose>
@@ -208,10 +208,7 @@
 					}
 				});
 			});
-</script>
-
-
-<script>
+	
 	$(document).ready(function() {
 		getreplylist();
 	});
@@ -227,22 +224,25 @@
 			},
 			success : function(result) {
 				var comment = "";
-				console.log("resultno: " + result);
-				console.log("commentContents:" + this.commentContents)
 				if (result.length < 1) {
 					comment = "등록된 댓글이 없습니다";
 				} else {
 					$(result).each(function() {
-						comment += "<br/>";
+						comment += '<br/>';
 						comment += '<strong>';
-						comment += '작성자 : ' + this.userNo;
+						comment += '작성자 : ' + this.nickName;
 						comment += '</strong>&nbsp;&nbsp;&nbsp;';
 						comment += '작성날짜: ' + this.commentDate;
+						if(this.userNo == ${user.userNo}){
+						comment += '<a onclick="commentUpdate('+this.commentNo+');">수정</a>';
+						comment += '<a onclick="commentDelete('+this.commentNo+');">삭제</a>';
+						}
 						comment += '<br/> <p>';
 						comment += '댓글내용 : &nbsp;&nbsp;&nbsp;';
 						comment += this.commentContents;
 						comment += '</p>';
 						comment += '<br/>';
+						
 					});
 				};
 				$("#commentList").html(comment);
@@ -254,7 +254,51 @@
 		});
 	};
 	
-</script>
+	function commentDelete(commentNo) {
+		var boardNo = ${boardInfo.boardNo};
+		var msg = confirm("정말로 삭제하시겠습니까?");
+		if(msg == true){
+		$.ajax({
+			url : '${pageContext.request.contextPath}/board/commentDelete',
+			type : 'post',
+			data : {
+				boardNo : boardNo,
+				commentNo : commentNo
+			},
+			success : function(date){
+				alert("삭제되었습니다.");
+				getreplylist()
+			}
+	});
+		}else{
+			return false;
+		}
+	}
+	
+	function commentUpdate(commentNo) {
+		var boardNo = ${boardInfo.boardNo};
+		var comment = prompt("내용을 입력해주세요.");
+		console.log("commentContents:" + comment);
+		if(comment == ""){
+			alert("내용을 입력해주세요");
+			return true;
+		}
 
+		$.ajax({
+			url : '${pageContext.request.contextPath}/board/commentUpdate',
+			type : 'post',
+			data : {
+				boardNo : boardNo,
+				commentNo : commentNo,
+				commentContents : comment
+			},
+			success : function(date){
+				alert("수정되었습니다.");
+				getreplylist()
+			}
+	});
+	}
+
+</script>
 
 <%@ include file="../include/footer.jspf"%>

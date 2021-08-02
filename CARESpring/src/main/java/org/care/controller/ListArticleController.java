@@ -13,6 +13,7 @@ import org.care.domain.BoardPicInfo;
 import org.care.domain.CommentInfo;
 import org.care.domain.UserInfo;
 import org.care.dto.BoardDTO;
+import org.care.dto.CommentDTO;
 import org.care.service.CommentService;
 import org.care.service.DeleteArticleService;
 import org.care.service.ListArticleService;
@@ -24,7 +25,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -105,9 +105,17 @@ public class ListArticleController {
 	}
 
 	@RequestMapping(value = "/readArticle", method = RequestMethod.GET)
-	public void readArticleForm(BoardDTO dto, Model model) throws Exception {
+	public void readArticleForm(HttpSession session,BoardDTO dto, Model model) throws Exception {
 
 		logger.info("uploadPath:" +uploadPath);
+		if(session.getAttribute("login")!=null) {
+			UserInfo user = (UserInfo) session.getAttribute("login");
+			model.addAttribute("user", user);
+		}else {
+			UserInfo user = new UserInfo();
+			user.setUserNo(0);
+			model.addAttribute("user", user);
+		}
 		
 		model.addAttribute("boardNo", dto.getBoardNo());
 		model.addAttribute("boardInfoList", readService.view(dto));
@@ -206,11 +214,25 @@ public class ListArticleController {
 	
 	@RequestMapping(value = "/comment", method = RequestMethod.GET)
 	@ResponseBody
-	public List<CommentInfo> commentReload(BoardDTO dto, Model model, HttpServletRequest req) throws Exception {
+	public List<CommentInfo> commentReload(BoardDTO dto, HttpServletRequest req) throws Exception {
 		logger.info("boardNo ="+ req.getParameter("boardNo"));
 		int boardNo = Integer.parseInt(req.getParameter("boardNo"));
 		dto.setBoardNo(boardNo);
-		return readService.getComment(dto);
+		
+		return commentService.getComment(dto);
+	}
+	
+	@RequestMapping(value = "/commentDelete", method = RequestMethod.POST)
+	@ResponseBody
+	public void commentDelete(CommentDTO dto) throws Exception {
+		commentService.deleteComment(dto);
+	}
+	
+	@RequestMapping(value = "/commentUpdate", method = RequestMethod.POST)
+	@ResponseBody
+	public void commentUpdate(CommentDTO dto) throws Exception {
+		
+		commentService.updateComment(dto);
 	}
 	
 	private String uploadFile(String originalName, byte[] fileData) throws Exception {

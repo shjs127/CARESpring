@@ -10,6 +10,7 @@ import org.care.domain.NextNo;
 import org.care.domain.PrevNo;
 import org.care.domain.UserInfo;
 import org.care.dto.BoardDTO;
+import org.care.dto.CommentDTO;
 
 public interface BoardListMapper {
 	List<BoardInfo> selectBoardList() throws Exception;
@@ -53,4 +54,8 @@ public interface BoardListMapper {
 	List<CommentInfo> getComment(BoardDTO dto) throws Exception;
 	
 	void insertComment(BoardDTO dto, String comment) throws Exception;
+	
+	void deleteComment(CommentDTO dto) throws Exception;
+	
+	void updateComment(CommentDTO dto) throws Exception;
 }

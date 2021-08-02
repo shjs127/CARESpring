@@ -136,8 +136,8 @@
 	</select>
 
 	<select id="getComment" resultType="org.care.domain.CommentInfo">
-		SELECT * FROM COMMENTINFO
-		WHERE BOARDNO = #{boardNo}
+		SELECT A.BOARDNO,A.COMMENTNO,A.USERNO,A.COMMENTCONTENTS,A.COMMENTDATE,USERINFO.NICKNAME FROM COMMENTINFO 
+A,USERINFO WHERE A.USERNO = USERINFO.USERNO AND A.BOARDNO = ${boardNo}
 	</select>
 	
 	<insert id="insertComment">
@@ -149,5 +149,13 @@
 	SYSDATE
 	)
 	</insert>
+	
+	<delete id="deleteComment">
+	DELETE FROM COMMENTINFO WHERE BOARDNO=#{boardNo} AND COMMENTNO = #{commentNo}
+	</delete>
+	
+	<update id="updateComment">
+	UPDATE COMMENTINFO SET COMMENTCONTENTS = #{commentContents} WHERE BOARDNO =#{boardNo} AND COMMENTNO = #{commentNo}
+	</update>
 	
 </mapper>
