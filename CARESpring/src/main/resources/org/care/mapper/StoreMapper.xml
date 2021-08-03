@@ -24,9 +24,20 @@
 	WHERE MANAGENO = #{manageNo}
 </update>
 
-<update id="changeInfo">
-		update StoreINFO set ADDRESS = #{address},
+	<update id="changeInfo">
+		update StoreINFO set STOREPIC=#{storePic}, ADDRESS = #{address},
 		 HOURS = #{hours} ,ClosedDays = #{closedDays}, CALLNUMBER = #{callNumber} where STORENO = #{storeNo}
 	</update>
 
+<update id="changeDetail">
+		update DETAILINFO set  TOTALSEAT=#{totalSeat}, SOCKETSEAT= #{socketSeat}, DESSERTSALES=#{dessertSales}, 
+		TERRACE=#{terrace}, ROOFTOP=#{roofTop}, WIFI=#{wifi}, COMPANIONDOG=#{companionDog}, 
+		PARKINGSPACE=#{parkingSpace}, NOKIDSZONE=#{noKidsZone}, SMOKINGAREA=#{smokingArea}
+    WHERE STORENO=#{storeNo}
+	</update>
+	<select id="selectDetail" resultType="org.care.domain.DetailInfo">
+	SELECT * 
+	FROM DetailINFO
+	WHERE STORENO = #{storeNo}
+	</select>
 </mapper>

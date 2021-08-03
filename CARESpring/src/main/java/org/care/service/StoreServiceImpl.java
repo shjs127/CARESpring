@@ -25,9 +25,4 @@ public class StoreServiceImpl implements StoreService{
 		
 	}
 
-	@Override
-	public void changeInfo(StoreInfo sInfo) {
-		storeMapper.changeInfo(sInfo);
-		
-	}
 }

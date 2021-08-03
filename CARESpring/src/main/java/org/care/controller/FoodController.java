@@ -53,54 +53,6 @@ public class FoodController {
 	@Resource(name = "uploadPath")
 	private String uploadPath;
 	
-	@RequestMapping(value = "/login/storeinSuccess", method = RequestMethod.POST)
-	public String storeinPOST(StoreDTO dto, HttpSession session, Model model, RedirectAttributes rttr) throws Exception {
-
-		StoreInfo sInfo = foodService.login(dto);
-
-		if (sInfo == null) {
-			model.addAttribute("storeInfo", null);
-			rttr.addFlashAttribute("storeLoginFalse", false);
-			return "redirect:/login";
-		}
-		model.addAttribute("storeVo", sInfo);
-		
-		return "/login/storeinSuccess";
-
-	}
-
-	@RequestMapping(value = "/storeLogout", method = RequestMethod.GET)
-	public String logout(HttpServletRequest request, HttpServletResponse response, HttpSession session)
-			throws Exception {
-
-		Object obj = session.getAttribute("storein");
-
-		if (obj != null) {
-
-			session.removeAttribute("storein");
-			session.invalidate();
-
-		}
-
-		return "login/storeLogout";
-	}
-
-	@RequestMapping(value = "/store/profile", method = RequestMethod.GET)
-	public String profilePage(HttpServletRequest request, HttpSession session, Model model) throws Exception {
-
-		StoreInfo storeInfo = (StoreInfo) session.getAttribute("storein");
-		int storeNo = storeInfo.getStoreNo();
-
-		/*
-		 * List<ReviewDTO> reviewInfoList = userService.selectReviewUser(storeNo);
-		 * model.addAttribute("reviewInfoList", reviewInfoList);
-		 * 
-		 * List<Favorite> favorite = foodService.selectFavorite(userNo);
-		 * model.addAttribute("favorite", favorite);
-		 */
-
-		return "profile/storeProfile";
-	}
 
 	@Inject
 	private DeleteFoodService deleteFoodService;

@@ -1,18 +1,12 @@
-package org.care.mapper;
+package org.care.service;
 
 import org.care.domain.DetailInfo;
 import org.care.domain.StoreInfo;
 import org.care.dto.DetailDTO;
 import org.care.dto.StoreDTO;
 
-public interface StoreMapper {
+public interface StoreProfileService {
 
-	public StoreDTO selectByStore(StoreDTO storeDTO);
-	
-	public void insert(StoreDTO storeDTO);
-	
-	public void update(StoreDTO storeDTO);
-	
 	public void changeInfo(StoreInfo sInfo);
 
 	public DetailInfo selectDetail(DetailInfo dInfo);
