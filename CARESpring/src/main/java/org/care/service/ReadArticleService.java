@@ -1,10 +1,8 @@
 package org.care.service;
 
-import java.util.List;
 
 import org.care.domain.BoardInfo;
 import org.care.domain.BoardInfoList;
-import org.care.domain.CommentInfo;
 import org.care.domain.NextNo;
 import org.care.domain.PrevNo;
 import org.care.domain.UserInfo;

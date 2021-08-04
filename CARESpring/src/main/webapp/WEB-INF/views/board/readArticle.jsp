@@ -35,32 +35,32 @@
 					<c:choose>
 						<c:when test="${fn:endsWith(fname, '.jpg')==true}">
 							<img
-								src="${pageContext.request.contextPath}/resources/upload/${file.boardPic1}"
+								src="${pageContext.request.contextPath}/disFile?fileName=${file.boardPic1}"
 								width="200" />
 						</c:when>
 						<c:when test="${fn:endsWith(fname, '.JPG')==true}">
 							<img
-								src="${pageContext.request.contextPath}/resources/upload/${file.boardPic1}"
+								src="${pageContext.request.contextPath}/disFile?fileName=${file.boardPic1}"
 								width="200" />
 						</c:when>
 						<c:when test="${fn:endsWith(fname, '.png')==true}">
 							<img
-								src="${pageContext.request.contextPath}/resources/upload/${file.boardPic1}"
+								src="${pageContext.request.contextPath}/disFile?fileName=${file.boardPic1}"
 								width="200" />
 						</c:when>
 						<c:when test="${fn:endsWith(fname, '.PNG')==true}">
 							<img
-								src="${pageContext.request.contextPath}/resources/upload/${file.boardPic1}"
+								src="${pageContext.request.contextPath}/disFile?fileName=${file.boardPic1}"
 								width="200" />
 						</c:when>
 						<c:when test="${fn:endsWith(fname, '.gif')==true}">
 							<img
-								src="${pageContext.request.contextPath}/resources/upload/${file.boardPic1}"
+								src="${pageContext.request.contextPath}/disFile?fileName=${file.boardPic1}"
 								width="200" />
 						</c:when>
 						<c:when test="${fn:endsWith(fname, '.GIF')==true}">
 							<img
-								src="${pageContext.request.contextPath}/resources/upload/${file.boardPic1}"
+								src="${pageContext.request.contextPath}/disFile?fileName=${file.boardPic1}"
 								width="200" />
 						</c:when>
 						<c:otherwise>
