@@ -61,7 +61,7 @@ public class FoodServiceImpl implements FoodService {
 	}
 	
 	@Override
-	public double selectAvg(int storeNo) throws Exception {
+	public Integer selectAvg(int storeNo) throws Exception {
 			
 		return foodMapper.selectAvg(storeNo);
 		

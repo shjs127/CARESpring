@@ -74,7 +74,7 @@ public class FoodController {
 		List<MenuInfo> menuInfo = foodService.selectMenu(storeNo);
 		model.addAttribute("menuInfo", menuInfo);
 		
-		double ravg = foodService.selectAvg(storeNo);
+		Integer ravg = foodService.selectAvg(storeNo);
 		model.addAttribute("ravg", ravg);
 
 
@@ -122,7 +122,7 @@ public class FoodController {
 		List<MenuInfo> menuInfo = foodService.selectMenu(storeNo);
 		model.addAttribute("menuInfo", menuInfo);
 
-		double ravg = foodService.selectAvg(storeNo);
+		Integer ravg = foodService.selectAvg(storeNo);
 		model.addAttribute("ravg", ravg);
 		
 		

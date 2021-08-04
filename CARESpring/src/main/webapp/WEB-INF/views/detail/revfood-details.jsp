@@ -115,23 +115,14 @@ function selChange() {
 	<!-- Heading Starts -->
 	<h4 class="main-heading-1 text-xs-center text-sm-center text-md-left">
 		${storeInfo.storeName}
-		<ul class="list-unstyled float-lg-right text-lg-right">
+		<% if (session.getAttribute("ravg") == null) 
+			{
+		%>	
 			<li class="list-inline-item">${ravg}</li>
-		</ul>
-		<c:if test="${isExisFavoriteData}">
-			<button id="starCheck">
-				<ul class="list-unstyled list-inline rating-star-list">
-					<li class="list-inline-item"><i class="fa fa-star"></i></li>
-				</ul>
-			</button>
-		</c:if>
-		<c:if test="${!isExisFavoriteData}">
-			<button id="starCheck">
-				<ul class="list-unstyled list-inline rating-star-list">
-					<li class="list-inline-item"><i class="fa fa-star-o"></i></li>
-				</ul>
-			</button>
-		</c:if>
+	    <% 
+			 }
+	    %>
+		
 	</h4>
 	<!-- Heading Ends -->
 	<!-- Main Banner Starts -->

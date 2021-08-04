@@ -229,24 +229,6 @@
 								<br>
 								<hr>
 								<br>
-
-								<h5>내 즐겨찾기 목록</h5>
-								<br>
-
-
-								<table border="1">
-									<tr>
-
-										<th><p>가게 번호</p></th>
-										<th><p>가게 이름</p></th>
-									</tr>
-									<c:forEach var="favorite" items="${favorite}">
-										<tr>
-											<td>${favorite.storeNo }</td>
-											<%-- <td>${storeInfo.storeName }</td> --%>
-										</tr>
-									</c:forEach>
-								</table>
 							</div>
 						</div>
 
