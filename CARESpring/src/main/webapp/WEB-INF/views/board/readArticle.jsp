@@ -35,32 +35,32 @@
 					<c:choose>
 						<c:when test="${fn:endsWith(fname, '.jpg')==true}">
 							<img
-								src="${pageContext.request.contextPath}/resources/upload/${file.boardPic1}"
+								src="${pageContext.request.contextPath}/disFile?fileName=${file.boardPic1}"
 								width="200" />
 						</c:when>
 						<c:when test="${fn:endsWith(fname, '.JPG')==true}">
 							<img
-								src="${pageContext.request.contextPath}/resources/upload/${file.boardPic1}"
+								src="${pageContext.request.contextPath}/disFile?fileName=${file.boardPic1}"
 								width="200" />
 						</c:when>
 						<c:when test="${fn:endsWith(fname, '.png')==true}">
 							<img
-								src="${pageContext.request.contextPath}/resources/upload/${file.boardPic1}"
+								src="${pageContext.request.contextPath}/disFile?fileName=${file.boardPic1}"
 								width="200" />
 						</c:when>
 						<c:when test="${fn:endsWith(fname, '.PNG')==true}">
 							<img
-								src="${pageContext.request.contextPath}/resources/upload/${file.boardPic1}"
+								src="${pageContext.request.contextPath}/disFile?fileName=${file.boardPic1}"
 								width="200" />
 						</c:when>
 						<c:when test="${fn:endsWith(fname, '.gif')==true}">
 							<img
-								src="${pageContext.request.contextPath}/resources/upload/${file.boardPic1}"
+								src="${pageContext.request.contextPath}/disFile?fileName=${file.boardPic1}"
 								width="200" />
 						</c:when>
 						<c:when test="${fn:endsWith(fname, '.GIF')==true}">
 							<img
-								src="${pageContext.request.contextPath}/resources/upload/${file.boardPic1}"
+								src="${pageContext.request.contextPath}/disFile?fileName=${file.boardPic1}"
 								width="200" />
 						</c:when>
 						<c:otherwise>
@@ -234,8 +234,8 @@
 						comment += '</strong>&nbsp;&nbsp;&nbsp;';
 						comment += '작성날짜: ' + this.commentDate;
 						if(this.userNo == ${user.userNo}){
-						comment += '<a onclick="commentUpdate('+this.commentNo+');">수정</a>';
-						comment += '<a onclick="commentDelete('+this.commentNo+');">삭제</a>';
+						comment += '<a href="javascript:;" onclick="commentUpdate('+this.commentNo+');"> 수정</a>';
+						comment += '<a href="javascript:;" onclick="commentDelete('+this.commentNo+');"> 삭제</a>';
 						}
 						comment += '<br/> <p>';
 						comment += '댓글내용 : &nbsp;&nbsp;&nbsp;';
