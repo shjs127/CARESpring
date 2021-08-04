@@ -26,5 +26,10 @@ public class DeleteArticleServiceImpl implements DeleteArticleService {
 		return boardListMapper.getBoardPic(dto);
 	}
 	
+	@Override
+	public void deletePic(BoardDTO dto) throws Exception {
+		// TODO Auto-generated method stub
+		boardListMapper.deletePic(dto);
+	}
 
 }

@@ -9,5 +9,6 @@ public interface WriteArticleService {
   
   public void writePic(BoardPicInfo pic) throws Exception;
 
+  public void writePicNull(BoardDTO dto) throws Exception;
 	
 }

@@ -60,4 +60,8 @@ public interface BoardListMapper {
 	void updateComment(CommentDTO dto) throws Exception;
 	
 	void commentAllDelete(BoardDTO dto) throws Exception;
+	
+	void picInsertNull(BoardDTO dto) throws Exception;
+	
+	void updatePicNull(BoardDTO dto) throws Exception;
 }

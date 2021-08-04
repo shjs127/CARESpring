@@ -22,4 +22,10 @@ public class WriteArticleServiceImpl implements WriteArticleService {
 	public void writePic(BoardPicInfo pic) throws Exception {
 		boardListMapper.picInsert(pic);
 	}
+
+	@Override
+	public void writePicNull(BoardDTO dto) throws Exception {
+
+		boardListMapper.picInsertNull(dto);
+	}
 }

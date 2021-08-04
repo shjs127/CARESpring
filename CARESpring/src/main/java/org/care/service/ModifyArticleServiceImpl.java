@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class ModifyArticleServiceImpl implements ModifyArticleService {
 
+
 	@Autowired
 	private BoardListMapper boardListMapper;
 
@@ -20,6 +21,11 @@ public class ModifyArticleServiceImpl implements ModifyArticleService {
 	@Override
 	public void updatePic(BoardPicInfo pic) throws Exception {
 		boardListMapper.updatePic(pic);
+	}
+	
+	@Override
+	public void updatePicNull(BoardDTO dto) throws Exception {
+		boardListMapper.updatePicNull(dto);
 	}
 
 }

@@ -76,10 +76,20 @@
 		UPDATE BOARDPIC SET BOARDPIC1 = #{boardPic1} WHERE
 		BOARDNO = #{boardNo}
 	</update>
+	
+	<update id="updatePicNull">
+	UPDATE BOARDPIC SET BOARDPIC1 = null WHERE
+		BOARDNO = #{boardNo}
+	</update>
 
 	<insert id="picInsert">
 		INSERT INTO BOARDPIC (BoardNo, BoardPic1) VALUES
 		(#{boardNo}, #{boardPic1})
+	</insert>
+	
+	<insert id="picInsertNull">
+		INSERT INTO BOARDPIC (BoardNo) VALUES
+		(#{boardNo})
 	</insert>
 
 	<select id="picView" resultType="org.care.domain.BoardPicInfo">

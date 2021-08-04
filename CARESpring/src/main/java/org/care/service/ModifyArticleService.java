@@ -9,4 +9,6 @@ public interface ModifyArticleService {
 	
 	public void updatePic(BoardPicInfo pic) throws Exception;
 	
+	public void updatePicNull(BoardDTO pic) throws Exception;
+	
 }

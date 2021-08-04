@@ -9,4 +9,5 @@ public interface DeleteArticleService {
   
   public BoardPicInfo getBoardPic(BoardDTO dto) throws Exception;
   
+  public void deletePic(BoardDTO dto) throws Exception;
 }
