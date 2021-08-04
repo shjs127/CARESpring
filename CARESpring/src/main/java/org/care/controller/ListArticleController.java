@@ -188,9 +188,11 @@ public class ListArticleController {
 		
 		BoardPicInfo boardPic = deleteService.getBoardPic(dto);
 		
+		if(boardPic != null){
 		File file = new File(uploadPath+"\\"+boardPic.getBoardPic1());
 		if (file.exists()) {
 			file.delete();
+		}
 		}
 		deleteService.delete(dto);
 		

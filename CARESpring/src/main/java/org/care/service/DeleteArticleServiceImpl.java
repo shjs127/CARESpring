@@ -9,11 +9,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class DeleteArticleServiceImpl implements DeleteArticleService {
 
+
 	@Autowired
 	private BoardListMapper boardListMapper;
 
 	@Override
 	public void delete(BoardDTO dto) throws Exception {
+		boardListMapper.commentAllDelete(dto);
 		boardListMapper.deletePic(dto);
 		boardListMapper.delete(dto);
 	}
@@ -23,7 +25,6 @@ public class DeleteArticleServiceImpl implements DeleteArticleService {
 		
 		return boardListMapper.getBoardPic(dto);
 	}
-	
 	
 
 }

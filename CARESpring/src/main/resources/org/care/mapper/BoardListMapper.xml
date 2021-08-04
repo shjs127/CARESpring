@@ -158,4 +158,7 @@ A,USERINFO WHERE A.USERNO = USERINFO.USERNO AND A.BOARDNO = ${boardNo}
 	UPDATE COMMENTINFO SET COMMENTCONTENTS = #{commentContents} WHERE BOARDNO =#{boardNo} AND COMMENTNO = #{commentNo}
 	</update>
 	
+	<delete id="commentAllDelete">
+	DELETE FROM COMMENTINFO WHERE BOARDNO=#{boardNo}
+	</delete>
 </mapper>
