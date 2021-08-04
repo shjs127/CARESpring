@@ -45,9 +45,16 @@
 					<div class="hover-content">
 						<a
 							href="${pageContext.request.contextPath}/main/foodDetail.do?storeno=${storea.storeNo}">
+							<c:if test="${storea.storePic eq null}">
 							<img
-							src="<%=request.getContextPath()%>/CARE/images/hotels/thumb/hotel-grid-thumb-img1.jpg"
+							src="${pageContext.request.contextPath}/resources/upLoad/imgnull.jpg"
 							alt="Eagle Boys Village Plaza" class="img-fluid img-center">
+							</c:if>
+							<c:if test="${storea.storePic ne null}">
+							<img
+							src="${pageContext.request.contextPath}/disFile?fileName=${storea.storePic}"
+							alt="Eagle Boys Village Plaza" class="img-fluid img-center">
+							</c:if>
 						</a> <a
 							href="${pageContext.request.contextPath}/main/foodDetail.do?storeno=${storea.storeNo}">
 							<h5 class="text-uppercase">${storea.storeName}
@@ -70,9 +77,16 @@
 					<div class="hover-content">
 						<a
 							href="${pageContext.request.contextPath}/main/foodDetail.do?storeno=${reviewT.storeNo}">
+							<c:if test="${reviewT.storePic ne null}">
 							<img
-							src="<%=request.getContextPath()%>/CARE/images/hotels/thumb/hotel-grid-thumb-img1.jpg"
+							src="${pageContext.request.contextPath}/disFile?fileName=${reviewT.storePic}"
 							alt="Eagle Boys Village Plaza" class="img-fluid img-center">
+							</c:if>
+							<c:if test="${reviewT.storePic eq null}">
+							<img
+							src="${pageContext.request.contextPath}/resources/upLoad/imgnull.jpg"
+							alt="Eagle Boys Village Plaza" class="img-fluid img-center">
+							</c:if>
 						</a> <a
 							href="${pageContext.request.contextPath}/main/foodDetail.do?storeno=${reviewT.storeNo}">
 							<h5 class="text-uppercase">${reviewT.storeName}

@@ -127,8 +127,7 @@ public class StoreProfileController {
 		if (sInfo.getCallNumber() == null || sInfo.getCallNumber().isEmpty()) {
 			sInfo.setCallNumber(store.getCallNumber());
 		}
-		System.out.println("dto totalseat=" + dto.getTotalSeat());
-		System.out.println("detail totalseat=" + detail.getTotalSeat());
+
 		if (dto.getTotalSeat() == null) {
 			dto.setTotalSeat(detail.getTotalSeat());
 		}

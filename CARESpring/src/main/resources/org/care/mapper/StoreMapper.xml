@@ -26,11 +26,12 @@
 
 	<update id="changeInfo">
 		update StoreINFO set STOREPIC=#{storePic}, ADDRESS = #{address},
-		 HOURS = #{hours} ,ClosedDays = #{closedDays}, CALLNUMBER = #{callNumber} where STORENO = #{storeNo}
+		 HOURS = #{hours, jdbcType=VARCHAR} ,ClosedDays = #{closedDays, jdbcType=VARCHAR}, 
+		 CALLNUMBER = #{callNumber, jdbcType=VARCHAR} where STORENO = #{storeNo}
 	</update>
 
 <update id="changeDetail">
-		update DETAILINFO set  TOTALSEAT=#{totalSeat}, SOCKETSEAT= #{socketSeat}, DESSERTSALES=#{dessertSales}, 
+		update DETAILINFO set  TOTALSEAT=#{totalSeat}, SOCKETSEAT= #{socketSeat}, DESSERTSALES=#{dessertSales},
 		TERRACE=#{terrace}, ROOFTOP=#{roofTop}, WIFI=#{wifi}, COMPANIONDOG=#{companionDog}, 
 		PARKINGSPACE=#{parkingSpace}, NOKIDSZONE=#{noKidsZone}, SMOKINGAREA=#{smokingArea}
     WHERE STORENO=#{storeNo}

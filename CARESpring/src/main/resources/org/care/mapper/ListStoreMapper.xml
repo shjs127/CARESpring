@@ -66,25 +66,6 @@
 	where storeno = #{storeNo}
 </select>
 
-<select id="listAll" resultType="org.care.domain.StoreInfo">
-<![CDATA[
-	select storeno, storename, storepic, address
-	from storeinfo
-	where storeno > 0
-	order by storeno desc
-]]>
-</select>
-
-<select id="listPage" resultType="org.care.domain.StoreInfo">
-<![CDATA[
-select storeno, storename, storepic, address 
-from (select rownum as rnum, storeinfo.* 
-from storeinfo 
-order by storeno desc) storeinfo 
-where rnum between #{page} and #{page+10} 
-]]>
-</select>
-
 <select id="listSearch" 
 parameterType="org.care.domain.SearchCriteria"
 resultType="org.care.domain.StoreInfo">
@@ -240,7 +221,7 @@ resultType="org.care.domain.StoreInfo">
 <select resultType="org.care.dto.StoreDTO" id="topList">
 
 <![CDATA[
-		select r.storeno storeNo, r.aa storeAvg, s.storename storeName from 
+		select r.storeno storeNo, s.storepic, r.aa storeAvg, s.storename storeName from 
 		(select storeNo , AVG(avgScore) as aa from reviewInfo
 		group by storeNo order by aa DESC,storeNo DESC) r, storeInfo s
 		where r.storeno = s.storeNo and ROWNUM < 7
