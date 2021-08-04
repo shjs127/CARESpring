@@ -4,6 +4,8 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ include file="../include/header.jspf"%>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
 <!-- Search Section Starts -->
 <section class="search-area condensed parallax">
 	<!-- Nested Container Starts -->
@@ -134,16 +136,17 @@
 			<!-- Hotels Grid List Starts -->
 			<div class="hotels-list-grid">
 				<!-- Nested Row Starts -->
-				<div class="row" id="cafeStoreList">
+				<div class="row">
 					<!-- List Box #1 Starts -->
 					<!-- List 시작 -->
 
 					<c:if test="${list == null}">
 						<div>매장이 없습니다.</div>
 					</c:if>
-
+			
+						<div id="cafeStoreDiv"></div>
 					<c:forEach var="storeinfo" items="${list}">
-						<div class="col-lg-4 col-md-6 col-sm-12">
+						<div class="col-lg-4 col-md-6 col-sm-12 cafeStoreList">
 							<!-- Grid Box Starts -->
 							<div class="grid-box">
 								<!-- Images Starts -->
@@ -221,7 +224,6 @@
 						</div>
 						<!-- List Box #1 Ends -->
 					</c:forEach>
-
 				</div>
 				<!-- Nested Row Ends -->
 			</div>
@@ -252,6 +254,146 @@
 	<!-- Ends -->
 </div>
 <!-- Main Container Ends -->
+
+<!-- ajax 리스트 -->
+<script id="template" type="text/x-handlebars-template">
+{{#each .}}
+						<div class="col-lg-4 col-md-6 col-sm-12 cafeStoreList">
+							<!-- Grid Box Starts -->
+							<div class="grid-box">
+								<!-- Images Starts -->
+								<div class="image text-center">
+									<img
+										src="<%=request.getContextPath()%>/resources/images/hotels/thumb/hotel-grid-thumb-img1.jpg"
+										alt="Eagle Boys Village Plaza" class="img-fluid img-center">
+									<span class="delivery-time">{{storeNo}}</span>
+								</div>
+
+								<!-- Images Ends -->
+								<!-- Content Starts -->
+								<div class="content text-center text-lg-left">
+									<!-- Title Starts -->
+									<h6 class="grid-box-title">
+										<a href="${pageContext.request.contextPath}/store/storeList/detail?storeNo={{storeNo}}">{{storeName}}</a>
+									</h6>
+									<!-- Title Ends -->
+									<!-- Tags Starts -->
+									<ul class="list-unstyled list-inline grid-box-tags">
+										<li class="list-inline-item">
+								 			<c:choose>
+											<c:when test = "${fn:length({{address}}) gt 20}">
+											<c:out value = "${fn:substring({{address}},0,19)}..."></c:out>
+											</c:when>
+											<c:otherwise>
+											<c:out value="{{address}}"></c:out>
+											</c:otherwise>
+											</c:choose>
+										</li>
+									</ul>
+									<!-- Tags Ends -->
+									<!-- Offer Details Starts -->
+									<ul class="list-unstyled grid-box-info clearfix">
+										<li class="float-lg-right text-lg-right"><a href="${pageContext.request.contextPath}/store/storeList/detail?storeNo={{storeNo}}"
+											class="btn btn-prime animation"> 자세히 보기 <i
+												class="fa fa-chevron-right"></i>
+										</a></li>
+									</ul>
+									<!-- Offer Details Ends -->
+									<!-- Links Starts -->
+									<div class="clearfix">
+										<!-- Info Links Starts -->
+										<ul
+											class="list-unstyled list-inline grid-box-info-links float-lg-left">
+											<li class="list-inline-item"><a href="#"
+												data-toggle="tooltip" data-placement="top" title="Coupons"><i
+													class="fa fa-tag"></i></a></li>
+											<li class="list-inline-item"><a href="#"
+												data-toggle="tooltip" data-placement="top"
+												title="Information"><i class="fa fa-info-circle"></i></a></li>
+											<li class="list-inline-item"><a href="#"
+												data-toggle="tooltip" data-placement="top" title="Reviews"><i
+													class="fa fa-star-half-full"></i></a></li>
+											<li class="list-inline-item"><a href="#"
+												data-toggle="tooltip" data-placement="top" title="Specials"><i
+													class="fa fa-asterisk"></i></a></li>
+										</ul>
+										<!-- Info Links Ends -->
+										<!-- Ratings Starts -->
+										<ul
+											class="list-unstyled list-inline grid-box-ratings float-lg-right text-lg-right">
+											<li class="list-inline-item star-rating"><i
+												class="fa fa-star"></i> 45</li>
+											<li class="list-inline-item"><a href="#"
+												class="badge animation"><i class="fa fa-heart"></i> 10</a></li>
+										</ul>
+										<!-- Ratings Ends -->
+									</div>
+									<!-- Links Ends -->
+								</div>
+								<!-- Content Ends -->
+							</div>
+							<!-- Grid Box Ends -->
+						</div>
+						<!-- List Box #1 Ends -->
+{{/each}}
+</script>
+
+<script>
+	var printData = function(storeArr, target, templateObject){
+		
+		var template = Handlebars.compile(templateObject.html());
+	
+		var html = template(storeArr)
+		$(".cafeStoreList").remove();
+		target.after(html);
+	}
+	
+// 	var storeno = ${storeinfo.storeNo}
+	
+	var storePage = 1;
+	
+	function getPage(pageInfo){
+	
+		$.getJSON(pageInfo, function(data){
+			printData(data.list, $("#cafeStoreDiv"), $('#template'));
+			printPaging(data.pageMaker, $(".pagination"));
+			
+		});
+	}
+	
+	var printPaging = function(pageMaker, target) {
+		
+		var str = "";
+		
+		if(pageMaker.prev) {
+			str += "<li><a href='" + (pageMaker.startPage - 1) 
+					+ "'> << </a></li>";
+		}
+		
+		for(var i = pageMaker.startPage, len = pageMaker.endPage; i <= len; i++){
+			var strClass = pageMaker.cri.page == i ? 'class=active' : '';
+			str += "<li " + strClass +"><a href='" + i +"'>" + i + "</a><li>";
+		}
+		
+		if(pageMaker.next){
+			str += "<li><a href='" + (pageMaker.endPage + 1)
+					+ "'> >> </a></li>";
+		}
+		
+		target.html(str);
+		
+	};
+	
+	$(".pagination").on("click", "li a", function(event){
+		event.preventDefault();
+		
+		storePage = $(this).attr("href");
+		
+		getPage("/storeList/detailChk/page=" + storePage);
+		
+	});
+
+</script>
 
 <script type="text/javascript">
 
@@ -288,25 +430,23 @@
 		$(".detailCheckBox").change(function(){
 			console.log($(this)[0].checked);
 			if($(this)[0].checked){
-				console.log("1");
-// 				console.log($(this));
 				chkArr.push($(this).val());
 			}else{
-				console.log("2");
-// 				console.log(chkArr.indexOf($(this).val()));
 				chkArr.splice(chkArr.indexOf($(this).val()), 1);
 			}
 			alert(chkArr);
 			$.ajaxSettings.traditional = true;
 			$.ajax({
 				url: '${pageContext.request.contextPath}/store/storeList/detailChk'
-				, type: 'post'
+				, type: 'get'
 				, dataType: 'text'
 				, data: {
 					valueArr: chkArr
 				}, success: function(data){
-					alert("3");
-					console.log("data: "+data);
+					var jdata = JSON.parse(data);
+					printData(jdata.list, $("#cafeStoreDiv"), $('#template'));
+					printPaging(jdata.pageMaker, $(".pagination"));
+					
 				}, error: function(request, status, error){
 					alert("code="+request.status + " message = " + request.responseText + " error = " + error);
 				}
@@ -316,195 +456,5 @@
  	}); 
 </script>
 	
-	
-<!-- <script>
-	$(function(){
-		$("#orderBy").change(function(){
-			var orderby = $(this.val());
-			
-			$.ajax({
-				type:'get',
-				url:'/storeList',
-				headers: {
-					"Content-Type": "application/json",
-					"X-HTTP-Metehod-Override": "GET" },
-				dataType: 'text',
-				data: JSON.stringify({storeno:storeno, storename:storename, address:address}),
-				success: function(result){  // 정상 처리
-					console.log("result:" + result);
-					if(result == 'SUCCESS'){
-						alert("리스트 변경");
-						getPage("/storeList?orderBy="+orderby);
-					}
-				}
-			}
-		});
-	});
-
-</script> -->
-
-<script id="template" type="text/x-handlebars-template">
-{{#each .}}
-<div class="row storeLi">
-					<!-- List Box #1 Starts -->
-					<!-- List 시작 -->
-
-					<c:if test="${list == null}">
-						<div>매장이 없습니다.</div>
-					</c:if>
-
-					<c:forEach var="storeinfo" items="${list}">
-						<div class="col-lg-4 col-md-6 col-sm-12">
-							<!-- Grid Box Starts -->
-							<div class="grid-box">
-								<!-- Images Starts -->
-								<div class="image text-center">
-									<img
-										src="<%=request.getContextPath()%>/resources/images/hotels/thumb/hotel-grid-thumb-img1.jpg"
-										alt="Eagle Boys Village Plaza" class="img-fluid img-center">
-									<span class="delivery-time">${storeinfo.storeNo}</span>
-								</div>
-
-								<!-- Images Ends -->
-								<!-- Content Starts -->
-								<div class="content text-center text-lg-left">
-									<!-- Title Starts -->
-									<h6 class="grid-box-title">
-										<a href="${pageContext.request.contextPath}/store/storeList/detail?storeNo=${storeinfo.storeNo}">${storeinfo.storeName}</a>
-									</h6>
-									<!-- Title Ends -->
-									<!-- Tags Starts -->
-									<ul class="list-unstyled list-inline grid-box-tags">
-										<li class="list-inline-item">
-								 			<c:choose>
-											<c:when test = "${fn:length(storeinfo.address) gt 20}">
-											<c:out value = "${fn:substring(storeinfo.address,0,19)}..."></c:out>
-											</c:when>
-											<c:otherwise>
-											<c:out value="${storeinfo.address}"></c:out>
-											</c:otherwise>
-											</c:choose>
-										</li>
-									</ul>
-									<!-- Tags Ends -->
-									<!-- Offer Details Starts -->
-									<ul class="list-unstyled grid-box-info clearfix">
-										<li class="float-lg-right text-lg-right"><a href="${pageContext.request.contextPath}/store/storeList/detail?storeNo=${storeinfo.storeNo}"
-											class="btn btn-prime animation"> 자세히 보기 <i
-												class="fa fa-chevron-right"></i>
-										</a></li>
-									</ul>
-									<!-- Offer Details Ends -->
-									<!-- Links Starts -->
-									<div class="clearfix">
-										<!-- Info Links Starts -->
-										<ul
-											class="list-unstyled list-inline grid-box-info-links float-lg-left">
-											<li class="list-inline-item"><a href="#"
-												data-toggle="tooltip" data-placement="top" title="Coupons"><i
-													class="fa fa-tag"></i></a></li>
-											<li class="list-inline-item"><a href="#"
-												data-toggle="tooltip" data-placement="top"
-												title="Information"><i class="fa fa-info-circle"></i></a></li>
-											<li class="list-inline-item"><a href="#"
-												data-toggle="tooltip" data-placement="top" title="Reviews"><i
-													class="fa fa-star-half-full"></i></a></li>
-											<li class="list-inline-item"><a href="#"
-												data-toggle="tooltip" data-placement="top" title="Specials"><i
-													class="fa fa-asterisk"></i></a></li>
-										</ul>
-										<!-- Info Links Ends -->
-										<!-- Ratings Starts -->
-										<ul
-											class="list-unstyled list-inline grid-box-ratings float-lg-right text-lg-right">
-											<li class="list-inline-item star-rating"><i
-												class="fa fa-star"></i> 45</li>
-											<li class="list-inline-item"><a href="#"
-												class="badge animation"><i class="fa fa-heart"></i> 10</a></li>
-										</ul>
-										<!-- Ratings Ends -->
-									</div>
-									<!-- Links Ends -->
-								</div>
-								<!-- Content Ends -->
-							</div>
-							<!-- Grid Box Ends -->
-						</div>
-						<!-- List Box #1 Ends -->
-					</c:forEach>
-
-				</div>
-{{/each}}
-</script>
-
-<!-- <script> 
-
-	var printData = function(storeArr, target, templateObject){
-	
-		var template = Handlebars.compile(templateObject.html());
-
-		var html = template(storeArr)
-		$(".storeLi").remove();
-		target.after(html);
-	
-	}
-	
-	var storeno = ${storeinfo.storeNo}
-	
-	var storePage = 1;
-	
-	function getPage(pageInfo){
-	
-		$.getJSON(pageInfo, function(data){
-			printData(data.list, $(#cafeStoreList), $('#template'));
-			printPaging(data.pageMaker, $(".pagination"));
-		}
-	}
- 
-	
- </script>  -->
-
-<!--  <script> 
- 
- var source = $("#template").html();
- 	var template = Handlebars.complie(source);
- 	var data = [];
-	
- 	$("#replies").html(template(data));
- 	var printData = function(replyArr, target, templateObject){
- 		var template = Handlebars.compile(templateObject.html());
-		
- 		var html = template(replyArr);
- 		$(".row").remove();
- 		target.after(html);
- 	}
-	
- 	var storeNo = ${storeInfo.storeNo};
- 	var PageNo = 1;
-	
- 	function getPage(pageInfo){
-		
- 		$.getJSON(pageInfo, function(data){
- 			printData(data.list, $("#replisDiv"), $('#template'));
- 			printPaging(data.pageMaker, $(".pagination"));
-			
- 			$("#modifyModal").modal('hide');
- 			$("#replycntSmall").html("[ " + data.pageMaker.totalCount + " ]");
- 		});
- 	}
-	
- 	$("#repliesDiv").on("click", function(){
- 		if($(".timeline li").size() > 1){
- 			return;
- 		}
- 		getPage("/replies/"+storeNo+"/"+replyPage)
- 	});
- 	
- 	var orderBy = $("#orderBy").val();
- 	$("#orderBy").change(function(){
- 		getPage("/orderBy="+orderBy)
- 	});
-	
- </script> --> 
 
 <%@ include file="../include/footer.jspf"%>

@@ -2,7 +2,6 @@ package org.care.service;
 
 import java.util.List;
 
-import org.care.domain.Criteria;
 import org.care.domain.SearchCriteria;
 import org.care.domain.StoreInfo;
 import org.care.dto.StoreDTO;
@@ -20,23 +19,6 @@ public class ListStoreServiceImpl implements ListStoreService {
 	public StoreInfo read(Integer storeNo) throws Exception {
 
 		return listStoreMapper.read(storeNo);
-	}
-
-	@Override
-	public List<StoreInfo> listAll() throws Exception {
-		return listStoreMapper.listAll();
-	}
-
-	@Override
-	public List<StoreInfo> listPage(int page) throws Exception {
-		
-		if(page <= 0) {
-			page = 1;
-		}
-		
-		page = (page - 1) + 10;
-		
-		return listStoreMapper.listPage(page);
 	}
 
 	@Override

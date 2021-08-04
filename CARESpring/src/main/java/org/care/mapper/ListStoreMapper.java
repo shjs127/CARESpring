@@ -2,7 +2,6 @@ package org.care.mapper;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Param;
 import org.care.domain.SearchCriteria;
 import org.care.domain.StoreInfo;
 import org.care.dto.StoreDTO;
@@ -10,10 +9,6 @@ import org.care.dto.StoreDTO;
 public interface ListStoreMapper {
 	
 	public StoreInfo read(Integer storeNo) throws Exception;
-	
-	public List<StoreInfo> listAll() throws Exception;
-	
-	public List<StoreInfo> listPage(int page) throws Exception;
 	
 	public List<StoreInfo> listSearch(SearchCriteria cri) throws Exception;
 	

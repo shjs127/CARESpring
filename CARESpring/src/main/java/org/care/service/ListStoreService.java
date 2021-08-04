@@ -13,10 +13,6 @@ public interface ListStoreService {
 	
 	public StoreInfo read(Integer storeNo) throws Exception;
 
-	public List<StoreInfo> listAll() throws Exception;
-	
-	public List<StoreInfo> listPage(int page) throws Exception;
-	 
 	public List<StoreInfo> listSearch(SearchCriteria cri) throws Exception;
 	  
 	public int listSearchCount(SearchCriteria cri) throws Exception;
