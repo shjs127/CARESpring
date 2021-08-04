@@ -3,6 +3,7 @@ package org.care.controller;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.util.List;
 import java.util.UUID;
 
 import javax.annotation.Resource;
@@ -16,6 +17,7 @@ import org.care.domain.DetailInfo;
 import org.care.domain.ReviewPic;
 import org.care.domain.StoreInfo;
 import org.care.dto.DetailDTO;
+import org.care.dto.ReviewDTO;
 import org.care.dto.StoreDTO;
 import org.care.service.FoodService;
 import org.care.service.StoreProfileService;
@@ -94,6 +96,9 @@ public class StoreProfileController {
 		model.addAttribute("detail", storeDetail);
 		session.setAttribute("detail", storeDetail);
 
+		List<ReviewDTO> reviewDTO = foodService.selectReview(storeNo);
+		model.addAttribute("reviewDTO", reviewDTO);
+
 		return "profile/storeProfile";
 	}
 
@@ -136,7 +141,7 @@ public class StoreProfileController {
 			String save = uploadFile(file.getOriginalFilename(), file.getBytes());
 
 			sInfo.setStorePic(save);
-		}else {
+		} else {
 			sInfo.setStorePic("");
 		}
 
@@ -161,38 +166,47 @@ public class StoreProfileController {
 
 	}
 
+	@ResponseBody
+
+	@RequestMapping("/disFile")
+	public ResponseEntity<byte[]> displayFile(String fileName) throws Exception {
+
+		InputStream in = null;
+		ResponseEntity<byte[]> entity = null;
+
+		Logger.info("FILE NAME: " + fileName);
+
+		try {
+
+			String formatName = fileName.substring(fileName.lastIndexOf(".") + 1);
+
+			MediaType mType = MediaUtils.getMediaType(formatName);
+
+			HttpHeaders headers = new HttpHeaders();
+
+			in = new FileInputStream(uploadPath + fileName);
+
+			if (mType != null) {
+				headers.setContentType(mType);
+			} else {
+
+				fileName = fileName.substring(fileName.indexOf("_") + 1);
+				headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+				headers.add("Content-Disposition",
+						"attachment; filename=\"" + new String(fileName.getBytes("UTF-8"), "ISO-8859-1") + "\"");
+			}
+
+			entity = new ResponseEntity<byte[]>(IOUtils.toByteArray(in), headers, HttpStatus.CREATED);
+		} catch (Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<byte[]>(HttpStatus.BAD_REQUEST);
+		} finally {
+			in.close();
+		}
+		return entity;
+	}
+
 	/*
-	 * @ResponseBody
-	 * 
-	 * @RequestMapping("/displayFile") public ResponseEntity<byte[]>
-	 * displayFile(String fileName) throws Exception {
-	 * 
-	 * InputStream in = null; ResponseEntity<byte[]> entity = null;
-	 * 
-	 * Logger.info("FILE NAME: " + fileName);
-	 * 
-	 * try {
-	 * 
-	 * String formatName = fileName.substring(fileName.lastIndexOf(".") + 1);
-	 * 
-	 * MediaType mType = MediaUtils.getMediaType(formatName);
-	 * 
-	 * HttpHeaders headers = new HttpHeaders();
-	 * 
-	 * in = new FileInputStream(uploadPath + fileName);
-	 * 
-	 * if (mType != null) { headers.setContentType(mType); } else {
-	 * 
-	 * fileName = fileName.substring(fileName.indexOf("_") + 1);
-	 * headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
-	 * headers.add("Content-Disposition", "attachment; filename=\"" + new
-	 * String(fileName.getBytes("UTF-8"), "ISO-8859-1") + "\""); }
-	 * 
-	 * entity = new ResponseEntity<byte[]>(IOUtils.toByteArray(in), headers,
-	 * HttpStatus.CREATED); } catch (Exception e) { e.printStackTrace(); entity =
-	 * new ResponseEntity<byte[]>(HttpStatus.BAD_REQUEST); } finally { in.close(); }
-	 * return entity; }
-	 * 
 	 * @ResponseBody
 	 * 
 	 * @RequestMapping(value = "/deleteFile", method = RequestMethod.POST) public
