@@ -18,4 +18,11 @@ public class RegisterServiceImpl implements RegisterService {
 		
 	}
 	
+	// 아이디 중복 체크
+	@Override
+	public int idChk(LoginDTO dto) throws Exception {
+		int result = registerMapper.idChk(dto);
+		return result;
+	}
+	
 }

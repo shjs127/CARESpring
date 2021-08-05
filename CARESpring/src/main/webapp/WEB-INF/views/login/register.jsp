@@ -2,15 +2,18 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="../include/header.jspf"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <!-- Google Font -->
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+	     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 <body class="hold-transition register-page">
 	<div class="register-box">
 
-		<script>
+		<script type="text/javascript">
 			$(function() {
 				$("form").submit(function() {
 					var nameChk = /^[가-힣a-zA-Z0-9]{1,20}$/;
@@ -79,6 +82,26 @@
 				});
 			});
 			
+				/* 
+				$("#submit").on("click", function(){
+					if($("#userId").val()==""){
+						alert("아이디를 입력해주세요.");
+						$("#userId").focus();
+						return false;
+					}
+					
+					
+					var idChkVal = $("#idChk").val();
+					if(idChkVal == "N"){
+						alert("중복확인 버튼을 눌러주세요.");
+						return false;
+					}else if(idChkVal == "Y"){
+						$("#regForm").submit();
+					}
+				});
+			}) */
+			
+			
 			
 
 		</script>
@@ -99,7 +122,7 @@
 			<form action="register" method="post">
 				<div class="form-group has-feedback">
 					<input id="userId" type="text" class="form-control" name="userId"
-						placeholder="ID"> <span
+						placeholder="ID"> <button  type="button" id="idChk" >중복확인</button><span
 						class="glyphicon glyphicon-user form-control-feedback"></span>
 				</div>
 				<div class="form-group has-feedback">
@@ -178,6 +201,28 @@
 				increaseArea : '20%' // optional
 			});
 		});
+		
+		$("#idChk").click(
+				function(){
+					$.ajax({
+						url : "${pageContext.request.contextPath}/idChk",
+						type : "post",
+						dataType : "json",
+						data : {"userId" : $("#userId").val()},
+						success : function(data){
+							if(data == 1){
+								alert("중복된 아이디입니다.");
+							}else if(data == 0){
+								$("#idChk").attr("value", "Y");
+								alert("사용가능한 아이디입니다.");
+							}
+						}, error : function(request, status, error) {
+	                        alert("code=" + request.status + " message = "
+	                                + request.responseText + " error = " + error);}
+					});
+				});
+				
+		
 	</script>
 </body>
 </html>
