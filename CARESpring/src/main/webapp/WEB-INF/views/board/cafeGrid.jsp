@@ -366,18 +366,18 @@
 		var str = "";
 		
 		if(pageMaker.prev) {
-			str += "<li><a href='" + (pageMaker.startPage - 1) 
-					+ "'> << </a></li>";
+			str += "<li class='page-item'><a href='${pageContext.request.contextPath }/store/storeList?page=" + (pageMaker.startPage - 1) 
+					+ "' class='page-link'> << </a></li>";
 		}
 		
 		for(var i = pageMaker.startPage, len = pageMaker.endPage; i <= len; i++){
-			var strClass = pageMaker.cri.page == i ? 'class=active' : '';
-			str += "<li " + strClass +"><a href='" + i +"'>" + i + "</a><li>";
+			var strClass = pageMaker.cri.page == i ? 'class=page-item active' : 'class="page-item"';
+			str += "<li " + strClass +"><a href='${pageContext.request.contextPath }/store/storeList?page=" + i +"' class='page-link'>" + i + "</a><li>";
 		}
 		
 		if(pageMaker.next){
-			str += "<li><a href='" + (pageMaker.endPage + 1)
-					+ "'> >> </a></li>";
+			str += "<li class='page-item'><a href='${pageContext.request.contextPath }/store/storeList?page=" + (pageMaker.endPage + 1)
+					+ "' class='page-link'> >> </a></li>";
 		}
 		
 		target.html(str);
