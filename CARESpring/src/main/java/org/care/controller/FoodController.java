@@ -117,7 +117,7 @@ public class FoodController {
 		model.addAttribute("detailInfo", detailInfo);
 
 		List<ReviewDTO> reviewDTO = foodService.selectReview(storeNo);
-		model.addAttribute("reviewDTO", reviewDTO);
+		model.addAttribute("reviewDTO", reviewDTO); 
 
 		List<MenuInfo> menuInfo = foodService.selectMenu(storeNo);
 		model.addAttribute("menuInfo", menuInfo);
@@ -125,8 +125,6 @@ public class FoodController {
 		Integer ravg = foodService.selectAvg(storeNo);
 		model.addAttribute("ravg", ravg);
 		
-		
-		// 페이징
 		int total = foodService.countReview();
 		if (nowPage == null && cntPerPage == null) {
 			nowPage = "1";
@@ -138,8 +136,10 @@ public class FoodController {
 		}
 		reviewPaging = new ReviewPaging(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
 		model.addAttribute("paging", reviewPaging);
-		model.addAttribute("viewAll", foodService.selectReviewP(reviewPaging));
-
+		
+	
+		model.addAttribute("viewAll", foodService.selectReviewP(storeNo, reviewPaging));
+		//foodService.selectReviewP(ReviewPaging reviewPaging)
 		return "detail/revfood-details";
 	}
 	
@@ -150,7 +150,9 @@ public class FoodController {
 		UserInfo login = (UserInfo) session.getAttribute("login");
 		int userNo = login.getUserNo();
 		foodService.insertReview(storeNo, userNo, dto);
-
+		
+		
+		
 		ReviewPic pic = new ReviewPic();
 		// 파일을 선택한 경우에만 업로드 실행
 		if (file.getOriginalFilename() != "") {
@@ -168,8 +170,6 @@ public class FoodController {
 	}
 	//새로 만든거 끝
 	
-	
-
 	@RequestMapping(value = "/store/storeList/deleteReview", method = RequestMethod.GET)
 	public String delete(ReviewDTO dto, HttpServletRequest req, HttpServletResponse response, HttpSession session,
 			Model model) throws Exception {

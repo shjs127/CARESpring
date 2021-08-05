@@ -12,6 +12,7 @@ import org.care.domain.ReviewPic;
 import org.care.domain.StoreInfo;
 import org.care.dto.ReviewDTO;
 import org.care.dto.StoreDTO;
+import org.springframework.web.bind.annotation.RequestParam;
 
 public interface FoodMapper {
 	StoreInfo selectStore(int storeNo) throws Exception;
@@ -34,6 +35,6 @@ public interface FoodMapper {
 	
 	//페이징 관련 코드
 	public int countReview();
-	public List<ReviewInfo> selectReviewP(ReviewPaging reviewPaging);
+	public List<ReviewInfo> selectReviewP(@Param("storeNo") int storeNo, @Param("reviewPaging") ReviewPaging reviewPaging);
 	
 }

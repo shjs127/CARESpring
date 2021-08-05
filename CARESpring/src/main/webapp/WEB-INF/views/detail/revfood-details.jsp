@@ -117,7 +117,7 @@ function selChange() {
 		${storeInfo.storeName}
 		<% if (session.getAttribute("ravg") == null) 
 			{
-		%>	
+		%>
 			<li class="list-inline-item">${ravg}</li>
 	    <% 
 			 }
@@ -321,7 +321,6 @@ function selChange() {
 								</div>
 							</div>
 						</div>
-				
 				<!-- Reviews Form Box Ends -->
 				<!-- Reviews List Starts -->
 				<!-- Default box -->
@@ -390,14 +389,14 @@ function selChange() {
 	function rlogin(seq) {
 		var chk = confirm("로그인이 필요합니다.");
 		if (chk) {
-			window.location.href='login';
+			window.location.href='/care/login';
 			
 		}
 	}	
 	
 	$(function() {
 		$("#writeForm").submit(function() {
-			if ($("#reviewContents").val() == "") {
+			if ($("#reviewContents").val() == null) {
 				alert("리뷰 내용을 입력하세요!");
 				$("#reviewContents").focus();
 				return false;

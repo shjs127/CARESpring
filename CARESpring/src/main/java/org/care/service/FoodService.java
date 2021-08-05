@@ -30,6 +30,6 @@ public interface FoodService {
 	
 	//페이징 관련
 	public int countReview();
-	public List<ReviewInfo> selectReviewP(ReviewPaging reviewPaging);
+	public List<ReviewInfo> selectReviewP(int storeNo, ReviewPaging reviewPaging);
 
 }

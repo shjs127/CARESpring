@@ -25,8 +25,8 @@ public class FoodServiceImpl implements FoodService {
 	}
 
 	@Override
-	public List<ReviewInfo> selectReviewP(ReviewPaging reviewPaging) {
-		return foodMapper.selectReviewP(reviewPaging);
+	public List<ReviewInfo> selectReviewP(int storeNo, ReviewPaging reviewPaging) {
+		return foodMapper.selectReviewP(storeNo, reviewPaging);
 	}
 	
 	@Autowired

@@ -35,6 +35,7 @@ public class ReviewPaging {
 	public void calcStartEnd(int nowPage, int cntPerPage) {
 		setEnd(nowPage * cntPerPage);
 		setStart(getEnd() - cntPerPage + 1);
+		System.out.println("start1 ::: " + start);
 	}
 	
 	public int getNowPage() {
@@ -78,6 +79,8 @@ public class ReviewPaging {
 	}
 	public void setStart(int start) {
 		this.start = start;
+
+		System.out.println("start2 ::: " + start);
 	}
 	public int getEnd() {
 		return end;

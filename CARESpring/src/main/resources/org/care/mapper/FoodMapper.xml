@@ -15,9 +15,9 @@
      FROM (   
           SELECT ROWNUM RNUM, RINFO.*,  UINFO.USERNO as UUSER, UINFO.NICKNAME
     	  FROM REVIEWINFO RINFO, USERINFO UINFO
-          WHERE RINFO.USERNO = UINFO.USERNO
-                ) A 
-     WHERE A.RNUM BETWEEN #{start} AND #{end} 
+          WHERE RINFO.USERNO = UINFO.USERNO AND  STORENO = #{storeNo}
+           ) A 
+     WHERE A.RNUM BETWEEN #{reviewPaging.start} AND #{reviewPaging.end} 
      ORDER BY REVIEWNO DESC
 	</select>
 	<!-- 페이징 관련 끝-->
