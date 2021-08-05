@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.care.domain.ArticlePage;
 import org.care.domain.BoardInfo;
+import org.care.domain.BoardPicInfo;
 import org.care.dto.BoardDTO;
 import org.care.mapper.BoardListMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,12 @@ public class ListArticleServiceImpl implements ListArticleService {
 	@Override
 	public List<BoardDTO> boardTop(BoardDTO bdto) throws Exception{
 		return boardListMapper.boardTop(bdto);
+	}
+
+
+	@Override
+	public List<BoardPicInfo> getBoardPic(List<BoardDTO> boardTop) throws Exception {
+		return boardListMapper.getBoardPicList(boardTop);
 	}
 	
 	

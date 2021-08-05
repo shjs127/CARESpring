@@ -101,22 +101,31 @@
 
 		<hr>
 		<h4>
-			게시판Top<a href="${pageContext.request.contextPath}/board/list.do"
+			게시판Top<a href="${pageContext.request.contextPath}/board/listArticle"
 				class="btn btn-prime text-weight-bold text-uppercase animation">더보기</a>
 		</h4>
 		<div class="food-menu-grid row text-center">
-			<c:forEach var="board" items="${boardTop}">
+			<c:forEach var="board" items="${boardTop}" varStatus="status">
 				<div class="col-lg-4 col-md-6 col-sm-12">
 					<div class="hover-content">
 						<a
-							href="${pageContext.request.contextPath}/board/read.do?boardNo=${board.boardNo}">
-							<img
-							src="<%=request.getContextPath()%>/CARE/images/hotels/thumb/hotel-grid-thumb-img1.jpg"
-							alt="Eagle Boys Village Plaza" class="img-fluid img-center">
+							href="${pageContext.request.contextPath}/board/readArticle?boardNo=${board.boardNo}">
+							<c:choose>
+							<c:when test="${boardPic[status.index].boardPic1 == null}">
+							<img height="350px" width="350px"
+							src="${pageContext.request.contextPath}/resources/upLoad/imgnull.jpg"
+								 >
+							</c:when>
+							<c:otherwise>
+							<img height="350px" width="350px"
+							src="${pageContext.request.contextPath}/disFile?fileName=${boardPic[status.index].boardPic1}"
+							>
+							</c:otherwise>
+							</c:choose>
 						</a> <a
-							href="${pageContext.request.contextPath}/board/read.do?boardNo=${board.boardNo}">
+							href="${pageContext.request.contextPath}/board/readArticle?boardNo=${board.boardNo}">
 							<h5 class="text-uppercase">${board.boardTitle}
-								${board.viewCount}</h5>
+								(${board.viewCount})</h5>
 						</a>
 					</div>
 				</div>

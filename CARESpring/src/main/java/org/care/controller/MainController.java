@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.care.domain.BoardPicInfo;
 import org.care.dto.BoardDTO;
 import org.care.dto.StoreDTO;
 import org.care.service.ListArticleService;
@@ -33,8 +34,10 @@ public class MainController {
 		model.addAttribute("reviewTop", reviewStore);
 		
 		List<BoardDTO> boardTop=articleService.boardTop(bdto);
-		 model.addAttribute("boardTop", boardTop); 
-		
+		 model.addAttribute("boardTop", boardTop);
+		List<BoardPicInfo> boardPic=articleService.getBoardPic(boardTop);
+		 model.addAttribute("boardPic", boardPic);
+		 System.out.println("boardPic="+boardPic);
 		return "main/index";
 	}
 

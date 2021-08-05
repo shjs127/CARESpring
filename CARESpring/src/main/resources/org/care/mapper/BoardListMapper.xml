@@ -136,12 +136,25 @@
 		SELECT BOARDPIC1 FROM BOARDPIC
 		WHERE BOARDNO = #{boardNo}
 	</select>
+	
+	<select id="getBoardPicList"
+		resultType="org.care.domain.BoardPicInfo">
+		 SELECT * FROM BOARDPIC WHERE BOARDNO IN(
+		 <foreach collection="list" item="item" separator=",">
+		 #{item.boardNo}
+		 </foreach>
+		 ) ORDER BY DECODE(BOARDNO,
+		 <foreach collection="list" item="item" separator="," index="index">
+		 #{item.boardNo},#{index}
+		 </foreach>
+		 )
+	</select>
 	<select id="boardTop" resultType="org.care.dto.BoardDTO">
 <![CDATA[
     select b.BOARDNO boardNo, b.BOARDTITLE boardTitle, b.VIEWCOUNT viewCount from ( 
 	select BOARDNO, BOARDTITLE, VIEWCOUNT from BOARDINFO 
 	order by VIEWCOUNT DESC ) b 
-	where ROWNUM <6
+	where ROWNUM <= 6
 ]]>
 	</select>
 

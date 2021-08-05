@@ -64,4 +64,6 @@ public interface BoardListMapper {
 	void picInsertNull(BoardDTO dto) throws Exception;
 	
 	void updatePicNull(BoardDTO dto) throws Exception;
+	
+	List<BoardPicInfo> getBoardPicList (List<BoardDTO> boardTop) throws Exception;
 }
