@@ -160,7 +160,8 @@
 		<form>
 <div>
 			<p>
-				<textarea id="commentContents" cols="100" rows="4"
+				<textarea id="commentContents" style="width:100%"
+
 					placeholder="답글을 작성하세요"></textarea>
 			</p>
 			
