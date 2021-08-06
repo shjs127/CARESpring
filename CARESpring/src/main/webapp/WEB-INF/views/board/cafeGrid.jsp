@@ -407,15 +407,6 @@
 		target.html(str);
 		
 	};
-	
-	$(".pagination").on("click", "li a", function(event){
-		event.preventDefault();
-		
-		storePage = $(this).attr("href");
-		
-		getPage("/storeList/detailChk/page=" + storePage);
-		
-	});
 
 </script>
 
