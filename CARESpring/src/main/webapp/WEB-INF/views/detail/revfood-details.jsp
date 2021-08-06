@@ -261,8 +261,7 @@ function selChange() {
 													<div class="review-list-content">
 														<c:forEach var="reviewInfo" items="${viewAll}">
 															<p>
-																<i class="fa fa-calendar">
-																	${reviewInfo.reviewDate}</i>
+																<i class="fa fa-calendar">${reviewInfo.reviewDate}</i>
 															</p>
 															<p>닉네임: ${reviewInfo.nickName}</p>
 															<p>리뷰 내용: ${reviewInfo.reviewContents}</p>
@@ -292,10 +291,6 @@ function selChange() {
 														</c:forEach>
 														<!-- 페이징 관련 코드 -->
 														<div style="display: block; text-align: center;">
-															<c:if test="${paging.startPage != 1 }">
-																<a
-																	href="/care/store/storeList/detailreviews?storeNo=${storeInfo.storeNo}&nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">&lt;</a>
-															</c:if>
 															<c:forEach begin="${paging.startPage }"
 																end="${paging.endPage }" var="p">
 																<c:choose>
@@ -311,6 +306,10 @@ function selChange() {
 															<c:if test="${paging.endPage != paging.lastPage}">
 																<a
 																	href="/care/store/storeList/detailreviews?storeNo=${storeInfo.storeNo}&nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">&gt;</a>
+															</c:if>
+															<c:if test="${paging.startPage != 1 }">
+																<a
+																	href="/care/store/storeList/detailreviews?storeNo=${storeInfo.storeNo}&nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">&lt;</a>
 															</c:if>
 														</div>
 														<!-- 페이징 관련 코드 끝 -->
@@ -400,7 +399,7 @@ function selChange() {
 			if ($("#reviewContents").val() == null) {
 				alert("리뷰 내용을 입력하세요!");
 				$("#reviewContents").focus();
-				return false;
+				return true;
 			}
 		});
 	});
