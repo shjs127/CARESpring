@@ -119,7 +119,7 @@
 													<div>
 														<form action="${pageContext.request.contextPath }/api/apiSync" method="post">
 															<div>
-																<button>동기화</button>
+																<button class="btn btn-prime text-uppercase animation text-right">동기화</button>
 															</div>
 														</form>
 													</div>
