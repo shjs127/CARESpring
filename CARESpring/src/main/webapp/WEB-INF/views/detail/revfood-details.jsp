@@ -198,7 +198,7 @@ function selChange() {
 													method="post" id="writeForm"
 													enctype="multipart/form-data">
 													<p>
-														<textarea name="reviewContents" cols="60" rows="10"
+														<textarea name="reviewContents" id="reviewContents"cols="60" rows="10"
 															placeholder="리뷰를 작성하세요"></textarea>
 													</p>
 													<h9>별점을 선택하세요.</h9>
@@ -396,10 +396,11 @@ function selChange() {
 	
 	$(function() {
 		$("#writeForm").submit(function() {
-			if ($("#reviewContents").val() == null) {
+			alert($("#reviewContents").val());
+			if ($("#reviewContents").val() == null || $("#reviewContents").val()=="") {
 				alert("리뷰 내용을 입력하세요!");
 				$("#reviewContents").focus();
-				return true;
+				return false;
 			}
 		});
 	});
