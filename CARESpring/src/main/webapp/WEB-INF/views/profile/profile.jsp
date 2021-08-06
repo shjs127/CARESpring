@@ -196,7 +196,7 @@
 											<!-- Registration Block Starts -->
 											<div class="panel panel-smart">
 												<div class="panel-heading">
-													<h3 class="panel-title">내 리뷰 및 즐겨찾기</h3>
+													<h3 class="panel-title">내 리뷰</h3>
 												</div>
 												<br>
 												<div class="panel-body">
