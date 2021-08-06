@@ -53,7 +53,7 @@
 	<!-- lab end -->
 
 	<welcome-file-list>
-		<welcome-file>/main/index.jsp</welcome-file>
+		<welcome-file>/WEB-INF/views/main/welcome.jsp</welcome-file>
 	</welcome-file-list>
 
 
