@@ -112,13 +112,13 @@
 							href="${pageContext.request.contextPath}/board/readArticle?boardNo=${board.boardNo}">
 							<c:choose>
 							<c:when test="${boardPic[status.index].boardPic1 == null}">
-							<img height="350px" width="350px"
-							src="${pageContext.request.contextPath}/resources/upLoad/imgnull.jpg"
+							<img 
+							src="${pageContext.request.contextPath}/resources/upLoad/imgnull.jpg" class="img-fluid img-center"
 								 >
 							</c:when>
 							<c:otherwise>
-							<img height="350px" width="350px"
-							src="${pageContext.request.contextPath}/disFile?fileName=${boardPic[status.index].boardPic1}"
+							<img 
+							src="${pageContext.request.contextPath}/disFile?fileName=${boardPic[status.index].boardPic1}" class="img-fluid img-center"
 							>
 							</c:otherwise>
 							</c:choose>
