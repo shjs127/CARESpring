@@ -190,6 +190,9 @@
 			function() {
 				var comment= $("#commentContents").val();
 				var boardNo = ${boardInfo.boardNo};
+				if(comment == ""){
+					alert("내용을 작성해주세요");
+				}
 				$.ajax({
 					url : '${pageContext.request.contextPath}/board/insertComment',
 					type : 'post',
@@ -202,10 +205,6 @@
 						alert("성공");
 						getreplylist()
 						
-					},
-					error : function(request, status, error) {
-						alert("code=" + request.status + " message = "
-								+ request.responseText + " error = " + error);
 					}
 				});
 			});
