@@ -150,10 +150,17 @@
 							<!-- Grid Box Starts -->
 							<div class="grid-box">
 								<!-- Images Starts -->
-								<div class="image text-center">
-									<img
-										src="<%=request.getContextPath()%>/resources/images/hotels/thumb/hotel-grid-thumb-img1.jpg"
-										alt="Eagle Boys Village Plaza" class="img-fluid img-center">
+									<div class="image text-center">
+									<c:if test="${storeinfo.storePic ne null}">
+							<img
+							src="${pageContext.request.contextPath}/disFile?fileName=${storeinfo.storePic}"
+							alt="Eagle Boys Village Plaza" class="img-fluid img-center">
+							</c:if>
+							<c:if test="${storeinfo.storePic eq null}">
+							<img
+							src="${pageContext.request.contextPath}/resources/upLoad/imgnull.jpg"
+							alt="Eagle Boys Village Plaza" class="img-fluid img-center">
+							</c:if>
 									<span class="delivery-time">${storeinfo.storeNo}</span>
 								</div>
 
