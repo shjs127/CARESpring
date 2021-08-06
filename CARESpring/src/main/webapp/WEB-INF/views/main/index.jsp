@@ -35,7 +35,7 @@
 	<div class="container">
 		<hr>
 		<h4>평점 Top
-		<a href="${pageContext.request.contextPath}/board/storelist.do?orderBy=orderAvgScore"
+		<a href="${pageContext.request.contextPath}/store/storeList?page=1&perPageNum=9&keyword=&orderBy=AVGSCORE"
 			class="btn btn-prime text-weight-bold text-uppercase animation">더보기</a>
 			</h4>
 		<div class="food-menu-grid row text-center">
@@ -67,7 +67,7 @@
 		</div>
 		<hr>
 		<h4>
-			리뷰 Top <a href="${pageContext.request.contextPath}/board/storelist.do?orderBy=orderReviewCnt"
+			리뷰 Top <a href="${pageContext.request.contextPath}/store/storeList?page=1&perPageNum=9&keyword=&orderBy=REVIEWCNT"
 				class="btn btn-prime text-weight-bold text-uppercase animation">더보기</a>
 		</h4>
 		<div class="food-menu-grid row text-center">
