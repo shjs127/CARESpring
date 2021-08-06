@@ -24,7 +24,7 @@
 					<li class="nav-item"><a href="#menu" class="nav-link active"
 						data-toggle="tab">개인정보</a></li>
 					<li class="nav-item"><a href="#information" class="nav-link"
-						data-toggle="tab">내 리뷰 및 즐겨찾기</a></li>
+						data-toggle="tab">내 리뷰 조회</a></li>
 
 				</ul>
 				<!-- Menu Tabs List Ends -->
