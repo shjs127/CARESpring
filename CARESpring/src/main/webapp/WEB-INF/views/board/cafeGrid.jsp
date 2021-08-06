@@ -34,7 +34,7 @@
 	<!-- Nested Container Starts -->
 	<div class="container text-xs-center text-sm-center text-md-left">
 		<ul class="list-unstyled list-inline">
-			<li class="list-inline-item"><a href="${pageContext.request.contextPath }/main/index.do">홈</a></li>
+			<li class="list-inline-item"><a href="${pageContext.request.contextPath }/index">홈</a></li>
 			<li class="active list-inline-item">매장 리스트</li>
 		</ul>
 	</div>
@@ -169,15 +169,24 @@
 								<div class="content text-center text-lg-left">
 									<!-- Title Starts -->
 									<h6 class="grid-box-title">
-										<a href="${pageContext.request.contextPath}/store/storeList/detail?storeNo=${storeinfo.storeNo}">${storeinfo.storeName}</a>
+										<a href="${pageContext.request.contextPath}/store/storeList/detail?storeNo=${storeinfo.storeNo}">
+										<c:choose>
+										<c:when test = "${fn:length(storeinfo.storeName) gt 13}">
+										<c:out value = "${fn:substring(storeinfo.storeName,0,12)}..."></c:out>
+										</c:when>
+										<c:otherwise>
+										<c:out value="${storeinfo.storeName}"></c:out>
+										</c:otherwise>
+										</c:choose>
+										</a>
 									</h6>
 									<!-- Title Ends -->
 									<!-- Tags Starts -->
 									<ul class="list-unstyled list-inline grid-box-tags">
 										<li class="list-inline-item">
 								 			<c:choose>
-											<c:when test = "${fn:length(storeinfo.address) gt 20}">
-											<c:out value = "${fn:substring(storeinfo.address,0,19)}..."></c:out>
+											<c:when test = "${fn:length(storeinfo.address) gt 16}">
+											<c:out value = "${fn:substring(storeinfo.address,0,15)}..."></c:out>
 											</c:when>
 											<c:otherwise>
 											<c:out value="${storeinfo.address}"></c:out>
@@ -411,8 +420,6 @@
 				$("#keyword").focus();
 				return false;
 			}else{
-				alert("keyword="+$("#keyword").val());
-				
 				self.location = "${pageContext.request.contextPath}/store/storeList"
 						+ '${pageMaker.makeQuery(1)}'
 						+ '&keyword='+ $("#keyword").val();

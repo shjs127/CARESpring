@@ -357,7 +357,7 @@ h6 { font-size: 18px; }
 .search-area {
 	padding-top: 130px;
 	padding-bottom: 170px;
-	background-image: url(../images/section-bg2.jpg);
+	background-image: url(../images/cafe_mainSearch6.jpg);
 }
 .search-area.condensed {
 	padding-top: 50px;
@@ -2141,17 +2141,17 @@ h6 { font-size: 18px; }
 	        box-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
 }
 
-.main-menu,  {
-	-webkit-box-shadow: 0 4px 4px rgba(0, 0, 0, 0.4);
-	   -moz-box-shadow: 0 4px 4px rgba(0, 0, 0, 0.4);
-		    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.4);
-}
+/* .main-menu,  { */
+/* 	-webkit-box-shadow: 0 4px 4px rgba(0, 0, 0, 0.4); */
+/* 	   -moz-box-shadow: 0 4px 4px rgba(0, 0, 0, 0.4); */
+/* 		    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.4); */
+/* } */
 
-.main-menu .dropdown-menu, {
-	-webkit-box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.4);
-	   -moz-box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.4);
-		    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.4);	
-}
+/* .main-menu .dropdown-menu, { */
+/* 	-webkit-box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.4); */
+/* 	   -moz-box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.4); */
+/* 		    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.4);	 */
+/* } */
 
 .btn-circle {
 	-webkit-box-shadow: 0 -3px 0 3px rgba(255, 255, 255, 0.4);
