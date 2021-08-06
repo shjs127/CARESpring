@@ -396,7 +396,6 @@ function selChange() {
 	
 	$(function() {
 		$("#writeForm").submit(function() {
-			alert($("#reviewContents").val());
 			if ($("#reviewContents").val() == null || $("#reviewContents").val()=="") {
 				alert("리뷰 내용을 입력하세요!");
 				$("#reviewContents").focus();
