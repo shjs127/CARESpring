@@ -115,14 +115,15 @@ function selChange() {
 	<!-- Heading Starts -->
 	<h4 class="main-heading-1 text-xs-center text-sm-center text-md-left">
 		${storeInfo.storeName}
-		<% if (session.getAttribute("ravg") == null) 
+		<ul class="list-unstyled float-lg-right text-lg-right">
+			<% if (session.getAttribute("ravg") == null) 
 			{
-		%>
+				%>	
 			<li class="list-inline-item">${ravg}</li>
-	    <% 
+			<% 
 			 }
-	    %>
-		
+			%>
+		</ul>
 	</h4>
 	<!-- Heading Ends -->
 	<!-- Main Banner Starts -->
