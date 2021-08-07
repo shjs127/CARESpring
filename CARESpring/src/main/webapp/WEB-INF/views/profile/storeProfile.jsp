@@ -8,7 +8,7 @@
 <%@ page import="java.sql.Statement"%>
 <%@ page import="java.sql.ResultSet"%>
 <%@ page import="java.sql.*"%>
-<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%> 
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <style type="text/css">
 select {
 	width: 100px;
@@ -17,7 +17,7 @@ select {
 .select_img img {
 	margin: 20px 0;
 	max-width: 200px !important;
-	max-height: 200px !important;
+	max-height: 100px !important;
 }
 </style>
 <!-- Main Container Starts -->
@@ -342,20 +342,20 @@ select {
 															<td>${reviewInfo.nickName}</td>
 															<td>${reviewInfo.reviewContents}</td>
 															<td>${reviewInfo.avgScore}</td>
-															<td><c:if test="${reviewInfo.pFile ne null}">
-																	<div class="select_img">
+															<td>
+																<div class="select_img">
+																	<c:if test="${reviewInfo.pFile eq null}">
 																		<img
-																			<%-- src="${pageContext.request.contextPath}/resources/upLoad/${reviewInfo.pFile}" --%>
-																			src="C:/zzz/upload/${reviewInfo.pFile}"
-																			width="150" height="200" />
-
-																	</div>
-																</c:if> <c:if test="${reviewInfo.pFile eq null}">
-																	<div class="select_img">
-																		<img src="" />
-
-																	</div>
-																</c:if></td>
+																			src=""
+																			class="img-fluid img-center">
+																	</c:if>
+																	<c:if test="${reviewInfo.pFile ne null}">
+																		<img
+																			src="${pageContext.request.contextPath}/disFile?fileName=${reviewInfo.pFile}"
+																			class="img-fluid img-center">
+																	</c:if>
+																</div>
+															</td>
 														</tr>
 													</c:forEach>
 												</table>
