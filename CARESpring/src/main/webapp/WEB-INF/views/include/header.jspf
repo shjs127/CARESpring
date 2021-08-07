@@ -99,7 +99,7 @@
 					<!-- Logo Starts -->
 					<a href='${pageContext.request.contextPath}/index'> <img
 						src="${pageContext.request.contextPath}/resources/images/careitsir_logo.png"
-						alt="FoodBingo" class="logo img-fluid" width="200" height="200">
+						alt="FoodBingo"  width="200" height="100">
 					</a>
 					<!-- Logo Ends -->
 				</div>
