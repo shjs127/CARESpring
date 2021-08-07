@@ -441,13 +441,11 @@
 	$(function(){
 		var chkArr = [];
 		$(".detailCheckBox").change(function(){
-			console.log($(this)[0].checked);
 			if($(this)[0].checked){
 				chkArr.push($(this).val());
 			}else{
 				chkArr.splice(chkArr.indexOf($(this).val()), 1);
 			}
-			alert(chkArr);
 			$.ajaxSettings.traditional = true;
 			$.ajax({
 				url: '${pageContext.request.contextPath}/store/storeList/detailChk'
